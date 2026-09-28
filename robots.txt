@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://updateproof.zerofrik.com/sitemap.xml
