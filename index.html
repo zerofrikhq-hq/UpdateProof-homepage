@@ -171,5 +171,27 @@
       <div>Built for safer WordPress maintenance.</div>
     </div>
   </footer>
+  <script>
+    const trackAnalytics = (eventName, parameters = {}) => {
+      if (typeof gtag === 'function') gtag('event', eventName, {
+        product_name: 'updateproof', page_type: 'homepage', ...parameters
+      });
+    };
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (href.includes('wordpress.org/plugins/')) {
+        trackAnalytics('select_content', { content_type: 'plugin_download', item_id: 'updateproof', placement: 'homepage_cta' });
+      } else if (href === '#plans') {
+        trackAnalytics('view_pricing', { placement: 'homepage' });
+      } else if (href.startsWith('#')) {
+        trackAnalytics('select_content', { content_type: 'navigation', item_id: href.slice(1) || 'home' });
+      }
+    });
+    document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', () => {
+      if (detail.open) trackAnalytics('faq_open', { content_type: 'faq' });
+    }));
+  </script>
 </body>
 </html>
