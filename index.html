@@ -1,197 +1,144 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- Google Analytics: aggregate page measurement only. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8RMWKEBE15"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-8RMWKEBE15');
-  </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UpdateProof by ZeroFrik — Test WordPress Updates Before Production</title>
-  <meta name="description" content="UpdateProof helps WordPress developers and agencies test plugin and theme updates in isolation, detect errors and visual changes, and review evidence before touching production." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
-          },
-          boxShadow: {
-            soft: '0 1px 3px rgba(15,23,42,.05), 0 18px 50px -20px rgba(37,99,235,.22)'
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    html { scroll-behavior: smooth; }
-    body { background: #f8fafc; color: #0f172a; }
-    .grid-bg { background-image: linear-gradient(rgba(148,163,184,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,.12) 1px, transparent 1px); background-size: 28px 28px; }
-    .badge { border: 1px solid rgba(59,130,246,.18); background: rgba(239,246,255,.9); }
-    .feature-card { transition: transform .2s ease, box-shadow .2s ease; }
-    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 20px 45px -28px rgba(15,23,42,.4); }
-  </style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="UpdateProof helps site owners check, test, review, and approve safer WordPress maintenance updates.">
+	<title>UpdateProof — Safer site updates, made visible</title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="enhancements.css">
+	<link rel="icon" type="image/png" href="assets/updateproof-icon.png">
 </head>
-<body class="font-sans antialiased">
-  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-      <a href="#" class="flex items-center gap-3">
-        <img src="updateproof-icon.png" alt="UpdateProof logo" class="h-11 w-11 rounded-xl object-cover" />
-        <div>
-          <div class="text-lg font-bold leading-none">UpdateProof</div>
-          <div class="mt-1 text-xs text-slate-500">by ZeroFrik</div>
-        </div>
-      </a>
-      <nav class="hidden items-center gap-7 text-sm font-medium text-slate-600 md:flex">
-        <a href="#features" class="hover:text-slate-950">Features</a>
-        <a href="#how-it-works" class="hover:text-slate-950">How it works</a>
-        <a href="#plans" class="hover:text-slate-950">Free vs Pro</a>
-        <a href="#faq" class="hover:text-slate-950">FAQ</a>
-      </nav>
-      <a href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">Get UpdateProof</a>
-    </div>
-  </header>
+<body>
+	<header class="site-header">
+		<a class="brand" href="#top" aria-label="UpdateProof home"><span class="brand-mark"><img src="assets/updateproof-icon.png" alt=""></span><span>UpdateProof</span></a>
+		<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+		<nav id="site-nav" class="site-nav" aria-label="Main navigation">
+			<a href="#how-it-works">How it works</a>
+			<a href="#free">Free</a>
+			<a href="#screenshots">Screenshots</a>
+			<a href="#pro">Pro</a>
+			<a href="#faq">FAQ</a>
+			<a class="nav-cta" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Get the free plugin</a>
+		</nav>
+	</header>
 
-  <main>
-    <section class="grid-bg border-b border-slate-200 bg-white">
-      <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-2 lg:px-8 lg:py-24">
-        <div>
-          <div class="badge inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium text-blue-700">
-            <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-            WordPress update safety, before production
-          </div>
-          <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Test WordPress updates <span class="text-blue-600">before they break production.</span></h1>
-          <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">UpdateProof tests plugin and theme updates in an isolated environment, checks for errors and visual changes, and gives you clear evidence before you touch the live site.</p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-sm hover:bg-blue-700">Get the Free Plugin</a>
-            <a href="#features" class="rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 hover:bg-slate-50">Explore Features</a>
-          </div>
-          <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500">
-            <span>✓ No production changes during testing</span>
-            <span>✓ Human-controlled</span>
-            <span>✓ Built for developers & agencies</span>
-          </div>
-        </div>
-        <div class="rounded-3xl border border-slate-200 bg-white p-3 shadow-soft">
-          <img src="updateproof-banner.png" alt="UpdateProof workflow banner" class="w-full rounded-2xl" />
-        </div>
-      </div>
-    </section>
+	<main id="top">
+		<section class="hero section-shell">
+			<div class="hero-copy">
+				<p class="eyebrow"><span class="eyebrow-dot"></span> Maintenance confidence for busy site owners</p>
+				<h1>Make every update a decision you can <em>defend.</em></h1>
+				<p class="hero-lede">UpdateProof gives you a calm, evidence-first workflow for site maintenance: check the site, test important pages, review what will change, and approve only when you are ready.</p>
+				<div class="hero-actions">
+					<a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Start free</a>
+					<a class="button button-quiet" href="#how-it-works">See how it works <span aria-hidden="true">→</span></a>
+				</div>
+				<div class="hero-note"><span class="note-check">✓</span> Local by default · No automatic updates · Built by ZeroFrik</div>
+			</div>
+			<div class="hero-visual" aria-label="UpdateProof dashboard preview">
+				<div class="dashboard-window">
+					<div class="window-bar"><span class="window-dots"><i></i><i></i><i></i></span><span class="window-title">UpdateProof / Dashboard</span><span class="window-live">● Local</span></div>
+					<div class="dashboard-body">
+						<aside class="dashboard-side"><strong>UpdateProof</strong><span class="side-active">Dashboard</span><span>Site checks</span><span>Updates &amp; deploy</span><span>Help &amp; limits</span></aside>
+						<div class="dashboard-main">
+							<div class="dash-heading"><div><span class="dash-kicker">Good morning</span><h3>Your maintenance snapshot</h3></div><span class="risk-pill">● Low risk</span></div>
+							<div class="dash-metrics"><div><span>Site signal</span><b>Low risk</b><small>Updated just now</small></div><div><span>Updates found</span><b>3</b><small>Ready for review</small></div><div><span>Page checks</span><b>4/4</b><small>Passed</small></div></div>
+							<div class="dash-card"><div class="dash-card-head"><span>Update review</span><span class="tiny-label">Evidence collected</span></div><div class="update-row"><span class="status-icon">✓</span><span><b>Plugin and theme updates</b><small>Review the plan before applying changes</small></span><span class="row-status">Review</span></div><div class="update-row"><span class="status-icon">✓</span><span><b>Important pages</b><small>Homepage · Contact · About · Pricing</small></span><span class="row-status green">Passed</span></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <section id="features" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-      <div class="mx-auto max-w-3xl text-center">
-        <p class="text-sm font-bold uppercase tracking-widest text-blue-600">Core features</p>
-        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Know what changed before you update</h2>
-        <p class="mt-4 text-slate-600">UpdateProof focuses on evidence you can understand: availability, errors, visual differences, and an easy Pass / Warning / Fail result.</p>
-      </div>
-      <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <article class="feature-card rounded-2xl border border-slate-200 bg-white p-6"><div class="text-2xl">🛡️</div><h3 class="mt-4 text-lg font-bold">Safe update testing</h3><p class="mt-2 text-sm leading-6 text-slate-600">Test selected plugin and theme updates away from your production site.</p></article>
-        <article class="feature-card rounded-2xl border border-slate-200 bg-white p-6"><div class="text-2xl">🖼️</div><h3 class="mt-4 text-lg font-bold">Visual regression</h3><p class="mt-2 text-sm leading-6 text-slate-600">Compare important pages before and after an update to spot layout changes.</p></article>
-        <article class="feature-card rounded-2xl border border-slate-200 bg-white p-6"><div class="text-2xl">⚠️</div><h3 class="mt-4 text-lg font-bold">Error detection</h3><p class="mt-2 text-sm leading-6 text-slate-600">Check HTTP failures, JavaScript errors, and PHP/fatal errors where available.</p></article>
-        <article class="feature-card rounded-2xl border border-slate-200 bg-white p-6"><div class="text-2xl">📋</div><h3 class="mt-4 text-lg font-bold">Clear risk reports</h3><p class="mt-2 text-sm leading-6 text-slate-600">Review understandable Pass, Warning, or Fail findings instead of a black-box score.</p></article>
-        <article class="feature-card rounded-2xl border border-slate-200 bg-white p-6"><div class="text-2xl">⏱️</div><h3 class="mt-4 text-lg font-bold">Automated workflows <span class="ml-1 rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700">Pro</span></h3><p class="mt-2 text-sm leading-6 text-slate-600">Schedule tests across client sites and reduce repetitive maintenance work.</p></article>
-        <article class="feature-card rounded-2xl border border-slate-200 bg-white p-6"><div class="text-2xl">↩️</div><h3 class="mt-4 text-lg font-bold">Safe deployment <span class="ml-1 rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-700">Pro</span></h3><p class="mt-2 text-sm leading-6 text-slate-600">Controlled deployment, smoke testing, deployment history, and rollback workflows.</p></article>
-      </div>
-    </section>
+		<section class="signal-strip"><div class="section-shell signal-grid"><span>Built for people who maintain real sites</span><span>Freelancers</span><span>Agencies</span><span>Developers</span><span>Site owners</span></div></section>
 
-    <section id="how-it-works" class="border-y border-slate-200 bg-white">
-      <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center"><p class="text-sm font-bold uppercase tracking-widest text-blue-600">How it works</p><h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">A simple safety loop</h2></div>
-        <div class="mt-12 grid gap-5 lg:grid-cols-5">
-          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5"><div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-bold text-white">1</div><h3 class="mt-4 font-bold">Connect</h3><p class="mt-2 text-sm leading-6 text-slate-600">Install UpdateProof and securely connect the WordPress site.</p></div><div class="rounded-2xl border border-slate-200 bg-slate-50 p-5"><div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-bold text-white">2</div><h3 class="mt-4 font-bold">Choose update</h3><p class="mt-2 text-sm leading-6 text-slate-600">Select the plugin or theme update you want to validate.</p></div><div class="rounded-2xl border border-slate-200 bg-slate-50 p-5"><div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-bold text-white">3</div><h3 class="mt-4 font-bold">Test safely</h3><p class="mt-2 text-sm leading-6 text-slate-600">Run the update in an isolated test environment.</p></div><div class="rounded-2xl border border-slate-200 bg-slate-50 p-5"><div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-bold text-white">4</div><h3 class="mt-4 font-bold">Review evidence</h3><p class="mt-2 text-sm leading-6 text-slate-600">See errors, screenshots, differences, and the risk result.</p></div><div class="rounded-2xl border border-slate-200 bg-slate-50 p-5"><div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 font-bold text-white">5</div><h3 class="mt-4 font-bold">Decide</h3><p class="mt-2 text-sm leading-6 text-slate-600">Update manually on Free, or continue into controlled deployment on Pro.</p></div>
-        </div>
-      </div>
-    </section>
+		<section id="how-it-works" class="section-shell section-block">
+			<div class="section-heading workflow-heading"><div><p class="eyebrow">A clearer maintenance rhythm</p><h2>From update anxiety to a simple decision.</h2></div><p>UpdateProof gives every maintenance window the same calm rhythm: establish a baseline, test what visitors see, review what will change, and approve only when the evidence is clear.</p></div>
+			<div class="steps-grid">
+				<article class="step-card step-card-check"><div class="step-top"><span class="step-number">01</span><span class="step-phase">Before you update</span></div><span class="step-icon" aria-hidden="true">◌</span><h3>Check</h3><p>Capture a local snapshot of your site, versions, updates, and current risk signal.</p><span class="step-result">You get a baseline</span></article>
+				<article class="step-card step-card-test"><div class="step-top"><span class="step-number">02</span><span class="step-phase">See what visitors see</span></div><span class="step-icon" aria-hidden="true">⌁</span><h3>Test</h3><p>Run HTTP checks and optional visual comparisons against the public pages that matter most.</p><span class="step-result">You get page evidence</span></article>
+				<article class="step-card step-card-review"><div class="step-top"><span class="step-number">03</span><span class="step-phase">Make the change visible</span></div><span class="step-icon" aria-hidden="true">◫</span><h3>Review</h3><p>See available plugin and theme changes, compare evidence, and create a reviewable plan.</p><span class="step-result">You get a clear plan</span></article>
+				<article class="step-card step-card-approve"><div class="step-top"><span class="step-number">04</span><span class="step-phase">When you are ready</span></div><span class="step-icon" aria-hidden="true">✓</span><h3>Approve</h3><p>Choose the moment and explicitly approve. UpdateProof never changes the site just because an update exists.</p><span class="step-result">You keep control</span></article>
+			</div>
+			<div class="workflow-footer"><div><span class="workflow-footer-label">The result</span><strong>A maintenance record you can explain.</strong></div><div class="workflow-outcomes"><span><b>01</b> Baseline</span><span><b>02</b> Test results</span><span><b>03</b> Approval trail</span></div></div>
+		</section>
 
-    <section id="plans" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-      <div class="mx-auto max-w-3xl text-center"><p class="text-sm font-bold uppercase tracking-widest text-blue-600">Free & Pro</p><h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Free proves the value. Pro removes the repetitive work.</h2></div>
-      <div class="mt-12 grid gap-6 lg:grid-cols-2">
-        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <div class="flex items-start justify-between"><div><h3 class="text-2xl font-bold">UpdateProof Free</h3><p class="mt-2 text-slate-600">For developers who want confidence before updating a site.</p></div><span class="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">$0</span></div>
-          <ul class="mt-7 space-y-3 text-sm text-slate-700">
-            <li>✓ 1 connected WordPress site</li><li>✓ Manual update safety tests</li><li>✓ Plugin & theme update detection</li><li>✓ Site health & environment checks</li><li>✓ HTTP availability checks</li><li>✓ JavaScript error checks</li><li>✓ PHP/fatal error detection where available</li><li>✓ Limited visual comparison</li><li>✓ Basic Pass / Warning / Fail report</li><li>✓ Limited test history</li><li>✓ Community support</li>
-          </ul>
-          <a href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex w-full justify-center rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800">Get Free Plugin</a>
-        </div>
-        <div class="relative rounded-3xl border-2 border-blue-500 bg-white p-8 shadow-soft">
-          <div class="absolute right-6 top-0 -translate-y-1/2 rounded-full bg-blue-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">For agencies</div>
-          <div class="flex items-start justify-between"><div><h3 class="text-2xl font-bold">UpdateProof Pro</h3><p class="mt-2 text-slate-600">For agencies that want automated testing and safer deployment workflows.</p></div><span class="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">Pro</span></div>
-          <ul class="mt-7 space-y-3 text-sm text-slate-700">
-            <li>✓ Multiple WordPress sites</li><li>✓ Everything in Free</li><li>✓ Automated test schedules</li><li>✓ Full visual regression testing</li><li>✓ Contact-form testing</li><li>✓ WooCommerce cart & checkout testing</li><li>✓ Detailed risk reports and history</li><li>✓ Controlled one-click deployment</li><li>✓ Production smoke tests</li><li>✓ Automatic rollback</li><li>✓ Team members & roles</li><li>✓ Client reporting & notifications</li><li>✓ Priority support</li>
-          </ul>
-          <a href="#" class="mt-8 inline-flex w-full justify-center rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">Explore Pro</a>
-        </div>
-      </div>
+		<section id="free" class="section-block tinted-section">
+			<div class="section-shell">
+				<div class="section-heading split-heading"><div><p class="eyebrow">Free / Base</p><h2>A safer starting point for every site.</h2></div><p>Useful evidence without sending site content to a remote dashboard. Install the free plugin and make your next maintenance window easier to explain.</p></div>
+				<div class="feature-grid">
+					<article class="feature-card"><span class="feature-icon blue">◎</span><h3>Safety snapshot</h3><p>Record WordPress, PHP, active plugins, theme details, updates, and a clear risk signal.</p></article>
+					<article class="feature-card"><span class="feature-icon mint">⌁</span><h3>Important page checks</h3><p>Check up to four same-site URLs for status, response time, and privacy-safe fingerprints.</p></article>
+					<article class="feature-card"><span class="feature-icon coral">▣</span><h3>Visual comparison</h3><p>Optionally compare up to three public pages with an administrator-owned Chromium worker.</p></article>
+					<article class="feature-card"><span class="feature-icon purple">◈</span><h3>Reviewable updates</h3><p>Create a plugin or theme deployment plan, review it, and approve it explicitly.</p></article>
+					<article class="feature-card"><span class="feature-icon yellow">↗</span><h3>After-update evidence</h3><p>Run checks after the update and keep a local deployment history for future reference.</p></article>
+					<article class="feature-card"><span class="feature-icon slate">⌘</span><h3>Developer-friendly API</h3><p>Use authenticated, read-only REST endpoints and optional per-site tokens for integrations.</p></article>
+				</div>
+				<div class="section-cta"><a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Install UpdateProof free</a><span>No credit card. No automatic deployment.</span></div>
+			</div>
+		</section>
 
-      <div class="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-white">
-        <div class="border-b border-slate-200 px-6 py-5"><h3 class="text-lg font-bold">Feature comparison</h3></div>
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[720px] text-left text-sm">
-            <thead class="bg-slate-50 text-slate-700"><tr><th class="px-6 py-4 font-semibold">Feature</th><th class="px-6 py-4 font-semibold">Free</th><th class="px-6 py-4 font-semibold">Pro</th></tr></thead>
-            <tbody class="divide-y divide-slate-100 text-slate-700">
-              <tr><td class="px-6 py-4 font-medium text-slate-900">Connected WordPress sites</td><td class="px-6 py-4 ">1</td><td class="px-6 py-4 ">Multiple</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Site health monitoring</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Plugin/theme update detection</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Manual safety tests</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Automated schedules</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">HTTP/page checks</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">JavaScript error detection</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">PHP/fatal error detection</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Visual regression</td><td class="px-6 py-4 ">Limited</td><td class="px-6 py-4 ">Full</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Contact-form testing</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">WooCommerce testing</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Risk report</td><td class="px-6 py-4 ">Basic</td><td class="px-6 py-4 ">Detailed + history</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Human approval</td><td class="px-6 py-4 ">✓</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Production deployment</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Smoke testing</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Automatic rollback</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Deployment history</td><td class="px-6 py-4 ">Limited</td><td class="px-6 py-4 ">Full</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Team access</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Client reporting</td><td class="px-6 py-4 ">—</td><td class="px-6 py-4 ">✓</td></tr><tr><td class="px-6 py-4 font-medium text-slate-900">Support</td><td class="px-6 py-4 ">Community</td><td class="px-6 py-4 ">Priority</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+		<section id="screenshots" class="section-shell section-block screenshot-section">
+			<div class="section-heading screenshot-heading"><div><p class="eyebrow">Free plugin preview</p><h2>Simple evidence, visible at a glance.</h2></div><p>The Free plugin keeps the important maintenance signals in one clear admin workspace: what changed, what passed, and what needs your attention.</p></div>
+			<div class="screenshot-grid">
+				<figure class="screenshot-card"><div class="screenshot-frame"><img src="assets/screenshots/updateproof-free-overview.png" alt="UpdateProof Free safety snapshot overview showing a low risk signal and recent evidence"></div><figcaption><strong>Safety snapshot</strong><span>See your current risk signal, available updates, site health, and recent evidence before you make a change.</span></figcaption></figure>
+				<figure class="screenshot-card"><div class="screenshot-frame"><img src="assets/screenshots/updateproof-free-testing.png" alt="UpdateProof Free testing screen showing page checks and visual regression results"></div><figcaption><strong>Page and visual checks</strong><span>Test important public pages and review visual results before and after maintenance.</span></figcaption></figure>
+			</div>
+			<div class="screenshot-note"><span class="note-check">✓</span><span>Representative product previews. Free / Base includes local snapshots, important page checks, optional visual regression, reviewable updates, and deployment history.</span></div>
+		</section>
 
-    <section class="border-y border-slate-200 bg-slate-950 text-white">
-      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-2 lg:px-8">
-        <div><p class="text-sm font-bold uppercase tracking-widest text-blue-300">Security by design</p><h2 class="mt-3 text-3xl font-bold">No WordPress admin password sharing.</h2><p class="mt-4 max-w-xl leading-7 text-slate-300">UpdateProof is designed around scoped credentials, signed requests, replay protection, restricted operations, and human approval for sensitive actions.</p></div>
-        <div class="grid gap-3 sm:grid-cols-2 text-sm"><div class="rounded-xl border border-slate-800 bg-slate-900 p-4">✓ Scoped site credentials</div><div class="rounded-xl border border-slate-800 bg-slate-900 p-4">✓ Signed API requests</div><div class="rounded-xl border border-slate-800 bg-slate-900 p-4">✓ Replay protection</div><div class="rounded-xl border border-slate-800 bg-slate-900 p-4">✓ Human-controlled deployment</div><div class="rounded-xl border border-slate-800 bg-slate-900 p-4">✓ Sanitized WordPress REST inputs</div><div class="rounded-xl border border-slate-800 bg-slate-900 p-4">✓ Audit-friendly workflow</div></div>
-      </div>
-    </section>
+		<section id="pro" class="section-shell section-block pro-section">
+			<div class="pro-intro"><div><p class="eyebrow pro-eyebrow">UpdateProof Pro</p><h2>Let the safety rhythm keep running.</h2><p>Pro is for freelancers, agencies, and teams who want recurring evidence, clearer handoffs, and a safer path toward recovery workflows. It is currently a private preview, so every capability is labelled honestly as available or planned.</p></div><div class="pro-badge"><span class="pro-status-dot"></span>Private preview<br><strong>Growing in stages</strong></div></div>
+			<div class="pro-value-grid"><article class="pro-value-card"><span class="pro-value-icon">01</span><div><h3>Stay ahead of updates</h3><p>Schedule local safety checks so your next maintenance window starts with fresh evidence.</p></div></article><article class="pro-value-card"><span class="pro-value-icon">02</span><div><h3>Keep clients informed</h3><p>Use optional email summaries and recent history to make routine maintenance easier to report.</p></div></article><article class="pro-value-card"><span class="pro-value-icon">03</span><div><h3>Prepare before you approve</h3><p>Confirm a tested restore point before a Pro approval can move forward.</p></div></article></div>
+			<div class="pro-grid">
+				<div class="pro-list"><div class="pro-list-heading"><span class="pro-state available">Available now</span><h3>Private preview capabilities</h3></div><ul><li><span>✓</span> Scheduled daily or weekly local safety checks</li><li><span>✓</span> Optional email summaries and delivery status</li><li><span>✓</span> Recent Pro check history</li><li><span>✓</span> Recovery-readiness confirmation before approval</li><li><span>✓</span> Guided Pro onboarding inside the admin</li></ul></div>
+				<div class="pro-list coming-list"><div class="pro-list-heading"><span class="pro-state planned">Next on the roadmap</span><h3>Capabilities being built</h3></div><ul><li><span>→</span> Connected licensing and entitlement service</li><li><span>→</span> One tested backup or hosting-provider integration</li><li><span>→</span> Staging or isolated test workflows</li><li><span>→</span> Verified rollback and restore actions</li><li><span>→</span> Team access and client-ready reports</li></ul></div>
+			</div>
+			<div class="pro-callout"><div><strong>Want early access?</strong><span>Start with the free workflow, then join the Pro preview when recurring checks and recovery readiness fit your process.</span></div><a class="button button-light" href="https://updateproof.zerofrik.com/" target="_blank" rel="noopener">Explore the Pro roadmap</a></div>
+			<div class="pro-next"><div><p class="eyebrow pro-eyebrow">Your next step</p><h3>Build confidence before you add complexity.</h3><p>Install Free today. Run one snapshot and one test. If the workflow helps, Pro is the natural next layer for recurring evidence.</p></div><ol><li><span>1</span><strong>Install Free</strong><small>Start with one site</small></li><li><span>2</span><strong>Run a snapshot</strong><small>See your current signal</small></li><li><span>3</span><strong>Plan your Pro path</strong><small>Automate the routine</small></li></ol><a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Start with Free</a></div>
+		</section>
 
-    <section id="faq" class="mx-auto max-w-4xl px-5 py-20 lg:px-8">
-      <div class="text-center"><p class="text-sm font-bold uppercase tracking-widest text-blue-600">FAQ</p><h2 class="mt-3 text-3xl font-bold">Common questions</h2></div>
-      <div class="mt-10 space-y-4">
-        <details class="rounded-2xl border border-slate-200 bg-white p-5"><summary class="cursor-pointer font-semibold">Does the Free version update my production site?</summary><p class="mt-3 text-sm leading-6 text-slate-600">No. The initial Free workflow is focused on testing and evidence. You review the result and decide what to do next.</p></details><details class="rounded-2xl border border-slate-200 bg-white p-5"><summary class="cursor-pointer font-semibold">Is UpdateProof an automatic AI updater?</summary><p class="mt-3 text-sm leading-6 text-slate-600">No. The initial risk model is deterministic and evidence-based. Human review stays in the loop.</p></details><details class="rounded-2xl border border-slate-200 bg-white p-5"><summary class="cursor-pointer font-semibold">What does the Free version test?</summary><p class="mt-3 text-sm leading-6 text-slate-600">The Free plan is designed for manual safety tests including availability, basic browser/server error checks, and limited visual comparison.</p></details><details class="rounded-2xl border border-slate-200 bg-white p-5"><summary class="cursor-pointer font-semibold">What does Pro add?</summary><p class="mt-3 text-sm leading-6 text-slate-600">Pro is intended to add automation, deeper synthetic testing, richer history, deployment workflows, rollback, teams, and reporting.</p></details><details class="rounded-2xl border border-slate-200 bg-white p-5"><summary class="cursor-pointer font-semibold">Will Pro pricing be site-based?</summary><p class="mt-3 text-sm leading-6 text-slate-600">Final commercial limits and pricing are still being validated.</p></details>
-      </div>
-    </section>
+		<section id="pricing" class="section-shell section-block pricing-section">
+			<div class="section-heading"><p class="eyebrow">Simple annual plans</p><h2>Start with one site. Grow when the workflow proves useful.</h2><p>Every paid plan is annual in V1 so the hosted browser checks and licensing service can remain maintained and reliable.</p></div>
+			<div class="pricing-grid">
+				<article class="pricing-card"><span class="billing-badge">Free</span><h3>Free</h3><strong class="pricing-amount">₹0</strong><p>For individual site owners trying UpdateProof.</p><ul><li>1 website</li><li>Core local safety workflow</li><li>No subscription required</li></ul><a class="button button-quiet" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Install Free</a></article>
+				<article class="pricing-card pricing-card-featured"><span class="billing-badge">Recommended</span><h3>Pro</h3><strong class="pricing-amount">₹2,999<span>/year</span></strong><p>For site owners and freelancers.</p><ul><li>Up to 2 websites</li><li>Scheduled safety evidence</li><li>External browser verification</li></ul><a class="button button-primary" href="#pro-plans">Choose Pro</a></article>
+				<article class="pricing-card"><span class="billing-badge">Growing teams</span><h3>Business</h3><strong class="pricing-amount">₹6,999<span>/year</span></strong><p>For freelancers managing client websites.</p><ul><li>Up to 5 websites</li><li>Pro evidence and reports</li><li>Business plan limits</li></ul><a class="button button-quiet" href="#pro-plans">Choose Business</a></article>
+				<article class="pricing-card"><span class="billing-badge">Agencies</span><h3>Agency</h3><strong class="pricing-amount">₹14,999<span>/year</span></strong><p>For agencies and maintenance businesses.</p><ul><li>Up to 25 websites</li><li>Pro evidence and reports</li><li>Agency plan limits</li></ul><a class="button button-quiet" href="#pro-plans">Choose Agency</a></article>
+			</div>
+		</section>
 
-    <section class="mx-auto max-w-7xl px-5 pb-20 lg:px-8">
-      <div class="rounded-3xl bg-gradient-to-r from-blue-700 to-blue-500 px-6 py-12 text-center text-white sm:px-10">
-        <h2 class="text-3xl font-bold">Update with evidence, not guesswork.</h2>
-        <p class="mx-auto mt-3 max-w-2xl text-blue-100">Start with UpdateProof Free to inspect WordPress updates safely before production.</p>
-        <div class="mt-7 flex justify-center gap-3"><a href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-white px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50 transition-colors">Get Free Plugin</a><a href="#plans" class="rounded-xl border border-blue-300 px-5 py-3 font-semibold text-white hover:bg-white/10 transition-colors">Compare Plans</a></div>
-      </div>
-    </section>
-  </main>
+		<section id="pro-plans" class="section-shell section-block billing-section" data-updateproof-billing data-api-base="https://updateproof-platform-api.zerofrikdev.workers.dev">
+			<div class="section-heading split-heading"><div><p class="eyebrow">UpdateProof annual subscription</p><h2>Activate a safer maintenance rhythm.</h2></div><p>Choose an annual plan, complete payment securely with Razorpay Subscriptions, and save the license key shown after payment verification.</p></div>
+			<div class="billing-card">
+				<div class="billing-copy"><span class="billing-badge">Annual plans</span><h3>Choose your UpdateProof plan</h3><p>Recurring evidence, workflow records, and client-ready reports. Your entitlement continues until the paid expiry date even if you cancel renewal.</p><ul><li>Pro: up to 2 websites</li><li>Business: up to 5 websites</li><li>Agency: up to 25 websites</li><li>Payment processed by Razorpay</li></ul></div>
+				<form class="billing-form" data-updateproof-checkout-form>
+					<label for="updateproof-billing-email">Email for your license</label>
+					<input id="updateproof-billing-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+					<label for="updateproof-billing-plan">Annual plan</label>
+					<select id="updateproof-billing-plan" name="plan"><option value="pro_yearly">Pro - ₹2,999/year - 2 websites</option><option value="business_yearly">Business - ₹6,999/year - 5 websites</option><option value="agency_yearly">Agency - ₹14,999/year - 25 websites</option></select>
+					<button class="button button-primary" type="submit">Continue to secure payment</button>
+					<p class="billing-message" data-billing-message role="status" aria-live="polite"></p>
+				</form>
+			</div>
+			<div class="billing-note">Your license key is generated only after the payment is verified by the UpdateProof licensing service. Do not share it publicly.</div>
+		</section>
 
-  <footer class="border-t border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-      <div>© ZeroFrik. UpdateProof.</div>
-      <div>Built for safer WordPress maintenance.</div>
-    </div>
-  </footer>
-  <script>
-    const trackAnalytics = (eventName, parameters = {}) => {
-      if (typeof gtag === 'function') gtag('event', eventName, {
-        product_name: 'updateproof', page_type: 'homepage', ...parameters
-      });
-    };
-    document.addEventListener('click', event => {
-      const link = event.target.closest('a[href]');
-      if (!link) return;
-      const href = link.getAttribute('href');
-      if (href.includes('wordpress.org/plugins/')) {
-        trackAnalytics('select_content', { content_type: 'plugin_download', item_id: 'updateproof', placement: 'homepage_cta' });
-      } else if (href === '#plans') {
-        trackAnalytics('view_pricing', { placement: 'homepage' });
-      } else if (href.startsWith('#')) {
-        trackAnalytics('select_content', { content_type: 'navigation', item_id: href.slice(1) || 'home' });
-      }
-    });
-    document.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', () => {
-      if (detail.open) trackAnalytics('faq_open', { content_type: 'faq' });
-    }));
-  </script>
+		<section class="section-shell section-block comparison-section">
+			<div class="section-heading"><p class="eyebrow">Choose your level of confidence</p><h2>Start free. Grow when the workflow proves useful.</h2></div>
+			<div class="comparison-table" role="table" aria-label="Free and Pro comparison"><div class="comparison-row comparison-head" role="row"><span>Capability</span><strong>Free / Base</strong><strong>Pro</strong></div><div class="comparison-row" role="row"><span>Safety snapshots</span><b>✓</b><b>✓ Scheduled</b></div><div class="comparison-row" role="row"><span>Page and HTTP checks</span><b>✓ Up to 4 pages</b><b>✓ Automated</b></div><div class="comparison-row" role="row"><span>Visual regression</span><b>✓ 3 pages</b><b>More coverage planned</b></div><div class="comparison-row" role="row"><span>Update review and approval</span><b>✓</b><b>✓ Recovery gate</b></div><div class="comparison-row" role="row"><span>Notifications and history</span><b>Basic</b><b>✓ Email + history</b></div><div class="comparison-row" role="row"><span>Backup and restore</span><b>—</b><b>Provider integration planned</b></div><div class="comparison-row" role="row"><span>Teams and client reports</span><b>—</b><b>Planned</b></div></div>
+		</section>
+
+		<section id="faq" class="section-shell section-block faq-section">
+			<div class="section-heading"><p class="eyebrow">Questions, answered plainly</p><h2>Designed to keep the important parts visible.</h2></div>
+			<div class="faq-list"><details open><summary>Does UpdateProof update my site automatically?</summary><p>No. The Free workflow requires you to create a plan and explicitly approve plugin or theme changes. Pro scheduled checks collect evidence; they do not apply updates automatically.</p></details><details><summary>Does it send my site content to an AI service?</summary><p>No. The Free plugin stores its safety evidence locally and does not transmit PHP source code, post content, or visitor data.</p></details><details><summary>Does Pro include backup and restore today?</summary><p>Not yet. The current Pro preview records recovery readiness and blocks approval until you confirm a tested restore point. A real provider integration will be added only after it is tested.</p></details><details><summary>Who is UpdateProof for?</summary><p>Freelancers, agencies, developers, and site owners who want a simple maintenance record before and after updates.</p></details></div>
+		</section>
+
+		<section class="section-shell final-cta"><p class="eyebrow">Your next update can feel different</p><h2>Check first. Update with evidence.</h2><p>Start with the free plugin and build a maintenance habit your clients and future self can trust.</p><div class="hero-actions"><a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Get UpdateProof free</a><a class="button button-quiet" href="https://updateproof.zerofrik.com/" target="_blank" rel="noopener">See the Pro roadmap</a></div></section>
+	</main>
+
+	<footer class="site-footer"><div class="section-shell footer-inner"><a class="brand" href="#top"><span class="brand-mark"><img src="assets/updateproof-icon.png" alt=""></span><span>UpdateProof</span></a><span>Built by ZeroFrik · Maintenance safety with less guesswork.</span><span>© <span id="year"></span> ZeroFrik</span></div></footer>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script src="script.js"></script>
 </body>
 </html>
