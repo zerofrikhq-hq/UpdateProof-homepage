@@ -75,7 +75,7 @@
 			billingMessage.appendChild(document.createElement('br'));
 			billingMessage.appendChild(document.createTextNode('Next: install UpdateProof Pro, open UpdateProof Pro in WordPress, and paste this key.'));
 			billingMessage.appendChild(document.createElement('br'));
-			billingMessage.appendChild(document.createTextNode(license.email_sent ? 'A copy was also sent to your email.' : 'If the email does not arrive, use the saved key above.'));
+			billingMessage.appendChild(document.createTextNode(license.email_sent ? 'A copy was also sent to your email.' : (license.email_queued ? 'Your license email is being sent now.' : 'If the email does not arrive, use the saved key above.')));
 		}
 
 		billingForm.addEventListener('submit', function (event) {
