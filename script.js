@@ -25,6 +25,59 @@
 		var apiBase = (billing.getAttribute('data-api-base') || '').replace(/\/+$/, '');
 		var paymentButton = billingForm.querySelector('button[type="submit"]');
 
+		function requestJson(url, payload) {
+			return fetch(url, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			}).then(function (response) {
+				return response.text().then(function (body) {
+					var data = {};
+					try { data = body ? JSON.parse(body) : {}; } catch (ignore) {}
+					if (!response.ok || !data.success) {
+						throw new Error(data.message || 'The UpdateProof service rejected the request.');
+					}
+					return data;
+				});
+			});
+		}
+
+		function showLicenseSuccess(license) {
+			billingMessage.className = 'billing-message billing-message-success';
+			billingMessage.textContent = '';
+
+			var heading = document.createElement('strong');
+			heading.textContent = 'Payment successful - your Pro license is ready.';
+			billingMessage.appendChild(heading);
+			billingMessage.appendChild(document.createElement('br'));
+			billingMessage.appendChild(document.createTextNode('Save this license key: '));
+
+			var key = document.createElement('code');
+			key.textContent = license.license_key || '';
+			billingMessage.appendChild(key);
+
+			var copy = document.createElement('button');
+			copy.type = 'button';
+			copy.className = 'billing-copy-key';
+			copy.textContent = 'Copy license key';
+			copy.addEventListener('click', function () {
+				var value = license.license_key || '';
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText(value).then(function () {
+						copy.textContent = 'Copied';
+					});
+				} else {
+					copy.textContent = 'Select the key above';
+				}
+			});
+			billingMessage.appendChild(document.createTextNode(' '));
+			billingMessage.appendChild(copy);
+			billingMessage.appendChild(document.createElement('br'));
+			billingMessage.appendChild(document.createTextNode('Next: install UpdateProof Pro, open UpdateProof Pro in WordPress, and paste this key.'));
+			billingMessage.appendChild(document.createElement('br'));
+			billingMessage.appendChild(document.createTextNode(license.email_sent ? 'A copy was also sent to your email.' : 'If the email does not arrive, use the saved key above.'));
+		}
+
 		billingForm.addEventListener('submit', function (event) {
 			event.preventDefault();
 			var email = billingForm.querySelector('[name="email"]').value.trim();
@@ -34,20 +87,11 @@
 				return;
 			}
 			paymentButton.disabled = true;
-			billingMessage.textContent = 'Preparing secure payment…';
-			fetch(apiBase + '/api/razorpay/subscription', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ plan: plan, email: email })
-			}).then(function (response) {
-				return response.json().then(function (data) {
-					if (!response.ok || !data.success) {
-						throw new Error(data.message || 'The annual subscription could not be created.');
-					}
-					return data;
-				});
-			}).then(function (order) {
-				billingMessage.textContent = 'Opening secure payment…';
+			billingMessage.className = 'billing-message';
+			billingMessage.textContent = 'Preparing secure payment...';
+
+			requestJson(apiBase + '/api/razorpay/subscription', { plan: plan, email: email }).then(function (order) {
+				billingMessage.textContent = 'Opening secure payment...';
 				var checkout = new window.Razorpay({
 					key: order.key_id,
 					name: 'UpdateProof',
@@ -56,23 +100,16 @@
 					prefill: { email: order.email },
 					theme: { color: '#173763' },
 					handler: function (payment) {
-						billingMessage.textContent = 'Payment received. Verifying your license…';
-						fetch(apiBase + '/api/razorpay/verify', {
-							method: 'POST',
-							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify(payment)
-						}).then(function (response) {
-							return response.json().then(function (data) {
-								if (!response.ok || !data.success) {
-									throw new Error(data.message || 'Payment verification failed.');
-								}
-								return data;
-							});
-						}).then(function (license) {
-							billingMessage.textContent = 'Payment verified. Save this license key: ' + license.license_key;
+						billingMessage.textContent = 'Payment received. Verifying your license...';
+						requestJson(apiBase + '/api/razorpay/verify', payment).then(function (license) {
+							showLicenseSuccess(license);
 							paymentButton.disabled = false;
 						}).catch(function (error) {
-							billingMessage.textContent = error.message;
+							if (error && error.name === 'TypeError') {
+								billingMessage.textContent = 'Payment completed, but license verification could not be reached. Do not pay again. Save payment ID ' + payment.razorpay_payment_id + ' and contact support.';
+							} else {
+								billingMessage.textContent = error.message || 'Payment verification failed. Do not pay again; contact support.';
+							}
 							paymentButton.disabled = false;
 						});
 					},
@@ -92,9 +129,12 @@
 				});
 				checkout.open();
 			}).catch(function (error) {
-				billingMessage.textContent = error.message;
+				billingMessage.textContent = error && error.name === 'TypeError'
+					? 'We could not reach secure checkout. Please try again.'
+					: (error.message || 'The annual subscription could not be created.');
 				paymentButton.disabled = false;
 			});
 		});
 	}
 }());
+

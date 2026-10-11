@@ -87,6 +87,9 @@
 .billing-form select { background: #fff; border: 1px solid #cbd6e2; border-radius: 8px; color: var(--navy); font: inherit; padding: 12px; width: 100%; }
 .billing-form button:disabled { cursor: wait; opacity: .65; }
 .billing-message { color: var(--muted); font-size: 12px; line-height: 1.5; min-height: 18px; overflow-wrap: anywhere; }
+.billing-message-success { background: #eaf8f2; border: 1px solid #99d9bd; border-radius: 8px; color: #126046; padding: 12px; }
+.billing-message-success code { background: #fff; border: 1px solid #b9dfcd; border-radius: 4px; color: #0b4e39; display: inline-block; font-size: 12px; margin-top: 4px; padding: 4px 6px; word-break: break-all; }
+.billing-copy-key { background: transparent; border: 1px solid #58a988; border-radius: 5px; color: #126046; cursor: pointer; font: inherit; font-weight: 700; padding: 4px 7px; }
 .billing-note { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 16px auto 0; max-width: 670px; text-align: center; }
 
 @media (max-width: 900px) {
