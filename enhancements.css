@@ -35,7 +35,7 @@
 .step-card-review .step-icon { background: #fff0ea; color: #d96d4b; }
 .step-card-approve .step-icon { background: #e8e4ff; color: #7060ca; }
 .step-result { border-top: 1px solid #e8edf4; color: var(--ink); display: block; font-size: 11px; font-weight: 750; margin-top: 19px; padding-top: 13px; }
-.step-result::before { color: #7283a0; content: "→"; margin-right: 6px; }
+.step-result::before { color: #7283a0; content: "â†’"; margin-right: 6px; }
 .workflow-footer { align-items: center; border-top: 1px solid var(--line); display: flex; gap: 30px; justify-content: space-between; margin-top: 22px; padding-top: 22px; }
 .workflow-footer-label { color: var(--blue); display: block; font-size: 10px; font-weight: 800; letter-spacing: .1em; margin-bottom: 4px; text-transform: uppercase; }
 .workflow-footer strong { font-size: 17px; }
@@ -73,14 +73,14 @@
 .pricing-amount span { color: var(--muted); font-size: 13px; font-weight: 600; letter-spacing: 0; }
 .pricing-card p { color: var(--muted); font-size: 14px; line-height: 1.55; min-height: 45px; }
 .pricing-card ul { color: var(--muted); display: grid; gap: 7px; list-style: none; margin: 10px 0 22px; padding: 0; }
-.pricing-card li::before { color: #2da98b; content: '✓'; font-weight: 800; margin-right: 8px; }
+.pricing-card li::before { color: #2da98b; content: 'âœ“'; font-weight: 800; margin-right: 8px; }
 .pricing-card .button { margin-top: auto; text-align: center; }
 .billing-card { align-items: stretch; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 14px 35px rgba(23,55,99,.08); display: grid; gap: 35px; grid-template-columns: 1.15fr .85fr; margin-top: 35px; padding: 30px; }
 .billing-badge { background: #e8f7f2; border: 1px solid rgba(65,177,149,.35); border-radius: 999px; color: #167963; display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .08em; padding: 6px 10px; text-transform: uppercase; }
 .billing-copy h3 { color: var(--navy); font-size: 30px; letter-spacing: -.04em; margin: 17px 0 8px; }
 .billing-copy p { color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 490px; }
 .billing-copy ul { color: var(--muted); display: grid; gap: 8px; list-style: none; margin: 22px 0 0; padding: 0; }
-.billing-copy li::before { color: #2da98b; content: '✓'; font-weight: 800; margin-right: 8px; }
+.billing-copy li::before { color: #2da98b; content: 'âœ“'; font-weight: 800; margin-right: 8px; }
 .billing-form { align-self: center; background: #f8fafc; border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 10px; padding: 22px; }
 .billing-form label { color: var(--navy); font-size: 13px; font-weight: 700; }
 .billing-form input[type="email"] { border: 1px solid #cbd6e2; border-radius: 8px; color: var(--navy); font: inherit; padding: 12px; width: 100%; }
@@ -90,6 +90,11 @@
 .billing-message-success { background: #eaf8f2; border: 1px solid #99d9bd; border-radius: 8px; color: #126046; padding: 12px; }
 .billing-message-success code { background: #fff; border: 1px solid #b9dfcd; border-radius: 4px; color: #0b4e39; display: inline-block; font-size: 12px; margin-top: 4px; padding: 4px 6px; word-break: break-all; }
 .billing-copy-key { background: transparent; border: 1px solid #58a988; border-radius: 5px; color: #126046; cursor: pointer; font: inherit; font-weight: 700; padding: 4px 7px; }
+.billing-download-link { background: #3158dc; border-radius: 6px; color: #fff; display: inline-block; font-weight: 700; margin-top: 8px; padding: 8px 12px; text-decoration: none; }
+.billing-download-link:hover, .billing-download-link:focus { background: #2445b8; color: #fff; }
+.billing-download-box { border-top: 1px solid #dce4ee; margin-top: 24px; padding-top: 20px; }
+.billing-download-box h3 { color: var(--navy); font-size: 16px; margin: 0 0 7px; }
+.billing-download-box p { margin-bottom: 10px; }
 .billing-note { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 16px auto 0; max-width: 670px; text-align: center; }
 
 @media (max-width: 900px) {
@@ -117,3 +122,4 @@
 	.pro-next ol { grid-template-columns: 1fr; }
 	.pro-next li { border-left: 0; border-top: 1px solid rgba(255,255,255,.16); padding: 9px 0 0; }
 }
+
