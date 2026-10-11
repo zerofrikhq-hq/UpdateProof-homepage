@@ -72,10 +72,19 @@
 			});
 			billingMessage.appendChild(document.createTextNode(' '));
 			billingMessage.appendChild(copy);
+			if (license.download_url) {
+				billingMessage.appendChild(document.createElement('br'));
+				var download = document.createElement('a');
+				download.className = 'billing-download-link';
+				download.href = license.download_url;
+				download.textContent = 'Download UpdateProof Pro';
+				download.setAttribute('download', '');
+				billingMessage.appendChild(download);
+			}
 			billingMessage.appendChild(document.createElement('br'));
 			billingMessage.appendChild(document.createTextNode('Next: install UpdateProof Pro, open UpdateProof Pro in WordPress, and paste this key.'));
 			billingMessage.appendChild(document.createElement('br'));
-			billingMessage.appendChild(document.createTextNode(license.email_sent ? 'A copy was also sent to your email.' : (license.email_queued ? 'Your license email is being sent now.' : 'If the email does not arrive, use the saved key above.')));
+			billingMessage.appendChild(document.createTextNode(license.email_sent ? 'A copy was also sent to your email. The email download link remains available for 7 days.' : (license.email_queued ? 'Your license email is being sent now. The email download link remains available for 7 days.' : 'If the email does not arrive, use the saved key above to request another download link.')));
 		}
 
 		billingForm.addEventListener('submit', function (event) {
@@ -136,5 +145,49 @@
 			});
 		});
 	}
+
+	var downloadForm = document.querySelector('[data-updateproof-download-form]');
+	if (downloadForm) {
+		var downloadMessage = downloadForm.querySelector('[data-download-message]');
+		var downloadApiBase = (downloadForm.getAttribute('data-api-base') || '').replace(/\/+$/, '');
+		var downloadButton = downloadForm.querySelector('button[type="submit"]');
+		function downloadRequestJson(url, payload) {
+			return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).then(function (response) {
+				return response.text().then(function (body) {
+					var data = {};
+					try { data = body ? JSON.parse(body) : {}; } catch (ignore) {}
+					if (!response.ok || !data.success) throw new Error(data.message || 'The UpdateProof service rejected the request.');
+					return data;
+				});
+			});
+		}
+		downloadForm.addEventListener('submit', function (event) {
+			event.preventDefault();
+			var licenseKey = downloadForm.querySelector('[name="license_key"]').value.trim();
+			if (!downloadApiBase || !licenseKey) {
+				downloadMessage.textContent = 'Enter your UpdateProof Pro license key.';
+				return;
+			}
+			downloadButton.disabled = true;
+			downloadMessage.className = 'billing-message';
+			downloadMessage.textContent = 'Checking your license...';
+			downloadRequestJson(downloadApiBase + '/api/license/download', { license_key: licenseKey }).then(function (result) {
+				downloadMessage.className = 'billing-message billing-message-success';
+				downloadMessage.textContent = '';
+				var link = document.createElement('a');
+				link.className = 'billing-download-link';
+				link.href = result.download_url;
+				link.textContent = 'Download UpdateProof Pro ' + (result.version || '');
+				downloadMessage.appendChild(link);
+				downloadMessage.appendChild(document.createElement('br'));
+				downloadMessage.appendChild(document.createTextNode('This secure download link expires in 15 minutes.'));
+			}).catch(function (error) {
+				downloadMessage.textContent = error.message || 'We could not create a download link.';
+			}).then(function () {
+				downloadButton.disabled = false;
+			});
+		});
+	}
 }());
+
 
