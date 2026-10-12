@@ -20,6 +20,55 @@
 
 	var billing = document.querySelector('[data-updateproof-billing]');
 	var billingForm = billing ? billing.querySelector('[data-updateproof-checkout-form]') : null;
+	var billingModal = document.querySelector('.billing-modal');
+	function openBillingModal(plan) {
+		if (!billingModal) return;
+		var planSelect = billingModal.querySelector('[name="plan"]');
+		if (plan && planSelect) planSelect.value = plan;
+		billingModal.classList.add('is-open');
+		billingModal.setAttribute('aria-hidden', 'false');
+		document.body.classList.add('modal-open');
+		var email = billingModal.querySelector('[name="email"]');
+		if (email) window.setTimeout(function () { email.focus(); }, 80);
+	}
+	function closeBillingModal() {
+		if (!billingModal) return;
+		billingModal.classList.remove('is-open');
+		billingModal.setAttribute('aria-hidden', 'true');
+		document.body.classList.remove('modal-open');
+	}
+	document.querySelectorAll('[data-updateproof-plan]').forEach(function (link) {
+		link.addEventListener('click', function (event) {
+			event.preventDefault();
+			openBillingModal(link.getAttribute('data-updateproof-plan'));
+		});
+	});
+	document.querySelectorAll('[data-updateproof-open-billing]').forEach(function (link) {
+		link.addEventListener('click', function (event) {
+			event.preventDefault();
+			openBillingModal();
+		});
+	});
+	document.querySelectorAll('[data-updateproof-close-billing]').forEach(function (control) {
+		control.addEventListener('click', closeBillingModal);
+	});
+	document.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape') closeBillingModal();
+	});
+	if (billingModal) {
+		var showDownload = billingModal.querySelector('[data-updateproof-show-download]');
+		if (showDownload) {
+			showDownload.addEventListener('click', function () {
+				var panel = billingModal.querySelector('[data-updateproof-download-panel]');
+				if (panel) {
+					panel.classList.add('is-highlighted');
+					panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					var key = panel.querySelector('[name="license_key"]');
+					if (key) window.setTimeout(function () { key.focus(); }, 250);
+				}
+			});
+		}
+	}
 	if (billing && billingForm) {
 		var billingMessage = billingForm.querySelector('[data-billing-message]');
 		var apiBase = (billing.getAttribute('data-api-base') || '').replace(/\/+$/, '');
@@ -43,6 +92,7 @@
 		}
 
 		function showLicenseSuccess(license) {
+			billing.classList.add('has-license');
 			billingMessage.className = 'billing-message billing-message-success';
 			billingMessage.textContent = '';
 
