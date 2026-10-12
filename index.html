@@ -1,163 +1,1448 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="UpdateProof helps site owners check, test, review, and approve safer WordPress maintenance updates.">
-	<title>UpdateProof &mdash; Safer site updates, made visible</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="styles.css">
-	<link rel="stylesheet" href="enhancements.css">
-	<link rel="stylesheet" href="stitch-overrides.css">
-	<link rel="icon" type="image/png" href="assets/updateproof-icon.png">
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<link rel="stylesheet" href="billing-modal.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UpdateProof &mdash; Verification &amp; Visual Regression for WordPress Maintenance</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed-variant": "#40484f",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#5d646c",
+            "on-tertiary-container": "#dae1ea",
+            "text-primary": "#101828",
+            "surface-tint": "#0957ce",
+            "primary": "#0045a9",
+            "secondary-fixed": "#dbe2f9",
+            "on-primary-fixed-variant": "#0040a0",
+            "inverse-on-surface": "#eff1f3",
+            "on-primary": "#ffffff",
+            "secondary-fixed-dim": "#bfc6dc",
+            "outline": "#737785",
+            "surface-container": "#eceef0",
+            "error": "#ba1a1a",
+            "text-secondary": "#475467",
+            "on-primary-container": "#d7e0ff",
+            "surface-dim": "#d8dadc",
+            "on-tertiary-fixed": "#151c23",
+            "tertiary-fixed": "#dce3ec",
+            "surface-container-low": "#f2f4f6",
+            "tertiary-fixed-dim": "#c0c7d0",
+            "tertiary": "#454c53",
+            "background": "#f7f9fb",
+            "primary-fixed-dim": "#b1c5ff",
+            "primary-container": "#175cd3",
+            "border-subtle": "#E4E7EC",
+            "secondary": "#565e71",
+            "outline-variant": "#c3c6d6",
+            "on-error-container": "#93000a",
+            "surface": "#f7f9fb",
+            "on-tertiary": "#ffffff",
+            "brand-accent-blue": "#2656F6",
+            "inverse-primary": "#b1c5ff",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#424654",
+            "on-primary-fixed": "#001847",
+            "surface-card": "#FFFFFF",
+            "surface-container-high": "#e6e8ea",
+            "on-secondary-fixed": "#141b2c",
+            "surface-variant": "#e0e3e5",
+            "primary-fixed": "#dae2ff",
+            "status-success": "#16A34A",
+            "secondary-container": "#dbe2f9",
+            "inverse-surface": "#2d3133",
+            "surface-container-highest": "#e0e3e5",
+            "on-background": "#191c1e",
+            "on-secondary-container": "#5c6477",
+            "surface-bright": "#f7f9fb",
+            "on-surface": "#191c1e",
+            "status-warning": "#D97706",
+            "on-secondary-fixed-variant": "#3f4759"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.25rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "margin": "2rem",
+            "margin-mobile": "1rem",
+            "space-md": "1rem",
+            "gutter-mobile": "1rem"
+          },
+          "fontFamily": {
+            "evidence-mono-lg": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "metric-stat": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "evidence-mono-sm": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "evidence-mono-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "metric-stat": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "evidence-mono-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D0D5DD;
+      border-radius: 9999px;
+    }
+    .diff-clip-container {
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
 </head>
-<body>
-	<header class="site-header">
-		<a class="brand" href="#top" aria-label="UpdateProof home"><span class="brand-mark"><img src="assets/updateproof-icon.png" alt=""></span><span>UpdateProof</span></a>
-		<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-		<nav id="site-nav" class="site-nav" aria-label="Main navigation">
-			<a href="#how-it-works">How it works</a>
-			<a href="#free">Free</a>
-			<a href="#screenshots">Screenshots</a>
-			<a href="#pro">Pro</a>
-			<a href="#faq">FAQ</a>
-			<a class="nav-cta" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Get the free plugin</a>
-		</nav>
-	</header>
+<body class="bg-surface text-text-primary antialiased font-body-md selection:bg-primary-fixed selection:text-primary">
+<!-- TOPNAVBAR (Shared Component Implementation) -->
+<header class="bg-surface-card/90 dark:bg-inverse-surface/90 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-border-subtle dark:border-outline shadow-sm dark:shadow-none">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 w-full">
+<!-- Brand & Version Tag -->
+<div class="flex items-center space-x-3">
+<a class="flex items-center space-x-2.5 group" href="#">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm group-hover:bg-primary transition-colors">
+<img src="assets/updateproof-icon.png" alt="" class="reference-brand-icon">
+</div>
+<span class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface tracking-tight">UpdateProof</span>
+</a>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-evidence-mono-sm font-medium bg-surface-container text-text-secondary border border-border-subtle">
+          v0.9.4
+        </span>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1 text-body-md font-body-md transition-colors duration-150" href="#why">Why UpdateProof</a>
+<a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#how-it-works">How It Works</a>
+<a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#features">Features</a>
+<a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#pricing">Pricing</a>
+<a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#faq">FAQ</a>
+</nav>
+<!-- Trailing CTAs -->
+<div class="flex items-center space-x-4">
+<a class="hidden sm:inline-flex text-body-md font-body-md font-semibold text-text-secondary hover:text-primary transition-colors" href="https://wordpress.org/plugins" rel="noopener noreferrer" target="_blank">
+          Get Free Plugin
+        </a>
+<a class="inline-flex items-center px-4 py-2 rounded-xl bg-primary-container hover:bg-primary text-on-primary text-body-md font-body-md font-semibold shadow-sm transition-all duration-150 active:scale-95" href="#pro-plans" data-updateproof-open-billing>
+          Activate Pro
+        </a>
+</div>
+</div>
+</header>
+<!-- MAIN WRAPPER (Targeting Desktop 1440px Canvas Discipline) -->
+<main class="w-full overflow-hidden">
+<!-- 1. HERO SECTION -->
+<section class="relative pt-12 pb-20 md:pt-16 md:pb-28 border-b border-border-subtle bg-gradient-to-b from-surface-card to-background" id="why">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Column Content -->
+<div class="lg:col-span-6 space-y-6">
+<!-- Eyebrow Badge -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container border border-border-subtle text-text-secondary text-body-sm font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="shield">shield</span>
+<span class="tracking-wide">FOR WORDPRESS FREELANCERS &amp; AGENCIES</span>
+</div>
+<!-- Approved Headline -->
+<h1 class="text-display font-display text-text-primary tracking-tight leading-tight">
+              Your Job Is to Improve Websites. Ours Is to Help You <span class="text-primary-container underline decoration-primary-fixed decoration-4 underline-offset-4">Verify the Changes.</span>
+</h1>
+<!-- Approved Subtitle -->
+<p class="text-body-lg font-body-lg text-text-secondary max-w-[560px]">
+              UpdateProof helps you run scheduled website safety checks, review visual changes, maintain check history, and generate professional reports your clients can understand.
+            </p>
+<!-- Call to Actions -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+<a class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-body-md font-semibold shadow-sm transition-all active:scale-95" href="#pro-plans" data-updateproof-open-billing>
+<span>Activate Pro &rarr;</span>
+</a>
+<a class="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-surface-card hover:bg-surface-container border border-border-subtle text-text-primary font-body-md font-semibold transition-colors" href="#diff-demo">
+<span class="material-symbols-outlined text-[18px] mr-2 text-text-secondary" data-icon="play_circle">play_circle</span>
+                Watch the 2-Minute Demo
+              </a>
+</div>
+<!-- Risk Reversal Microcopy -->
+<p class="text-body-sm font-body-sm text-text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-status-success" data-icon="check_circle">check_circle</span>
+              Free to apply &middot; No credit card required &middot; Pro available now
+            </p>
+<!-- Trust Bar -->
+<div class="pt-6 border-t border-border-subtle flex flex-wrap items-center gap-6 text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span>Free on WordPress.org</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Built by ZeroFrik</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Local-first evidence model</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Inspector UI Mockup (Two-column Visual Evidence Node) -->
+<div class="lg:col-span-6">
+<div class="bg-surface-card rounded-2xl border border-border-subtle shadow-lg overflow-hidden">
+<!-- Window Chrome Header -->
+<div class="bg-surface-container-high px-4 py-3 border-b border-border-subtle flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<div class="w-3 h-3 rounded-full bg-red-400"></div>
+<div class="w-3 h-3 rounded-full bg-amber-400"></div>
+<div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+<span class="ml-2 text-evidence-mono-sm font-evidence-mono-sm text-text-secondary truncate">
+                    Target: WooCommerce 9.4.2 Update | Chromium 128.0
+                  </span>
+</div>
+<span class="text-[10px] font-evidence-mono-sm px-2 py-0.5 rounded bg-surface-card text-text-secondary border border-border-subtle">
+                  HEADLESS PLAYWRIGHT
+                </span>
+</div>
+<!-- Inspector Telemetry Top Bar -->
+<div class="grid grid-cols-3 divide-x divide-border-subtle bg-surface-container-low text-center py-2.5 border-b border-border-subtle">
+<div>
+<div class="text-[11px] text-text-secondary uppercase tracking-wider font-semibold">Response</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-status-success font-semibold flex items-center justify-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> HTTP 200 OK
+                  </div>
+</div>
+<div>
+<div class="text-[11px] text-text-secondary uppercase tracking-wider font-semibold">Layout Regressions</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-status-warning font-semibold flex items-center justify-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning animate-pulse"></span> 1 Alert Detected
+                  </div>
+</div>
+<div>
+<div class="text-[11px] text-text-secondary uppercase tracking-wider font-semibold">Verification</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-primary-container font-semibold">
+                    Requires Review
+                  </div>
+</div>
+</div>
+<!-- Side-by-Side Diff Viewport -->
+<div class="p-4 grid grid-cols-2 gap-3 bg-surface-container">
+<!-- Baseline Pre-Update Card -->
+<div class="bg-surface-card rounded-xl p-3 border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-border-subtle">
+<span class="text-body-sm font-semibold text-text-primary">Baseline (Pre-Update)</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-evidence-mono-sm bg-emerald-50 text-status-success border border-emerald-200">
+                        200 OK
+                      </span>
+</div>
+<!-- Wireframe Site Snapshot -->
+<div class="space-y-2 py-2">
+<div class="h-3 w-3/4 bg-surface-container-high rounded"></div>
+<div class="h-2 w-full bg-surface-container rounded"></div>
+<div class="h-2 w-5/6 bg-surface-container rounded"></div>
+<div class="mt-4 p-2 bg-slate-50 rounded border border-slate-200">
+<div class="h-2 w-1/3 bg-slate-300 rounded mb-2"></div>
+<div class="h-6 w-full bg-primary-container/20 rounded flex items-center justify-center text-[10px] text-primary-container font-medium">
+                          [ Place Order &mdash; $89.00 ]
+                        </div>
+</div>
+</div>
+</div>
+<div class="text-[11px] font-evidence-mono-sm text-text-secondary pt-2 border-t border-border-subtle flex justify-between">
+<span>Render: 142ms</span>
+<span>DOM: Stable</span>
+</div>
+</div>
+<!-- Current Post-Update Card With Alert -->
+<div class="bg-surface-card rounded-xl p-3 border-2 border-status-warning/40 shadow-sm relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-border-subtle">
+<span class="text-body-sm font-semibold text-text-primary">Current (Post-Update)</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-evidence-mono-sm bg-amber-50 text-status-warning border border-amber-200 flex items-center gap-1">
+                        1 Drift Alert
+                      </span>
+</div>
+<!-- Wireframe Broken Site Snapshot -->
+<div class="space-y-2 py-2">
+<div class="h-3 w-3/4 bg-surface-container-high rounded"></div>
+<div class="h-2 w-full bg-surface-container rounded"></div>
+<div class="mt-2 p-2 bg-amber-50/60 rounded border border-dashed border-status-warning relative">
+<div class="h-2 w-1/3 bg-slate-300 rounded mb-2"></div>
+<!-- Displaced CTA Wireframe -->
+<div class="h-6 w-1/2 ml-auto bg-primary-container/20 border border-status-warning rounded flex items-center justify-center text-[10px] text-status-warning font-mono">
+                          [ Displaced CTA +48px ]
+                        </div>
+</div>
+<div class="h-2 w-1/2 bg-red-100 rounded"></div>
+</div>
+</div>
+<div class="text-[11px] font-evidence-mono-sm text-status-warning pt-2 border-t border-border-subtle font-medium">
+                    ! CSS Grid Shift: 48px offset
+                  </div>
+</div>
+</div>
+<!-- Footer Verification Note -->
+<div class="bg-surface-card px-4 py-2.5 border-t border-border-subtle flex items-center justify-between text-[11px] font-evidence-mono-sm text-text-secondary">
+<span class="flex items-center gap-1 text-status-warning">
+<span class="material-symbols-outlined text-[14px]" data-icon="report_problem">report_problem</span>
+                  Checkout CTA displaced by 48px after plugin update
+                </span>
+<span class="text-text-secondary uppercase">ILLUSTRATIVE VERIFICATION EVIDENCE &mdash; DEMO DATA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. PROBLEM SECTION -->
+<section class="py-20 bg-surface-container-low border-b border-border-subtle">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mb-12">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">THE PROBLEM</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            The update finished. The uncertainty didn't.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            WordPress can report that an update completed successfully. That doesn't tell you everything about how the website looks or which workflows have been checked.
+          </p>
+</div>
+<!-- Visual Scenario: Server View vs. Visitor View -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+<!-- Server View (Deceptive Green) -->
+<div class="bg-surface-card rounded-2xl p-6 border border-border-subtle shadow-sm relative">
+<div class="flex items-center justify-between mb-4">
+<span class="inline-flex items-center gap-1.5 text-evidence-mono-sm font-evidence-mono-sm text-status-success font-semibold px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                SERVER LOGS REPORT
+              </span>
+<span class="text-body-sm font-body-sm text-text-secondary font-mono">STATUS 200 OK</span>
+</div>
+<div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-evidence-mono-sm text-[13px] space-y-1.5 overflow-x-auto custom-scrollbar">
+<div class="text-emerald-400">&#10003; Downloading update package from wordpress.org...</div>
+<div class="text-emerald-400">&#10003; Unpacking archive files...</div>
+<div class="text-emerald-400">&#10003; Updating files: WooCommerce 9.4.2 [100%]</div>
+<div class="text-emerald-400">&#10003; Running database migration schema... Done.</div>
+<div class="text-slate-300 font-bold pt-2 border-t border-slate-700">&#10003; Plugin updated successfully. Ready for traffic.</div>
+</div>
+<div class="mt-4 text-body-md text-text-secondary">
+              Everything in WP-Admin looks fine. No fatal errors logged, server processes green.
+            </div>
+</div>
+<!-- Visitor View (Actual Broken Reality) -->
+<div class="bg-surface-card rounded-2xl p-6 border-2 border-amber-300 shadow-sm relative">
+<div class="flex items-center justify-between mb-4">
+<span class="inline-flex items-center gap-1.5 text-evidence-mono-sm font-evidence-mono-sm text-status-warning font-semibold px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+                ACTUAL STORE VISITOR EXPERIENCE
+              </span>
+<span class="text-body-sm font-body-sm text-status-warning font-mono">BROKEN UI FLOW</span>
+</div>
+<div class="bg-amber-50/50 border border-amber-200 rounded-xl p-4 text-body-sm space-y-3">
+<div class="flex items-center justify-between text-text-primary font-semibold">
+<span>Checkout Summary: Step 3</span>
+<span class="text-error font-mono text-[12px]">[!] Layout Shift: Container Overflow</span>
+</div>
+<div class="p-3 bg-surface-card rounded-lg border border-border-subtle shadow-sm space-y-2">
+<div class="h-3 w-1/2 bg-slate-200 rounded"></div>
+<div class="h-2 w-3/4 bg-slate-100 rounded"></div>
+<div class="py-2 text-center text-status-warning text-xs font-mono bg-red-50 rounded border border-red-200">
+                  Button displaced below the fold. Customer cannot complete checkout.
+                </div>
+</div>
+</div>
+<div class="mt-4 text-body-md text-text-secondary">
+              A stylesheet conflict pushed the CTA off-screen. Customers drop off unnoticed for 14 hours.
+            </div>
+</div>
+</div>
+<!-- 3 Problem Bento Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container mb-4">
+<span class="material-symbols-outlined text-[22px]" data-icon="visibility_off">visibility_off</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">
+                Your page responds. But does it look right?
+              </h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                HTTP 200 tells you a server answered, not that your theme rendered, fonts loaded, or checkout buttons didn't collide.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+              Risk: Undetected visual breakage
+            </div>
+</div>
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container mb-4">
+<span class="material-symbols-outlined text-[22px]" data-icon="history">history</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">
+                You checked it once. Where's the proof?
+              </h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                A manual click-through provides zero durable evidence. When a client notices a bug two weeks later, you have no timestamped audit baseline.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+              Risk: Agency liability &amp; dispute
+            </div>
+</div>
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container mb-4">
+<span class="material-symbols-outlined text-[22px]" data-icon="description">description</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">
+                You did the work. How do you explain it?
+              </h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Retainer clients don't see silent, clean maintenance. Saying “all plugins updated” fails to convey the diligence you actually put in.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+              Risk: Retainer devaluation
+            </div>
+</div>
+</div>
+<!-- Concluding Quote Banner -->
+<div class="mt-12 p-6 rounded-2xl bg-surface-card border border-border-subtle text-center max-w-2xl mx-auto shadow-sm">
+<p class="text-headline-sm font-headline-sm text-text-primary italic">
+            “Updating a website is one step. Checking the result is another.”
+          </p>
+</div>
+</div>
+</section>
+<!-- 3. SOLUTION REVEAL -->
+<section class="py-20 bg-surface-card border-b border-border-subtle" id="features">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">INTRODUCING UPDATEPROOF</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            Don't just finish the update. Verify the result.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            UpdateProof brings repeatable safety checks, browser evidence, maintenance history, and reporting into a clearer WordPress maintenance workflow.
+          </p>
+</div>
+<!-- WordPress Admin Mockup Canvas -->
+<div class="rounded-2xl border border-border-subtle bg-surface-card shadow-xl overflow-hidden">
+<!-- Top Mockup Chrome -->
+<div class="bg-slate-900 text-slate-200 px-4 py-3 flex items-center justify-between text-xs font-mono">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[18px]" data-icon="terminal">terminal</span>
+<span class="font-semibold text-slate-100">wp-admin &gt; UpdateProof Safety Suite</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-400">
+<span>Local Worker: Connected</span>
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+</div>
+</div>
+<!-- WP Admin Body Split -->
+<div class="grid grid-cols-1 lg:grid-cols-12 bg-surface">
+<!-- WP Sidebar (Collapsed) -->
+<div class="hidden lg:block lg:col-span-2 bg-slate-800 text-slate-300 p-4 text-xs font-medium space-y-4">
+<div class="text-slate-400 uppercase tracking-widest text-[10px]">WordPress Core</div>
+<div class="space-y-1.5">
+<div class="p-2 rounded text-slate-400 hover:text-white">Dashboard</div>
+<div class="p-2 rounded text-slate-400 hover:text-white">Posts</div>
+<div class="p-2 rounded text-slate-400 hover:text-white">WooCommerce</div>
+<div class="p-2 rounded bg-primary-container text-white font-semibold flex items-center justify-between">
+<span>UpdateProof</span>
+<span class="px-1.5 py-0.2 rounded bg-blue-800 text-[10px]">SAFE</span>
+</div>
+<div class="p-2 rounded text-slate-400 hover:text-white">Settings</div>
+</div>
+</div>
+<!-- Main WP Canvas -->
+<div class="lg:col-span-10 p-6 space-y-6">
+<!-- Suite Status Row -->
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+<div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Monitored Routes</span>
+<div class="text-metric-stat font-metric-stat text-text-primary mt-1">12 Pages</div>
+<span class="text-body-sm text-text-secondary">Key conversion paths</span>
+</div>
+<div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Last Safety Check</span>
+<div class="text-metric-stat font-metric-stat text-text-primary mt-1">Today, 08:30</div>
+<span class="text-body-sm text-status-success font-medium">&#10003; 100% Verified Clean</span>
+</div>
+<div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Browser Engine</span>
+<div class="text-metric-stat font-metric-stat text-text-primary mt-1">Playwright</div>
+<span class="text-body-sm text-text-secondary">Headless Chromium 128</span>
+</div>
+<div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Audit Trail Store</span>
+<div class="text-metric-stat font-metric-stat text-text-primary mt-1">Local SQL</div>
+<span class="text-body-sm text-text-secondary">Encrypted on-server</span>
+</div>
+</div>
+<!-- Pending Verification Table in WP UI -->
+<div class="bg-surface-card rounded-xl border border-border-subtle overflow-hidden">
+<div class="px-5 py-3 border-b border-border-subtle bg-surface-container-low flex justify-between items-center">
+<h4 class="text-body-md font-semibold text-text-primary">Safety Check Suite &mdash; Target Updates</h4>
+<a class="text-primary text-body-sm font-semibold hover:underline" href="#how-it-works">
+                    See How UpdateProof Works ↓
+                  </a>
+</div>
+<div class="divide-y divide-border-subtle">
+<div class="px-5 py-3.5 flex items-center justify-between text-body-sm">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="inventory_2">inventory_2</span>
+<div>
+<div class="font-semibold text-text-primary">WooCommerce core (8.9.2 &rarr; 9.4.2)</div>
+<div class="text-text-secondary text-xs">Monitored: /cart, /checkout, /shop, /my-account</div>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded text-evidence-mono-sm bg-emerald-50 text-status-success border border-emerald-200">
+                      Baseline Captured
+                    </span>
+</div>
+<div class="px-5 py-3.5 flex items-center justify-between text-body-sm">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="extension">extension</span>
+<div>
+<div class="font-semibold text-text-primary">Advanced Custom Fields PRO (6.2 &rarr; 6.3.1)</div>
+<div class="text-text-secondary text-xs">Monitored: /custom-templates, /single-products</div>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded text-evidence-mono-sm bg-blue-50 text-primary-container border border-blue-200">
+                      Diff Worker Ready
+                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. 4-STEP VERIFICATION WORKFLOW -->
+<section class="py-20 bg-surface-container-low border-b border-border-subtle" id="how-it-works">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">A SIMPLE VERIFICATION WORKFLOW</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            Four steps. A clearer maintenance record.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            Repeatable routines designed for freelancers and agencies who take maintenance seriously.
+          </p>
+</div>
+<!-- 4 Step Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Step 1 -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-evidence-mono-lg font-evidence-mono-lg text-primary-container font-bold px-2 py-0.5 rounded bg-blue-50 border border-blue-100">01</span>
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary uppercase">CHECK</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">Run the safety check.</h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Trigger manual or scheduled checks. Automatically crawl designated critical paths before and after updates apply.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-body-sm text-text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="task_alt">task_alt</span>
+              Pre-flight baseline snap
+            </div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-evidence-mono-lg font-evidence-mono-lg text-primary-container font-bold px-2 py-0.5 rounded bg-blue-50 border border-blue-100">02</span>
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary uppercase">REVIEW</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">See what changed.</h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Inspect page responses, screenshots, and visual diffs side-by-side to catch layout regressions and broken scripts.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-body-sm text-text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="compare">compare</span>
+              Visual regression diffs
+            </div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-evidence-mono-lg font-evidence-mono-lg text-primary-container font-bold px-2 py-0.5 rounded bg-blue-50 border border-blue-100">03</span>
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary uppercase">RECORD</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">Keep the history.</h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Review previous checks and immutable local timestamps to prove exactly when and how components were updated.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-body-sm text-text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="inventory">inventory</span>
+              Tamper-proof audit logs
+            </div>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm relative flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-evidence-mono-lg font-evidence-mono-lg text-primary-container font-bold px-2 py-0.5 rounded bg-blue-50 border border-blue-100">04</span>
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary uppercase">REPORT</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-2">Show what was verified.</h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Export maintenance results into clean, client-ready reports that explain technical work with concrete evidence.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-body-sm text-text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="summarize">summarize</span>
+              Sharable client HTML reports
+            </div>
+</div>
+</div>
+<div class="mt-12 text-center text-body-md text-text-secondary font-medium">
+          Your maintenance workflow, with evidence at every stage.
+        </div>
+</div>
+</section>
+<!-- 5. SIGNATURE PRODUCT DEMO (Visual Evidence Diff) -->
+<section class="py-20 bg-surface-card border-b border-border-subtle" id="diff-demo">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mb-12">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">SEE THE DIFFERENCE</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            A successful page response doesn't tell the whole story.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            Review visual browser evidence alongside page-check results to investigate unexpected changes.
+          </p>
+</div>
+<!-- Interactive Comparison Container -->
+<div class="bg-surface rounded-2xl border border-border-subtle shadow-lg overflow-hidden p-6 lg:p-8">
+<!-- Diff Inspection HUD Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-headline-sm font-headline-sm text-text-primary">Apex Outdoors Store &mdash; Checkout Flow</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-evidence-mono-sm bg-surface-card text-text-secondary border border-border-subtle">
+                  /checkout?step=payment
+                </span>
+</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary mt-1">
+                Trigger: WooCommerce 9.4.2 Major Minor Update &middot; Check ID: #chk-84920
+              </div>
+</div>
+<!-- Drift Telemetry Pills -->
+<div class="flex flex-wrap items-center gap-3">
+<span class="px-3 py-1.5 rounded-lg text-evidence-mono-sm font-evidence-mono-sm bg-emerald-50 text-status-success border border-emerald-200">
+                HTTP 200 OK
+              </span>
+<span class="px-3 py-1.5 rounded-lg text-evidence-mono-sm font-evidence-mono-sm bg-amber-50 text-status-warning border border-amber-200 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-warning"></span>
+                Visual Drift: 4.8% divergence
+              </span>
+<span class="px-3 py-1.5 rounded-lg text-evidence-mono-sm font-evidence-mono-sm bg-blue-50 text-primary-container border border-blue-200">
+                Chromium 128 Full-Page
+              </span>
+</div>
+</div>
+<!-- Diff Display Zone (Side-by-Side Verification Cards) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 my-8">
+<!-- Baseline Screen -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-body-md font-semibold text-text-primary flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                  Baseline State (Pre-Update &middot; v8.9.1)
+                </span>
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Captured: Oct 24, 09:12 AM</span>
+</div>
+<div class="bg-surface-card rounded-xl border border-border-subtle p-5 shadow-inner space-y-4">
+<div class="border-b border-border-subtle pb-3 flex justify-between items-center text-xs font-mono text-text-secondary">
+<span>Apex Outdoors Store</span>
+<span>Cart Items: 2</span>
+</div>
+<div class="space-y-3">
+<div class="h-4 bg-slate-100 rounded w-2/3"></div>
+<div class="h-3 bg-slate-100 rounded w-full"></div>
+<div class="h-24 bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-2">
+<div class="flex justify-between text-xs text-text-primary font-medium">
+<span>Subtotal</span>
+<span>$124.00</span>
+</div>
+<div class="flex justify-between text-xs text-text-primary font-medium">
+<span>Express Shipping</span>
+<span>$12.00</span>
+</div>
+<div class="pt-2 border-t border-slate-200 flex justify-between font-bold text-sm">
+<span>Total</span>
+<span>$136.00</span>
+</div>
+</div>
+<div class="w-full py-3 bg-primary-container text-white text-center rounded-lg font-semibold text-sm shadow-sm">
+                    Complete Purchase &rarr;
+                  </div>
+</div>
+</div>
+</div>
+<!-- Current State with Highlighted Visual Drift -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-body-md font-semibold text-text-primary flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                  Current State (Post-Update &middot; v9.4.2)
+                </span>
+<span class="text-evidence-mono-sm font-evidence-mono-sm text-status-warning font-semibold">Alert: CSS Collision</span>
+</div>
+<div class="bg-surface-card rounded-xl border-2 border-amber-300 p-5 shadow-inner space-y-4 relative">
+<!-- Highlight Indicator Overlay -->
+<div class="border-b border-border-subtle pb-3 flex justify-between items-center text-xs font-mono text-text-secondary">
+<span>Apex Outdoors Store</span>
+<span>Cart Items: 2</span>
+</div>
+<div class="space-y-3">
+<div class="h-4 bg-slate-100 rounded w-2/3"></div>
+<div class="h-3 bg-slate-100 rounded w-full"></div>
+<div class="h-24 bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-2">
+<div class="flex justify-between text-xs text-text-primary font-medium">
+<span>Subtotal</span>
+<span>$124.00</span>
+</div>
+<div class="flex justify-between text-xs text-text-primary font-medium">
+<span>Express Shipping</span>
+<span>$12.00</span>
+</div>
+<div class="pt-2 border-t border-slate-200 flex justify-between font-bold text-sm">
+<span>Total</span>
+<span>$136.00</span>
+</div>
+</div>
+<!-- Shifted displaced button in UI -->
+<div class="p-2 border-2 border-dashed border-status-warning rounded-lg bg-amber-50/50">
+<div class="text-[11px] font-mono text-status-warning mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="error">error</span>
+                      Element offset +48px &middot; Overlaps bottom navigation tray
+                    </div>
+<div class="w-3/4 ml-auto py-2 bg-primary-container/40 text-slate-700 text-center rounded text-xs font-semibold">
+                      Complete Purchase &rarr;
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Telemetry Bar -->
+<div class="bg-surface-card p-4 rounded-xl border border-border-subtle flex flex-col sm:flex-row items-center justify-between text-body-sm text-text-secondary gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-status-warning" data-icon="analytics">analytics</span>
+<span class="font-medium text-text-primary">Pixel Difference: 1,480 px²</span>
+<span class="text-text-secondary font-mono text-xs">(Confidence Score: 99.4%)</span>
+</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+              DOM Nodes Inspected: 1,842 &middot; 0 Script Exceptions Logged
+            </div>
+</div>
+<!-- Honest Disclosure Notice -->
+<div class="mt-6 pt-4 border-t border-border-subtle text-center text-body-sm text-text-secondary italic">
+            Visual evidence assists investigation. It does not guarantee that every website function has been tested.
+          </div>
+</div>
+</div>
+</section>
+<!-- 6. BENEFITS FOR PROFESSIONALS -->
+<section class="py-20 bg-surface-container-low border-b border-border-subtle">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mb-12">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">BUILT FOR PROFESSIONAL MAINTENANCE</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            Spend less time explaining what happened. Keep a clearer record of what you checked.
+          </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-card p-8 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[28px]" data-icon="event_repeat">event_repeat</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-3">
+                Make recurring maintenance more consistent
+              </h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Turn haphazard manual tab-clicking into scheduled, repeatable safety routines across all managed client domains.
+              </p>
+</div>
+<ul class="mt-8 space-y-2 text-body-sm text-text-secondary border-t border-border-subtle pt-4">
+<li class="flex items-center gap-2">&#10003; Scheduled execution cycles</li>
+<li class="flex items-center gap-2">&#10003; Critical pathway route coverage</li>
+</ul>
+</div>
+<div class="bg-surface-card p-8 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[28px]" data-icon="folder_zip">folder_zip</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-3">
+                Keep evidence you can revisit
+              </h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Eliminate “he said, she said” post-maintenance disputes with dated check history, browser screenshots, and stored evidence.
+              </p>
+</div>
+<ul class="mt-8 space-y-2 text-body-sm text-text-secondary border-t border-border-subtle pt-4">
+<li class="flex items-center gap-2">&#10003; Immutable local audit storage</li>
+<li class="flex items-center gap-2">&#10003; Pre- and post-upgrade snapshots</li>
+</ul>
+</div>
+<div class="bg-surface-card p-8 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[28px]" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-text-primary mb-3">
+                Give clients something clearer than “updated successfully”
+              </h3>
+<p class="text-body-md font-body-md text-text-secondary">
+                Deliver clean, executive-facing HTML verification reports that justify your monthly retainer fee without confusing technical jargon.
+              </p>
+</div>
+<ul class="mt-8 space-y-2 text-body-sm text-text-secondary border-t border-border-subtle pt-4">
+<li class="flex items-center gap-2">&#10003; Clear non-technical summaries</li>
+<li class="flex items-center gap-2">&#10003; Concrete proof of verified uptime</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. CLIENT REPORT PREVIEW (Single Consolidated Instance) -->
+<section class="py-20 bg-surface-card border-b border-border-subtle">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mb-12">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">CLIENT-READY REPORTING</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            You did the maintenance. Now show the evidence.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            Clients want to know what they're paying for. UpdateProof gives you a tangible artifact to share with every monthly retainer invoice.
+          </p>
+</div>
+<!-- Realistic HTML Maintenance Verification Report Mockup Container -->
+<div class="bg-surface-card rounded-2xl border border-border-subtle shadow-xl max-w-4xl mx-auto overflow-hidden">
+<!-- Sample Report Disclaimer Top Bar -->
+<div class="bg-slate-800 text-slate-200 px-6 py-2.5 flex items-center justify-between text-xs font-mono">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim" data-icon="article">article</span>
+              HTML MAINTENANCE VERIFICATION REPORT
+            </span>
+<span class="text-amber-300 font-semibold tracking-wider uppercase">SAMPLE REPORT &mdash; DEMO DATA</span>
+</div>
+<div class="p-8 space-y-8">
+<!-- Report Header Info -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-border-subtle gap-4">
+<div>
+<h3 class="text-headline-md font-headline-md text-text-primary">Monthly Verification Summary</h3>
+<div class="text-body-md text-text-secondary mt-1">Client: Apex Retail Global &middot; Site: apexoutdoors.store</div>
+</div>
+<div class="text-right sm:text-right">
+<span class="px-3 py-1 rounded-full text-evidence-mono-sm font-evidence-mono-sm bg-emerald-50 text-status-success border border-emerald-200 inline-block">
+                  Status: All Core Checks Passed
+                </span>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary mt-1.5">Executed: Oct 24, 2024 (v0.9.4)</div>
+</div>
+</div>
+<!-- Executive Summary -->
+<div class="bg-surface p-5 rounded-xl border border-border-subtle">
+<div class="text-headline-sm font-headline-sm text-text-primary mb-2">Executive Summary</div>
+<p class="text-body-md text-text-secondary leading-relaxed">
+                During this maintenance window, 3 core system packages were updated to resolve security advisories and enhance database efficiency. All 12 critical commercial checkout pages were checked via headless browser rendering. Visual styling and customer transaction flows were verified without layout anomalies.
+              </p>
+</div>
+<!-- Component Verification Table -->
+<div>
+<div class="text-headline-sm font-headline-sm text-text-primary mb-3">Component Verification Status</div>
+<div class="border border-border-subtle rounded-xl overflow-hidden">
+<table class="w-full text-left text-body-sm">
+<thead class="bg-surface-container text-text-secondary font-evidence-mono-sm uppercase text-xs">
+<tr>
+<th class="px-4 py-3">Component</th>
+<th class="px-4 py-3">Previous Version</th>
+<th class="px-4 py-3">Updated Version</th>
+<th class="px-4 py-3">Verification Result</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr>
+<td class="px-4 py-3.5 font-semibold text-text-primary">WordPress Core</td>
+<td class="px-4 py-3.5 text-text-secondary font-mono">6.5.4</td>
+<td class="px-4 py-3.5 text-text-primary font-mono">6.6.2</td>
+<td class="px-4 py-3.5 text-status-success font-semibold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-success"></span> Verified Stable
+                      </td>
+</tr>
+<tr>
+<td class="px-4 py-3.5 font-semibold text-text-primary">WooCommerce</td>
+<td class="px-4 py-3.5 text-text-secondary font-mono">8.9.2</td>
+<td class="px-4 py-3.5 text-text-primary font-mono">9.4.2</td>
+<td class="px-4 py-3.5 text-status-success font-semibold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-success"></span> Verified Stable
+                      </td>
+</tr>
+<tr>
+<td class="px-4 py-3.5 font-semibold text-text-primary">Advanced Custom Fields PRO</td>
+<td class="px-4 py-3.5 text-text-secondary font-mono">6.2.0</td>
+<td class="px-4 py-3.5 text-text-primary font-mono">6.3.1</td>
+<td class="px-4 py-3.5 text-status-success font-semibold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-success"></span> Verified Stable
+                      </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Visual Inspection Zone with Drift Telemetry -->
+<div class="p-4 rounded-xl border border-border-subtle bg-surface-container-low space-y-2">
+<div class="flex items-center justify-between text-body-sm font-semibold text-text-primary">
+<span>Visual Snapshot Inspection (Playwright Browser Engine)</span>
+<span class="text-status-success text-evidence-mono-sm font-mono">&#10003; 0 Breaking Regressions Detected</span>
+</div>
+<div class="text-body-sm text-text-secondary">
+                12/12 routes checked across desktop (1440px) and mobile (390px) viewports. Maximum layout variance measured: 0.12% (within normal dynamic content margins).
+              </div>
+</div>
+<!-- Transparent Limitations & Scope Statement -->
+<div class="pt-4 border-t border-border-subtle text-xs text-text-secondary space-y-1">
+<div class="font-semibold text-text-primary uppercase tracking-wide">Verification Scope &amp; Boundaries</div>
+<p>
+                This report confirms automated browser layout checks and response statuses at the time of execution. It does not replace full sandbox integration testing, user acceptance sign-off, or independent real-time payment gateway simulation.
+              </p>
+</div>
+</div>
+<div class="bg-surface-container px-8 py-3.5 border-t border-border-subtle flex justify-between items-center text-xs font-mono text-text-secondary">
+<span>UpdateProof Engine ID: ver-94028</span>
+<span>Generated locally on client infrastructure</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. TRUST & CREDIBILITY -->
+<section class="py-20 bg-surface-container-low border-b border-border-subtle">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mb-12">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">REAL SOFTWARE. REAL EVIDENCE.</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            See what UpdateProof actually does.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            No vague AI buzzwords or exaggerated claims. Here is our engineering architecture.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Block 1: WordPress.org Listing -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-4 text-primary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="deployed_code">deployed_code</span>
+<span class="font-bold text-headline-sm">Open Plugin Ecosystem</span>
+</div>
+<h3 class="text-body-lg font-semibold text-text-primary mb-2">
+                Available on WordPress.org
+              </h3>
+<p class="text-body-md text-text-secondary">
+                Hosted openly in the WordPress plugin repository with public source code, zero fake star ratings, and full adherence to core security guidelines.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle">
+<a class="text-primary hover:underline font-semibold text-body-sm inline-flex items-center gap-1" href="https://wordpress.org" rel="noopener noreferrer" target="_blank">
+                View repository page &rarr;
+              </a>
+</div>
+</div>
+<!-- Block 2: Headless Playwright Suite -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-4 text-primary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="web">web</span>
+<span class="font-bold text-headline-sm">Playwright Integration</span>
+</div>
+<h3 class="text-body-lg font-semibold text-text-primary mb-2">
+                Headless Chromium Engine
+              </h3>
+<p class="text-body-md text-text-secondary">
+                Runs authentic browser passes using Microsoft Playwright to inspect real CSS styling, DOM paint cycles, and layout shifts without user simulation hacks.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+              Chromium 128 &middot; WebKit compatible
+            </div>
+</div>
+<!-- Block 3: Local-First Storage -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-4 text-primary-container">
+<span class="material-symbols-outlined text-[24px]" data-icon="security">security</span>
+<span class="font-bold text-headline-sm">Local-First Storage</span>
+</div>
+<h3 class="text-body-lg font-semibold text-text-primary mb-2">
+                Zero Third-Party Vendor Locks
+              </h3>
+<p class="text-body-md text-text-secondary">
+                Evidence logs, database diffs, and verification metrics remain strictly inside your server or private worker. We do not harvest client data.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
+              GDPR Compliant &middot; On-Premise Store
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. EDUCATIONAL LEAD MAGNET -->
+<section class="py-16 bg-surface-card border-b border-border-subtle">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-3xl p-8 lg:p-12 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
+<div class="space-y-3 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-800/80 text-blue-200 text-evidence-mono-sm font-medium border border-blue-700">
+<span class="material-symbols-outlined text-[16px]" data-icon="quiz">quiz</span>
+              FREE MAINTENANCE SELF-ASSESSMENT
+            </div>
+<h2 class="text-headline-lg font-headline-lg font-bold tracking-tight text-white">
+              How confident are you in your WordPress maintenance process?
+            </h2>
+<p class="text-body-md text-slate-300">
+              Answer 7 diagnostic questions to evaluate your current verification blind spots, update risk profile, and client proof readiness.
+            </p>
+</div>
+<div class="shrink-0">
+<a class="inline-flex items-center px-6 py-4 rounded-xl bg-white text-slate-900 hover:bg-slate-100 font-semibold shadow-md transition-all active:scale-95 text-body-md" href="#pro-plans" data-updateproof-open-billing>
+              Take the 3-Minute Assessment &rarr;
+            </a>
+</div>
+</div>
+</div>
+</section>
+<!-- 10. TRANSPARENT PRICING -->
+<section class="py-20 bg-surface-container-low border-b border-border-subtle" id="pricing">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">SIMPLE ANNUAL PRICING</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            Start with one site. Grow as your maintenance work grows.
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            Predictable, transparent annual pricing. No complicated usage penalties or surprise overage charges.
+          </p>
+</div>
+<!-- 4 Pricing Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- FREE PLAN -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="text-headline-sm font-headline-sm text-text-primary">Free</div>
+<div class="mt-4 flex items-baseline">
+<span class="text-display font-display text-text-primary font-bold">&#8377;0</span>
+<span class="text-body-sm text-text-secondary ml-1.5">/year</span>
+</div>
+<p class="text-body-sm text-text-secondary mt-2">Core local workflow on your WordPress dashboard.</p>
+<ul class="mt-6 space-y-3 text-body-sm text-text-secondary border-t border-border-subtle pt-6">
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; 1 WordPress site</li>
+<li class="flex items-center gap-2">&#10003; Manual on-demand checks</li>
+<li class="flex items-center gap-2">&#10003; Local HTTP status auditing</li>
+<li class="flex items-center gap-2">&#10003; Community forum support</li>
+</ul>
+</div>
+<div class="mt-8">
+<a class="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-xl bg-surface hover:bg-surface-container text-text-primary border border-border-subtle font-semibold text-body-sm transition-colors" href="https://wordpress.org" rel="noopener noreferrer" target="_blank">
+                Install Free Plugin
+              </a>
+</div>
+</div>
+<!-- PRO PLAN (Most Popular Highlight) -->
+<div class="bg-surface-card p-6 rounded-2xl border-2 border-primary-container shadow-md relative flex flex-col justify-between">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary-container text-white text-[11px] font-evidence-mono-sm uppercase tracking-wider font-semibold">
+              Most Popular
+            </div>
+<div>
+<div class="text-headline-sm font-headline-sm text-text-primary">Pro</div>
+<div class="mt-4 flex items-baseline">
+<span class="text-display font-display text-text-primary font-bold">&#8377;2,999</span>
+<span class="text-body-sm text-text-secondary ml-1.5">/year</span>
+</div>
+<p class="text-body-sm text-text-secondary mt-2">Scheduled verification &amp; visual evidence for freelancers.</p>
+<ul class="mt-6 space-y-3 text-body-sm text-text-secondary border-t border-border-subtle pt-6">
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; Up to 2 WordPress sites</li>
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; Scheduled safety routines</li>
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; External browser visual diffs</li>
+<li class="flex items-center gap-2">&#10003; Client HTML report exports</li>
+<li class="flex items-center gap-2">&#10003; Email support channel</li>
+</ul>
+</div>
+<div class="mt-8">
+<a class="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-xl bg-primary-container hover:bg-primary text-white font-semibold text-body-sm shadow-sm transition-all active:scale-95" href="#pro-plans" data-updateproof-plan="pro_yearly">
+                Choose Pro
+              </a>
+</div>
+</div>
+<!-- BUSINESS PLAN -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="text-headline-sm font-headline-sm text-text-primary">Business</div>
+<div class="mt-4 flex items-baseline">
+<span class="text-display font-display text-text-primary font-bold">&#8377;6,999</span>
+<span class="text-body-sm text-text-secondary ml-1.5">/year</span>
+</div>
+<p class="text-body-sm text-text-secondary mt-2">For growing studios handling client retainers.</p>
+<ul class="mt-6 space-y-3 text-body-sm text-text-secondary border-t border-border-subtle pt-6">
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; Up to 5 WordPress sites</li>
+<li class="flex items-center gap-2">&#10003; All Pro features included</li>
+<li class="flex items-center gap-2">&#10003; Custom webhook triggers</li>
+<li class="flex items-center gap-2">&#10003; Extended audit history logs</li>
+<li class="flex items-center gap-2">&#10003; Priority support routing</li>
+</ul>
+</div>
+<div class="mt-8">
+<a class="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-xl bg-surface hover:bg-surface-container text-text-primary border border-border-subtle font-semibold text-body-sm transition-colors" href="#pro-plans" data-updateproof-plan="business_yearly">
+                Choose Business
+              </a>
+</div>
+</div>
+<!-- AGENCY PLAN -->
+<div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
+<div>
+<div class="text-headline-sm font-headline-sm text-text-primary">Agency</div>
+<div class="mt-4 flex items-baseline">
+<span class="text-display font-display text-text-primary font-bold">&#8377;14,999</span>
+<span class="text-body-sm text-text-secondary ml-1.5">/year</span>
+</div>
+<p class="text-body-sm text-text-secondary mt-2">Maximum capacity for established maintenance operations.</p>
+<ul class="mt-6 space-y-3 text-body-sm text-text-secondary border-t border-border-subtle pt-6">
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; Up to 25 WordPress sites</li>
+<li class="flex items-center gap-2">&#10003; White-label report branding</li>
+<li class="flex items-center gap-2">&#10003; Multi-seat agency console</li>
+<li class="flex items-center gap-2">&#10003; Custom crawler configurations</li>
+<li class="flex items-center gap-2">&#10003; Direct Slack engineer channel</li>
+</ul>
+</div>
+<div class="mt-8">
+<a class="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-xl bg-surface hover:bg-surface-container text-text-primary border border-border-subtle font-semibold text-body-sm transition-colors" href="#pro-plans" data-updateproof-plan="agency_yearly">
+                Choose Agency
+              </a>
+</div>
+</div>
+</div>
+<!-- Disclosure Notice -->
+<div class="mt-12 text-center text-body-sm text-text-secondary bg-surface-card max-w-xl mx-auto p-3.5 rounded-xl border border-border-subtle">
+<span class="font-semibold text-text-primary">Notice:</span> Pro plans are available now with annual licensing.
+        </div>
+</div>
+</section>
+<!-- 11. RISK REDUCTION / OBJECTION HANDLING -->
+<section class="py-20 bg-surface-card border-b border-border-subtle">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-3xl mb-12">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">NO SURPRISES</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            Know exactly what you're evaluating.
+          </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="p-6 rounded-2xl bg-surface border border-border-subtle space-y-2.5">
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="calendar_month">calendar_month</span>
+<h3 class="text-headline-sm font-headline-sm text-text-primary">Commercial Timeline</h3>
+<p class="text-body-sm text-text-secondary">
+              Pro is available now with annual plans and hosted browser verification.
+            </p>
+</div>
+<div class="p-6 rounded-2xl bg-surface border border-border-subtle space-y-2.5">
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="handyman">handyman</span>
+<h3 class="text-headline-sm font-headline-sm text-text-primary">No Magic Auto-Fixes</h3>
+<p class="text-body-sm text-text-secondary">
+              UpdateProof detects and logs changes for human review. We do not apply speculative auto-code mutations that could break your database.
+            </p>
+</div>
+<div class="p-6 rounded-2xl bg-surface border border-border-subtle space-y-2.5">
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="backup">backup</span>
+<h3 class="text-headline-sm font-headline-sm text-text-primary">Not a Backup Replacement</h3>
+<p class="text-body-sm text-text-secondary">
+              UpdateProof provides verification evidence. You should continue to run your existing server backups and disaster-recovery snapshots.
+            </p>
+</div>
+<div class="p-6 rounded-2xl bg-surface border border-border-subtle space-y-2.5">
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="credit_card_off">credit_card_off</span>
+<h3 class="text-headline-sm font-headline-sm text-text-primary">Secure annual payment</h3>
+<p class="text-body-sm text-text-secondary">
+              Annual plans include the full published Pro feature set.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 12. PAYMENT AND LICENSE DELIVERY -->
+<!-- 13. FAQ ACCORDION -->
+<section class="py-20 bg-surface-card border-b border-border-subtle" id="faq">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<div class="text-primary-container font-evidence-mono-sm text-body-sm font-semibold tracking-wider uppercase mb-2">COMMON QUESTIONS</div>
+<h2 class="text-headline-lg font-headline-lg text-text-primary tracking-tight">
+            Frequently Asked Questions
+          </h2>
+<p class="text-body-lg font-body-lg text-text-secondary mt-3">
+            Clear, honest answers about what UpdateProof does and does not do.
+          </p>
+</div>
+<div class="space-y-4">
+<details class="group bg-surface rounded-2xl border border-border-subtle p-6 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+<summary class="flex items-center justify-between font-semibold text-headline-sm text-text-primary">
+<span>How does visual regression diffing work without breaking site performance?</span>
+<span class="material-symbols-outlined text-text-secondary transition group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-text-secondary leading-relaxed border-t border-border-subtle pt-4">
+              In the free tier, page checks evaluate DOM status codes and headers locally. In the Pro tier, visual snapshots are rendered via an external headless Playwright container. The browser emulation runs entirely outside of your WordPress server's PHP execution thread, meaning visitor load is completely unaffected.
+            </div>
+</details>
+<details class="group bg-surface rounded-2xl border border-border-subtle p-6 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+<summary class="flex items-center justify-between font-semibold text-headline-sm text-text-primary">
+<span>Where are screenshots and verification histories stored?</span>
+<span class="material-symbols-outlined text-text-secondary transition group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-text-secondary leading-relaxed border-t border-border-subtle pt-4">
+              UpdateProof uses a local-first evidence paradigm. Verification histories, timestamps, and page diff logs are stored securely in your WordPress database or your designated private worker bucket. We do not harvest or resell your clients' internal site data.
+            </div>
+</details>
+<details class="group bg-surface rounded-2xl border border-border-subtle p-6 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+<summary class="flex items-center justify-between font-semibold text-headline-sm text-text-primary">
+<span>Does UpdateProof replace my existing backup plugin or rollbacks?</span>
+<span class="material-symbols-outlined text-text-secondary transition group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-text-secondary leading-relaxed border-t border-border-subtle pt-4">
+              No. UpdateProof is an automated verification suite, not a snapshot backup utility or hosting rollback engine. You should always maintain a standard backup system like UpdraftPlus, BlogVault, or your hosting provider's daily image snapshots. UpdateProof tells you when a rollback is actually needed.
+            </div>
+</details>
+<details class="group bg-surface rounded-2xl border border-border-subtle p-6 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+<summary class="flex items-center justify-between font-semibold text-headline-sm text-text-primary">
+<span>Can I customize or white-label the client reports?</span>
+<span class="material-symbols-outlined text-text-secondary transition group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-text-secondary leading-relaxed border-t border-border-subtle pt-4">
+              Yes. Agency tier licenses include complete white-label options allowing you to embed your agency logo, custom domain, and customized client disclaimers while suppressing UpdateProof branding from exported customer PDFs or HTML artifacts.
+            </div>
+</details>
+</div>
+</div>
+</section>
+<!-- 14. FINAL DARK NAVY CONVERSION SECTION -->
+<section class="py-24 bg-slate-900 text-white relative overflow-hidden">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-primary-fixed-dim text-evidence-mono-sm font-medium border border-slate-700">
+<img src="assets/updateproof-icon.png" alt="" class="reference-brand-icon">
+          BUILT FOR WORDPRESS RELIABILITY
+        </div>
+<h2 class="text-display font-display font-bold text-white tracking-tight leading-tight max-w-3xl mx-auto">
+          You Build Better Websites. We'll Help You Verify the Work.
+        </h2>
+<p class="text-body-lg text-slate-300 max-w-2xl mx-auto">
+          Activate UpdateProof Pro to safeguard your maintenance sprints, eliminate unverified layout drift, and provide client reports that prove your value.
+        </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+<a class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-primary-container hover:bg-primary text-white font-semibold shadow-lg text-body-md transition-all active:scale-95" href="#pro-plans" data-updateproof-open-billing>
+            Activate UpdateProof Pro &rarr;
+          </a>
+<a class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-body-md transition-colors" href="https://wordpress.org" rel="noopener noreferrer" target="_blank">
+            Get UpdateProof Free
+          </a>
+</div>
+<div class="text-body-sm text-slate-400 pt-2">
+          Pro available now &middot; Free to apply &middot; No credit card required
+        </div>
+</div>
+</section>
+</main>
+<!-- PROFESSIONAL FOOTER (Shared Component Implementation) -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface full-width border-t border-border-subtle dark:border-outline flat no shadows">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 w-full">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<!-- Brand Info Column -->
+<div class="space-y-4">
+<div class="flex items-center space-x-2">
+<div class="w-7 h-7 rounded bg-primary-container flex items-center justify-center text-white">
+<img src="assets/updateproof-icon.png" alt="" class="reference-brand-icon">
+</div>
+<span class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface">UpdateProof</span>
+</div>
+<p class="text-body-sm font-body-sm text-text-secondary dark:text-outline-variant leading-relaxed">
+            Automated verification suite and visual regression telemetry for WordPress professionals. Built by ZeroFrik.
+          </p>
+<div class="flex items-center space-x-2 text-evidence-mono-sm font-evidence-mono-sm text-status-success">
+<span class="w-2 h-2 rounded-full bg-status-success"></span>
+<span>All Verification Workers Online</span>
+</div>
+</div>
+<!-- Links Column 1: Product -->
+<div>
+<div class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface mb-3">Product</div>
+<ul class="space-y-2 text-body-sm font-body-sm text-text-secondary dark:text-outline-variant">
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#why">Why UpdateProof</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#how-it-works">How It Works</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#features">Features</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#pricing">Pricing</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="https://wordpress.org/plugins">WordPress.org Plugin</a></li>
+</ul>
+</div>
+<!-- Links Column 2: Resources & Documentation -->
+<div>
+<div class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface mb-3">Resources</div>
+<ul class="space-y-2 text-body-sm font-body-sm text-text-secondary dark:text-outline-variant">
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#">Documentation</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#diff-demo">Visual Diff Specs</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#faq">Security &amp; Compliance</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#">Contact Support</a></li>
+</ul>
+</div>
+<!-- Links Column 3: Trust & Legal -->
+<div>
+<div class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface mb-3">Legal &amp; Trust</div>
+<ul class="space-y-2 text-body-sm font-body-sm text-text-secondary dark:text-outline-variant">
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#">Telemetry Transparency</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#pro-plans" data-updateproof-open-billing>Pro Terms</a></li>
+</ul>
+</div>
+</div>
+<!-- Copyright Sub-bar -->
+<div class="pt-8 border-t border-border-subtle dark:border-outline flex flex-col sm:flex-row items-center justify-between text-evidence-mono-sm font-evidence-mono-sm text-text-secondary dark:text-outline-variant gap-4">
+<div>
+          &copy; 2025 UpdateProof by ZeroFrik. All rights reserved. Built for WordPress reliability professionals.
+        </div>
+<div class="flex items-center space-x-6">
+<span>Local-First Architecture</span>
+<span>Zero Client Tracking</span>
+</div>
+</div>
+</div>
+</footer>
 
-	<main id="top">
-		<section class="hero section-shell">
-			<div class="hero-copy">
-				<p class="eyebrow"><span class="eyebrow-dot"></span> Maintenance confidence for busy site owners</p>
-				<h1>Make every update a decision you can <em>defend.</em></h1>
-				<p class="hero-lede">UpdateProof gives you a calm, evidence-first workflow for site maintenance: check the site, test important pages, review what will change, and approve only when you are ready.</p>
-				<div class="hero-actions">
-					<a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Start free</a>
-					<a class="button button-quiet" href="#how-it-works">See how it works <span aria-hidden="true">&rarr;</span></a>
-				</div>
-				<div class="hero-note"><span class="note-check">&#10003;</span> Local by default &middot; No automatic updates &middot; Built by ZeroFrik</div>
-			</div>
-			<div class="hero-visual" aria-label="UpdateProof dashboard preview">
-				<div class="dashboard-window">
-					<div class="window-bar"><span class="window-dots"><i></i><i></i><i></i></span><span class="window-title">UpdateProof / Dashboard</span><span class="window-live">● Local</span></div>
-					<div class="dashboard-body">
-						<aside class="dashboard-side"><strong>UpdateProof</strong><span class="side-active">Dashboard</span><span>Site checks</span><span>Updates &amp; deploy</span><span>Help &amp; limits</span></aside>
-						<div class="dashboard-main">
-							<div class="dash-heading"><div><span class="dash-kicker">Good morning</span><h3>Your maintenance snapshot</h3></div><span class="risk-pill">● Low risk</span></div>
-							<div class="dash-metrics"><div><span>Site signal</span><b>Low risk</b><small>Updated just now</small></div><div><span>Updates found</span><b>3</b><small>Ready for review</small></div><div><span>Page checks</span><b>4/4</b><small>Passed</small></div></div>
-							<div class="dash-card"><div class="dash-card-head"><span>Update review</span><span class="tiny-label">Evidence collected</span></div><div class="update-row"><span class="status-icon">&#10003;</span><span><b>Plugin and theme updates</b><small>Review the plan before applying changes</small></span><span class="row-status">Review</span></div><div class="update-row"><span class="status-icon">&#10003;</span><span><b>Important pages</b><small>Homepage &middot; Contact &middot; About &middot; Pricing</small></span><span class="row-status green">Passed</span></div></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+<!-- UpdateProof Pro checkout, verification, and secure download popup -->
+<div id="pro-plans" class="billing-modal" data-updateproof-billing data-api-base="https://updateproof-platform-api.zerofrikdev.workers.dev" aria-hidden="true">
+  <div class="billing-modal-backdrop" data-updateproof-close-billing></div>
+  <div class="billing-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="billing-modal-title">
+    <button class="billing-modal-close" type="button" aria-label="Close payment window" data-updateproof-close-billing>&times;</button>
+    <div class="billing-modal-heading">
+      <div><p class="billing-eyebrow">UPDATEPROOF ANNUAL SUBSCRIPTION</p><h2 id="billing-modal-title">Activate UpdateProof Pro.</h2></div>
+      <p>Complete payment securely with Razorpay Subscriptions. After verification, your license key and secure Pro download link appear here.</p>
+    </div>
+    <div class="billing-card">
+      <div class="billing-copy"><span class="billing-badge">Annual plans</span><h3>One secure path from payment to Pro.</h3><p>Your entitlement continues until the paid expiry date even if you cancel renewal.</p><ul><li>Payment processed by Razorpay</li><li>License created after verification</li><li>Temporary secure Pro download link</li><li>Activate the number of sites in your plan</li></ul><button class="billing-existing-button" type="button" data-updateproof-show-download>Already purchased? Download Pro <span aria-hidden="true">&rarr;</span></button></div>
+      <form class="billing-form" data-updateproof-checkout-form>
+        <label for="updateproof-billing-email">Email for your license</label>
+        <input id="updateproof-billing-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        <label for="updateproof-billing-plan">Annual plan</label>
+        <select id="updateproof-billing-plan" name="plan"><option value="pro_yearly">Pro - &#8377;2,999/year - 2 websites</option><option value="business_yearly">Business - &#8377;6,999/year - 5 websites</option><option value="agency_yearly">Agency - &#8377;14,999/year - 25 websites</option></select>
+        <button class="billing-primary-button" type="submit">Continue to secure payment</button>
+        <p class="billing-message" data-billing-message role="status" aria-live="polite"></p>
+      </form>
+      <div class="billing-download-box" data-updateproof-download-panel>
+        <h3>Download UpdateProof Pro</h3><p>Enter your license key to create a secure, temporary download link for the latest Pro package.</p>
+        <form class="billing-download-form" data-updateproof-download-form data-api-base="https://updateproof-platform-api.zerofrikdev.workers.dev">
+          <label for="updateproof-download-license-key">Pro license key</label>
+          <input id="updateproof-download-license-key" name="license_key" type="password" autocomplete="off" required placeholder="UPD-XXXX-XXXX-XXXX">
+          <button class="billing-secondary-button" type="submit">Create download link</button>
+          <p class="billing-message" data-download-message role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+    <p class="billing-note">Your license key is generated only after the payment is verified by the UpdateProof licensing service. Do not share it publicly.</p>
+  </div>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="script.js"></script>
+</body></html>
 
-		<section class="signal-strip"><div class="section-shell signal-grid"><span>Built for people who maintain real sites</span><span>Freelancers</span><span>Agencies</span><span>Developers</span><span>Site owners</span></div></section>
 
-		<section id="how-it-works" class="section-shell section-block">
-			<div class="section-heading workflow-heading"><div><p class="eyebrow">A clearer maintenance rhythm</p><h2>From update anxiety to a simple decision.</h2></div><p>UpdateProof gives every maintenance window the same calm rhythm: establish a baseline, test what visitors see, review what will change, and approve only when the evidence is clear.</p></div>
-			<div class="steps-grid">
-				<article class="step-card step-card-check"><div class="step-top"><span class="step-number">01</span><span class="step-phase">Before you update</span></div><span class="step-icon" aria-hidden="true">◌</span><h3>Check</h3><p>Capture a local snapshot of your site, versions, updates, and current risk signal.</p><span class="step-result">You get a baseline</span></article>
-				<article class="step-card step-card-test"><div class="step-top"><span class="step-number">02</span><span class="step-phase">See what visitors see</span></div><span class="step-icon" aria-hidden="true">⌁</span><h3>Test</h3><p>Run HTTP checks and optional visual comparisons against the public pages that matter most.</p><span class="step-result">You get page evidence</span></article>
-				<article class="step-card step-card-review"><div class="step-top"><span class="step-number">03</span><span class="step-phase">Make the change visible</span></div><span class="step-icon" aria-hidden="true">◫</span><h3>Review</h3><p>See available plugin and theme changes, compare evidence, and create a reviewable plan.</p><span class="step-result">You get a clear plan</span></article>
-				<article class="step-card step-card-approve"><div class="step-top"><span class="step-number">04</span><span class="step-phase">When you are ready</span></div><span class="step-icon" aria-hidden="true">&#10003;</span><h3>Approve</h3><p>Choose the moment and explicitly approve. UpdateProof never changes the site just because an update exists.</p><span class="step-result">You keep control</span></article>
-			</div>
-			<div class="workflow-footer"><div><span class="workflow-footer-label">The result</span><strong>A maintenance record you can explain.</strong></div><div class="workflow-outcomes"><span><b>01</b> Baseline</span><span><b>02</b> Test results</span><span><b>03</b> Approval trail</span></div></div>
-		</section>
 
-		<section id="free" class="section-block tinted-section">
-			<div class="section-shell">
-				<div class="section-heading split-heading"><div><p class="eyebrow">Free / Base</p><h2>A safer starting point for every site.</h2></div><p>Useful evidence without sending site content to a remote dashboard. Install the free plugin and make your next maintenance window easier to explain.</p></div>
-				<div class="feature-grid">
-					<article class="feature-card"><span class="feature-icon blue">◎</span><h3>Safety snapshot</h3><p>Record WordPress, PHP, active plugins, theme details, updates, and a clear risk signal.</p></article>
-					<article class="feature-card"><span class="feature-icon mint">⌁</span><h3>Important page checks</h3><p>Check up to four same-site URLs for status, response time, and privacy-safe fingerprints.</p></article>
-					<article class="feature-card"><span class="feature-icon coral">▣</span><h3>Visual comparison</h3><p>Optionally compare up to three public pages with an administrator-owned Chromium worker.</p></article>
-					<article class="feature-card"><span class="feature-icon purple">◈</span><h3>Reviewable updates</h3><p>Create a plugin or theme deployment plan, review it, and approve it explicitly.</p></article>
-					<article class="feature-card"><span class="feature-icon yellow">↗</span><h3>After-update evidence</h3><p>Run checks after the update and keep a local deployment history for future reference.</p></article>
-					<article class="feature-card"><span class="feature-icon slate">⌘</span><h3>Developer-friendly API</h3><p>Use authenticated, read-only REST endpoints and optional per-site tokens for integrations.</p></article>
-				</div>
-				<div class="section-cta"><a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Install UpdateProof free</a><span>No credit card. No automatic deployment.</span></div>
-			</div>
-		</section>
-
-		<section id="screenshots" class="section-shell section-block screenshot-section">
-			<div class="section-heading screenshot-heading"><div><p class="eyebrow">Free plugin preview</p><h2>Simple evidence, visible at a glance.</h2></div><p>The Free plugin keeps the important maintenance signals in one clear admin workspace: what changed, what passed, and what needs your attention.</p></div>
-			<div class="screenshot-grid">
-				<figure class="screenshot-card"><div class="screenshot-frame"><img src="assets/screenshots/updateproof-free-overview.png" alt="UpdateProof Free safety snapshot overview showing a low risk signal and recent evidence"></div><figcaption><strong>Safety snapshot</strong><span>See your current risk signal, available updates, site health, and recent evidence before you make a change.</span></figcaption></figure>
-				<figure class="screenshot-card"><div class="screenshot-frame"><img src="assets/screenshots/updateproof-free-testing.png" alt="UpdateProof Free testing screen showing page checks and visual regression results"></div><figcaption><strong>Page and visual checks</strong><span>Test important public pages and review visual results before and after maintenance.</span></figcaption></figure>
-			</div>
-			<div class="screenshot-note"><span class="note-check">&#10003;</span><span>Representative product previews. Free / Base includes local snapshots, important page checks, optional visual regression, reviewable updates, and deployment history.</span></div>
-		</section>
-
-		<section id="pro" class="section-shell section-block pro-section">
-			<div class="pro-intro"><div><p class="eyebrow pro-eyebrow">UpdateProof Pro</p><h2>Keep the safety rhythm running.</h2><p>Pro adds recurring evidence, hosted browser verification, client-ready history, and license-backed access for freelancers, agencies, and teams who maintain important sites.</p></div><div class="pro-badge"><span class="pro-status-dot"></span>Available now<br><strong>Annual plans</strong></div></div>
-			<div class="pro-value-grid"><article class="pro-value-card"><span class="pro-value-icon">01</span><div><h3>Stay ahead of updates</h3><p>Schedule local safety checks so your next maintenance window starts with fresh evidence.</p></div></article><article class="pro-value-card"><span class="pro-value-icon">02</span><div><h3>Keep clients informed</h3><p>Use optional email summaries and recent history to make routine maintenance easier to report.</p></div></article><article class="pro-value-card"><span class="pro-value-icon">03</span><div><h3>Prepare before you approve</h3><p>Confirm a tested restore point before a Pro approval can move forward.</p></div></article></div>
-			<div class="pro-grid">
-				<div class="pro-list"><div class="pro-list-heading"><span class="pro-state available">Included in Pro</span><h3>Evidence that keeps running</h3></div><ul><li><span>&#10003;</span> Scheduled daily or weekly safety checks</li><li><span>&#10003;</span> Hosted browser and visual verification</li><li><span>&#10003;</span> Email summaries and delivery status</li><li><span>&#10003;</span> Recent Pro history and client-ready evidence</li><li><span>&#10003;</span> Guided Pro onboarding and license activation</li></ul></div>
-				<div class="pro-list coming-list"><div class="pro-list-heading"><span class="pro-state planned">Future expansion</span><h3>Additional capabilities</h3></div><ul><li><span>&rarr;</span> Backup and restore provider integrations</li><li><span>&rarr;</span> Staging or isolated test workflows</li><li><span>&rarr;</span> Verified rollback and restore actions</li><li><span>&rarr;</span> Team access and white-label reports</li><li><span>&rarr;</span> Larger agency and multi-site controls</li></ul></div>
-			</div>
-			<div class="pro-callout"><div><strong>Ready to use Pro?</strong><span>Choose an annual plan below. Payment, verification, license delivery, and Pro download happen securely in one popup.</span></div><a class="button button-light" href="#pricing" data-updateproof-open-billing>View Pro plans</a></div>
-			<div class="pro-next"><div><p class="eyebrow pro-eyebrow">Your next step</p><h3>Build confidence before you add complexity.</h3><p>Install Free today or choose Pro when recurring evidence and hosted browser verification fit your process.</p></div><ol><li><span>1</span><strong>Install Free</strong><small>Start with one site</small></li><li><span>2</span><strong>Run a snapshot</strong><small>See your current signal</small></li><li><span>3</span><strong>Activate Pro</strong><small>Automate the routine</small></li></ol><a class="button button-primary" href="#pricing" data-updateproof-open-billing>Activate Pro</a></div>
-		</section>
-
-		<section id="pricing" class="section-shell section-block pricing-section">
-			<div class="section-heading"><p class="eyebrow">Simple annual plans</p><h2>Start with one site. Grow when the workflow proves useful.</h2><p>Every paid plan is annual in V1 so the hosted browser checks and licensing service can remain maintained and reliable.</p></div>
-			<div class="pricing-grid">
-				<article class="pricing-card"><span class="billing-badge">Free</span><h3>Free</h3><strong class="pricing-amount">&#8377;0</strong><p>For individual site owners trying UpdateProof.</p><ul><li>1 website</li><li>Core local safety workflow</li><li>No subscription required</li></ul><a class="button button-quiet" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Install Free</a></article>
-				<article class="pricing-card pricing-card-featured"><span class="billing-badge">Recommended</span><h3>Pro</h3><strong class="pricing-amount">&#8377;2,999<span>/year</span></strong><p>For site owners and freelancers.</p><ul><li>Up to 2 websites</li><li>Scheduled safety evidence</li><li>Hosted browser verification</li></ul><a class="button button-primary" href="#pro-plans" data-updateproof-plan="pro_yearly">Choose Pro</a></article>
-				<article class="pricing-card"><span class="billing-badge">Growing teams</span><h3>Business</h3><strong class="pricing-amount">&#8377;6,999<span>/year</span></strong><p>For freelancers managing client websites.</p><ul><li>Up to 5 websites</li><li>Pro evidence and reports</li><li>Business plan limits</li></ul><a class="button button-primary" href="#pro-plans" data-updateproof-plan="business_yearly">Choose Business</a></article>
-				<article class="pricing-card"><span class="billing-badge">Agencies</span><h3>Agency</h3><strong class="pricing-amount">&#8377;14,999<span>/year</span></strong><p>For agencies and maintenance businesses.</p><ul><li>Up to 25 websites</li><li>Pro evidence and reports</li><li>Agency plan limits</li></ul><a class="button button-primary" href="#pro-plans" data-updateproof-plan="agency_yearly">Choose Agency</a></article>
-			</div>
-		</section>
-
-		<div id="pro-plans" class="billing-modal" data-updateproof-billing data-api-base="https://updateproof-platform-api.zerofrikdev.workers.dev" aria-hidden="true">
-			<div class="billing-modal-backdrop" data-updateproof-close-billing></div>
-			<div class="billing-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="billing-modal-title">
-				<button class="billing-modal-close" type="button" aria-label="Close payment window" data-updateproof-close-billing>&times;</button>
-				<div class="section-heading split-heading"><div><p class="eyebrow">UpdateProof annual subscription</p><h2 id="billing-modal-title">Activate UpdateProof Pro.</h2></div><p>Complete payment securely with Razorpay Subscriptions. After verification, your license key and secure Pro download link appear here.</p></div>
-				<div class="billing-card">
-				<div class="billing-copy"><span class="billing-badge">Annual plans</span><h3>One secure path from payment to Pro.</h3><p>Your entitlement continues until the paid expiry date even if you cancel renewal. The licensing service is the source of truth for activation and access.</p><ul><li>Payment processed by Razorpay</li><li>License created after verification</li><li>Temporary secure Pro download link</li><li>Activate on the number of sites in your plan</li></ul><button class="button button-quiet billing-existing-button" type="button" data-updateproof-show-download>Already purchased? Download Pro <span aria-hidden="true">&rarr;</span></button></div>
-				<form class="billing-form" data-updateproof-checkout-form>
-					<label for="updateproof-billing-email">Email for your license</label>
-					<input id="updateproof-billing-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
-					<label for="updateproof-billing-plan">Annual plan</label>
-					<select id="updateproof-billing-plan" name="plan"><option value="pro_yearly">Pro - &#8377;2,999/year - 2 websites</option><option value="business_yearly">Business - &#8377;6,999/year - 5 websites</option><option value="agency_yearly">Agency - &#8377;14,999/year - 25 websites</option></select>
-					<button class="button button-primary" type="submit">Continue to secure payment</button>
-					<p class="billing-message" data-billing-message role="status" aria-live="polite"></p>
-				</form>
-				<div class="billing-download-box" data-updateproof-download-panel>
-					<h3>Download UpdateProof Pro</h3>
-					<p>Enter your license key to create a secure, temporary download link for the latest Pro package.</p>
-					<form class="billing-form" data-updateproof-download-form data-api-base="https://updateproof-platform-api.zerofrikdev.workers.dev">
-						<label for="updateproof-download-license-key">Pro license key</label>
-						<input id="updateproof-download-license-key" name="license_key" type="password" autocomplete="off" required placeholder="UPD-XXXX-XXXX-XXXX">
-						<button class="button button-quiet" type="submit">Create download link</button>
-						<p class="billing-message" data-download-message role="status" aria-live="polite"></p>
-					</form>
-				</div>
-				</div>
-				<div class="billing-note">Your license key is generated only after the payment is verified by the UpdateProof licensing service. Do not share it publicly.</div>
-			</div>
-		</div>
-
-		<section class="section-shell section-block comparison-section">
-			<div class="section-heading"><p class="eyebrow">Choose your level of confidence</p><h2>Start free. Grow when the workflow proves useful.</h2></div>
-			<div class="comparison-table" role="table" aria-label="Free and Pro comparison"><div class="comparison-row comparison-head" role="row"><span>Capability</span><strong>Free / Base</strong><strong>Pro</strong></div><div class="comparison-row" role="row"><span>Safety snapshots</span><b>&#10003;</b><b>&#10003; Scheduled</b></div><div class="comparison-row" role="row"><span>Page and HTTP checks</span><b>&#10003; Up to 4 pages</b><b>&#10003; Automated</b></div><div class="comparison-row" role="row"><span>Visual regression</span><b>&#10003; 3 pages</b><b>More coverage planned</b></div><div class="comparison-row" role="row"><span>Update review and approval</span><b>&#10003;</b><b>&#10003; Recovery gate</b></div><div class="comparison-row" role="row"><span>Notifications and history</span><b>Basic</b><b>&#10003; Email + history</b></div><div class="comparison-row" role="row"><span>Backup and restore</span><b>&mdash;</b><b>Provider integration planned</b></div><div class="comparison-row" role="row"><span>Teams and client reports</span><b>&mdash;</b><b>Planned</b></div></div>
-		</section>
-
-		<section id="faq" class="section-shell section-block faq-section">
-			<div class="section-heading"><p class="eyebrow">Questions, answered plainly</p><h2>Designed to keep the important parts visible.</h2></div>
-			<div class="faq-list"><details open><summary>Does UpdateProof update my site automatically?</summary><p>No. The Free workflow requires you to create a plan and explicitly approve plugin or theme changes. Pro scheduled checks collect evidence; they do not apply updates automatically.</p></details><details><summary>What happens after I pay for Pro?</summary><p>Razorpay confirms the annual subscription, the licensing service verifies the payment, and the popup shows your license key plus a secure temporary download link. You also receive the license email.</p></details><details><summary>Does Pro include backup and restore?</summary><p>Not yet. UpdateProof records recovery readiness, but you should continue using your hosting backup or backup provider. A real integration will be added only after it is tested.</p></details><details><summary>Who is UpdateProof for?</summary><p>Freelancers, agencies, developers, and site owners who want a simple maintenance record before and after updates.</p></details></div>
-		</section>
-
-		<section class="section-shell final-cta"><p class="eyebrow">Your next update can feel different</p><h2>Check first. Update with evidence.</h2><p>Start with the free plugin or activate Pro when you are ready for recurring hosted verification.</p><div class="hero-actions"><a class="button button-primary" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Get UpdateProof free</a><a class="button button-quiet" href="#pricing" data-updateproof-open-billing>Activate Pro <span aria-hidden="true">&rarr;</span></a></div></section>
-	</main>
-
-	<footer class="site-footer"><div class="section-shell footer-inner"><a class="brand" href="#top"><span class="brand-mark"><img src="assets/updateproof-icon.png" alt=""></span><span>UpdateProof</span></a><span>Built by ZeroFrik &middot; Maintenance safety with less guesswork.</span><span>&copy; <span id="year"></span> ZeroFrik</span></div></footer>
-	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-	<script src="script.js"></script>
-</body>
-</html>
+---BILLINGCSS---
+.reference-brand-icon { display: block; height: 24px; object-fit: cover; width: 24px; }
+.billing-modal { display: none; inset: 0; position: fixed; z-index: 100; }
+.billing-modal.is-open { display: block; }
+.billing-modal-backdrop { background: rgba(16,24,40,.62); inset: 0; position: absolute; }
+.billing-modal-dialog { background: #f7f9fb; border: 1px solid #e4e7ec; border-radius: 20px; box-shadow: 0 20px 24px -4px rgba(16,24,40,.18); color: #101828; left: 50%; max-height: calc(100vh - 32px); max-width: 1040px; overflow: auto; padding: 42px 28px 28px; position: absolute; top: 50%; transform: translate(-50%, -50%); width: calc(100% - 32px); }
+.billing-modal-close { align-items: center; background: #fff; border: 1px solid #e4e7ec; border-radius: 50%; color: #475467; cursor: pointer; display: flex; font-size: 24px; height: 36px; justify-content: center; line-height: 1; position: absolute; right: 18px; top: 16px; width: 36px; }
+.billing-modal-close:hover { color: #101828; }
+.billing-modal-heading { align-items: end; display: grid; gap: 24px; grid-template-columns: 1fr 1fr; margin-bottom: 24px; padding-right: 42px; }
+.billing-modal-heading h2 { color: #101828; font-family: "Plus Jakarta Sans", Inter, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; margin: 0; }
+.billing-modal-heading > p { color: #475467; font-family: Inter, sans-serif; font-size: 16px; line-height: 1.5; margin: 0; }
+.billing-eyebrow { color: #175cd3; font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .08em; margin: 0 0 8px; }
+.billing-card { background: #fff; border: 1px solid #e4e7ec; border-radius: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.05), 0 12px 16px -4px rgba(16,24,40,.08); display: grid; gap: 24px; grid-template-columns: .95fr 1.05fr; padding: 24px; }
+.billing-copy h3, .billing-download-box h3 { color: #101828; font-family: "Plus Jakarta Sans", Inter, sans-serif; font-size: 24px; line-height: 1.3; margin: 14px 0 8px; }
+.billing-copy p, .billing-copy ul, .billing-download-box p { color: #475467; font-family: Inter, sans-serif; font-size: 14px; line-height: 1.55; }
+.billing-copy ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.billing-copy li { margin: 7px 0; }
+.billing-copy li::before { color: #16a34a; content: '\2713'; font-weight: 700; margin-right: 8px; }
+.billing-badge { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; color: #175cd3; display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 600; letter-spacing: .06em; padding: 6px 9px; text-transform: uppercase; }
+.billing-form, .billing-download-form { background: #f8fafc; border: 1px solid #e4e7ec; border-radius: 12px; display: grid; gap: 10px; padding: 20px; }
+.billing-form label, .billing-download-form label { color: #101828; font-family: Inter, sans-serif; font-size: 13px; font-weight: 600; }
+.billing-form input, .billing-form select, .billing-download-form input { background: #fff; border: 1px solid #d0d5dd; border-radius: 12px; box-sizing: border-box; color: #101828; font: 14px Inter, sans-serif; height: 44px; padding: 0 12px; width: 100%; }
+.billing-form input:focus, .billing-form select:focus, .billing-download-form input:focus { border-color: #175cd3; box-shadow: 0 0 0 3px rgba(23,92,211,.12); outline: none; }
+.billing-primary-button, .billing-secondary-button, .billing-download-link { background: #175cd3; border: 0; border-radius: 12px; color: #fff; cursor: pointer; display: inline-flex; font: 600 14px Inter, sans-serif; justify-content: center; padding: 12px 16px; text-decoration: none; }
+.billing-primary-button:hover, .billing-secondary-button:hover, .billing-download-link:hover { background: #154fb5; }
+.billing-secondary-button { background: #fff; border: 1px solid #e4e7ec; color: #101828; }
+.billing-secondary-button:hover { background: #f8fafc; color: #175cd3; }
+.billing-message { color: #475467; font: 12px/1.5 Inter, sans-serif; min-height: 18px; overflow-wrap: anywhere; }
+.billing-message-success { background: #dcfce7; border: 1px solid #bbf7d0; border-radius: 8px; color: #166534; padding: 12px; }
+.billing-message-success code { background: #fff; border: 1px solid #bbf7d0; border-radius: 4px; color: #166534; display: inline-block; margin-top: 4px; padding: 4px 6px; word-break: break-all; }
+.billing-copy-key { background: transparent; border: 1px solid #16a34a; border-radius: 6px; color: #166534; cursor: pointer; font: 600 12px Inter, sans-serif; padding: 5px 8px; }
+.billing-download-box { border-top: 1px solid #e4e7ec; grid-column: 1 / -1; padding-top: 20px; }
+.billing-download-box.is-highlighted { animation: billing-focus 1.2s ease; }
+.billing-existing-button { background: transparent; border: 0; color: #175cd3; cursor: pointer; font: 600 13px Inter, sans-serif; margin-top: 18px; padding: 0; }
+.billing-note { color: #667085; font: 12px/1.5 Inter, sans-serif; margin: 14px auto 0; text-align: center; }
+body.modal-open { overflow: hidden; }
+@keyframes billing-focus { 0%,100% { box-shadow: 0 0 0 0 rgba(23,92,211,0); } 35% { box-shadow: 0 0 0 4px rgba(23,92,211,.16); } }
+@media (max-width: 700px) { .billing-modal-dialog { padding: 38px 16px 18px; } .billing-modal-heading { display: block; padding-right: 20px; } .billing-modal-heading > p { margin-top: 14px; } .billing-modal-heading h2 { font-size: 27px; } .billing-card { grid-template-columns: 1fr; padding: 16px; } .billing-download-box { grid-column: auto; } }
 
