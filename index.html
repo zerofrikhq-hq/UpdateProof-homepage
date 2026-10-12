@@ -2,6 +2,7 @@
 
 <html class="scroll-smooth" lang="en"><head>
 <link rel="stylesheet" href="billing-modal.css">
+<link rel="stylesheet" href="hero-demo.css">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>UpdateProof &mdash; Verification &amp; Visual Regression for WordPress Maintenance</title>
@@ -147,7 +148,7 @@
 </head>
 <body class="bg-surface text-text-primary antialiased font-body-md selection:bg-primary-fixed selection:text-primary">
 <!-- TOPNAVBAR (Shared Component Implementation) -->
-<header class="bg-surface-card/90 dark:bg-inverse-surface/90 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-border-subtle dark:border-outline shadow-sm dark:shadow-none">
+<header class="bg-surface-card/90 dark:bg-inverse-surface/90 backdrop-blur-md docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 w-full">
 <!-- Brand & Version Tag -->
 <div class="flex items-center space-x-3">
@@ -163,7 +164,7 @@
 </div>
 <!-- Navigation Links -->
 <nav class="hidden md:flex items-center space-x-8">
-<a class="text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1 text-body-md font-body-md transition-colors duration-150" href="#why">Why UpdateProof</a>
+<a class="text-primary dark:text-inverse-primary font-semibold text-body-md font-body-md transition-colors duration-150" href="#why">Why UpdateProof</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#how-it-works">How It Works</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#features">Features</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#pricing">Pricing</a>
@@ -171,7 +172,7 @@
 </nav>
 <!-- Trailing CTAs -->
 <div class="flex items-center space-x-4">
-<a class="hidden sm:inline-flex text-body-md font-body-md font-semibold text-text-secondary hover:text-primary transition-colors" href="https://wordpress.org/plugins" rel="noopener noreferrer" target="_blank">
+<a class="hidden sm:inline-flex text-body-md font-body-md font-semibold text-text-secondary hover:text-primary transition-colors" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">
           Get Free Plugin
         </a>
 <a class="inline-flex items-center px-4 py-2 rounded-xl bg-primary-container hover:bg-primary text-on-primary text-body-md font-body-md font-semibold shadow-sm transition-all duration-150 active:scale-95" href="#pro-plans" data-updateproof-open-billing>
@@ -206,10 +207,6 @@
 <a class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-body-md font-semibold shadow-sm transition-all active:scale-95" href="#pro-plans" data-updateproof-open-billing>
 <span>Activate Pro &rarr;</span>
 </a>
-<a class="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-surface-card hover:bg-surface-container border border-border-subtle text-text-primary font-body-md font-semibold transition-colors" href="#diff-demo">
-<span class="material-symbols-outlined text-[18px] mr-2 text-text-secondary" data-icon="play_circle">play_circle</span>
-                Watch the 2-Minute Demo
-              </a>
 </div>
 <!-- Risk Reversal Microcopy -->
 <p class="text-body-sm font-body-sm text-text-secondary flex items-center gap-1.5">
@@ -232,111 +229,29 @@
 </div>
 </div>
 </div>
-<!-- Right Column: Inspector UI Mockup (Two-column Visual Evidence Node) -->
+<!-- Right Column: Self-contained UpdateProof demo reel -->
 <div class="lg:col-span-6">
-<div class="bg-surface-card rounded-2xl border border-border-subtle shadow-lg overflow-hidden">
-<!-- Window Chrome Header -->
-<div class="bg-surface-container-high px-4 py-3 border-b border-border-subtle flex items-center justify-between">
-<div class="flex items-center space-x-2">
-<div class="w-3 h-3 rounded-full bg-red-400"></div>
-<div class="w-3 h-3 rounded-full bg-amber-400"></div>
-<div class="w-3 h-3 rounded-full bg-emerald-400"></div>
-<span class="ml-2 text-evidence-mono-sm font-evidence-mono-sm text-text-secondary truncate">
-                    Target: WooCommerce 9.4.2 Update | Chromium 128.0
-                  </span>
+<div class="updateproof-demo-player" aria-label="UpdateProof product demo">
+<div class="updateproof-demo-chrome">
+<div class="updateproof-demo-dots"><i></i><i></i><i></i></div>
+<span>UpdateProof &middot; Safety workspace</span>
+<span class="updateproof-demo-live"><b></b> LIVE DEMO</span>
 </div>
-<span class="text-[10px] font-evidence-mono-sm px-2 py-0.5 rounded bg-surface-card text-text-secondary border border-border-subtle">
-                  HEADLESS PLAYWRIGHT
-                </span>
+<div class="updateproof-demo-stage">
+<div class="updateproof-demo-frame updateproof-demo-frame-one">
+<div class="updateproof-demo-sidebar"><strong>UPDATEPROOF</strong><span class="active">Safety snapshot</span><span>Checks</span><span>History</span></div>
+<div class="updateproof-demo-content"><div class="updateproof-demo-heading"><span>Safety snapshot</span><em>LOW RISK</em></div><p>Before the update</p><div class="updateproof-demo-stats"><b>WordPress<br><small>6.8.2</small></b><b>PHP<br><small>8.3</small></b><b>Updates<br><small>3 found</small></b></div><div class="updateproof-demo-row"><span>Critical pages checked</span><strong>3 / 3 ready</strong></div></div>
 </div>
-<!-- Inspector Telemetry Top Bar -->
-<div class="grid grid-cols-3 divide-x divide-border-subtle bg-surface-container-low text-center py-2.5 border-b border-border-subtle">
-<div>
-<div class="text-[11px] text-text-secondary uppercase tracking-wider font-semibold">Response</div>
-<div class="text-evidence-mono-sm font-evidence-mono-sm text-status-success font-semibold flex items-center justify-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> HTTP 200 OK
-                  </div>
+<div class="updateproof-demo-frame updateproof-demo-frame-two">
+<div class="updateproof-demo-sidebar"><strong>UPDATEPROOF</strong><span>Safety snapshot</span><span class="active">Checks</span><span>History</span></div>
+<div class="updateproof-demo-content"><div class="updateproof-demo-heading"><span>Post-update checks</span><em class="success">PASSED</em></div><p>Review the evidence</p><div class="updateproof-demo-check"><span>200</span><strong>Homepage rendered</strong><small>245 ms</small></div><div class="updateproof-demo-check"><span>200</span><strong>Contact page rendered</strong><small>318 ms</small></div><div class="updateproof-demo-check"><span>&#10003;</span><strong>Visual baseline matched</strong><small>0 changes</small></div></div>
 </div>
-<div>
-<div class="text-[11px] text-text-secondary uppercase tracking-wider font-semibold">Layout Regressions</div>
-<div class="text-evidence-mono-sm font-evidence-mono-sm text-status-warning font-semibold flex items-center justify-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-status-warning animate-pulse"></span> 1 Alert Detected
-                  </div>
-</div>
-<div>
-<div class="text-[11px] text-text-secondary uppercase tracking-wider font-semibold">Verification</div>
-<div class="text-evidence-mono-sm font-evidence-mono-sm text-primary-container font-semibold">
-                    Requires Review
-                  </div>
+<div class="updateproof-demo-frame updateproof-demo-frame-three">
+<div class="updateproof-demo-sidebar"><strong>UPDATEPROOF</strong><span>Safety snapshot</span><span>Checks</span><span class="active">History</span></div>
+<div class="updateproof-demo-content"><div class="updateproof-demo-heading"><span>Maintenance history</span><em class="success">EVIDENCE SAVED</em></div><p>Client-ready record</p><div class="updateproof-demo-history"><strong>Plugin update verified</strong><span>Today &middot; 10:42 UTC</span><b>Approved</b></div><div class="updateproof-demo-history"><strong>Baseline captured</strong><span>Today &middot; 10:38 UTC</span><b>Complete</b></div></div>
 </div>
 </div>
-<!-- Side-by-Side Diff Viewport -->
-<div class="p-4 grid grid-cols-2 gap-3 bg-surface-container">
-<!-- Baseline Pre-Update Card -->
-<div class="bg-surface-card rounded-xl p-3 border border-border-subtle shadow-sm flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between pb-2 mb-2 border-b border-border-subtle">
-<span class="text-body-sm font-semibold text-text-primary">Baseline (Pre-Update)</span>
-<span class="px-2 py-0.5 rounded text-[10px] font-evidence-mono-sm bg-emerald-50 text-status-success border border-emerald-200">
-                        200 OK
-                      </span>
-</div>
-<!-- Wireframe Site Snapshot -->
-<div class="space-y-2 py-2">
-<div class="h-3 w-3/4 bg-surface-container-high rounded"></div>
-<div class="h-2 w-full bg-surface-container rounded"></div>
-<div class="h-2 w-5/6 bg-surface-container rounded"></div>
-<div class="mt-4 p-2 bg-slate-50 rounded border border-slate-200">
-<div class="h-2 w-1/3 bg-slate-300 rounded mb-2"></div>
-<div class="h-6 w-full bg-primary-container/20 rounded flex items-center justify-center text-[10px] text-primary-container font-medium">
-                          [ Place Order &mdash; $89.00 ]
-                        </div>
-</div>
-</div>
-</div>
-<div class="text-[11px] font-evidence-mono-sm text-text-secondary pt-2 border-t border-border-subtle flex justify-between">
-<span>Render: 142ms</span>
-<span>DOM: Stable</span>
-</div>
-</div>
-<!-- Current Post-Update Card With Alert -->
-<div class="bg-surface-card rounded-xl p-3 border-2 border-status-warning/40 shadow-sm relative flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between pb-2 mb-2 border-b border-border-subtle">
-<span class="text-body-sm font-semibold text-text-primary">Current (Post-Update)</span>
-<span class="px-2 py-0.5 rounded text-[10px] font-evidence-mono-sm bg-amber-50 text-status-warning border border-amber-200 flex items-center gap-1">
-                        1 Drift Alert
-                      </span>
-</div>
-<!-- Wireframe Broken Site Snapshot -->
-<div class="space-y-2 py-2">
-<div class="h-3 w-3/4 bg-surface-container-high rounded"></div>
-<div class="h-2 w-full bg-surface-container rounded"></div>
-<div class="mt-2 p-2 bg-amber-50/60 rounded border border-dashed border-status-warning relative">
-<div class="h-2 w-1/3 bg-slate-300 rounded mb-2"></div>
-<!-- Displaced CTA Wireframe -->
-<div class="h-6 w-1/2 ml-auto bg-primary-container/20 border border-status-warning rounded flex items-center justify-center text-[10px] text-status-warning font-mono">
-                          [ Displaced CTA +48px ]
-                        </div>
-</div>
-<div class="h-2 w-1/2 bg-red-100 rounded"></div>
-</div>
-</div>
-<div class="text-[11px] font-evidence-mono-sm text-status-warning pt-2 border-t border-border-subtle font-medium">
-                    ! CSS Grid Shift: 48px offset
-                  </div>
-</div>
-</div>
-<!-- Footer Verification Note -->
-<div class="bg-surface-card px-4 py-2.5 border-t border-border-subtle flex items-center justify-between text-[11px] font-evidence-mono-sm text-text-secondary">
-<span class="flex items-center gap-1 text-status-warning">
-<span class="material-symbols-outlined text-[14px]" data-icon="report_problem">report_problem</span>
-                  Checkout CTA displaced by 48px after plugin update
-                </span>
-<span class="text-text-secondary uppercase">ILLUSTRATIVE VERIFICATION EVIDENCE &mdash; DEMO DATA</span>
-</div>
-</div>
-</div>
+<div class="updateproof-demo-footer"><span><b></b> 3-step verification in motion</span><span class="updateproof-demo-progress"></span><span>Local evidence &middot; No visitor tracking</span></div>
 </div>
 </div>
 </section>
@@ -1000,7 +915,7 @@
               </p>
 </div>
 <div class="mt-6 pt-4 border-t border-border-subtle">
-<a class="text-primary hover:underline font-semibold text-body-sm inline-flex items-center gap-1" href="https://wordpress.org" rel="noopener noreferrer" target="_blank">
+<a class="text-primary hover:underline font-semibold text-body-sm inline-flex items-center gap-1" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">
                 View repository page &rarr;
               </a>
 </div>
@@ -1093,13 +1008,14 @@
 <p class="text-body-sm text-text-secondary mt-2">Core local workflow on your WordPress dashboard.</p>
 <ul class="mt-6 space-y-3 text-body-sm text-text-secondary border-t border-border-subtle pt-6">
 <li class="flex items-center gap-2 text-text-primary font-medium">&#10003; 1 WordPress site</li>
+<li class="flex items-center gap-2 text-text-primary font-medium">&#10003; Up to 3 public pages</li>
 <li class="flex items-center gap-2">&#10003; Manual on-demand checks</li>
 <li class="flex items-center gap-2">&#10003; Local HTTP status auditing</li>
 <li class="flex items-center gap-2">&#10003; Community forum support</li>
 </ul>
 </div>
 <div class="mt-8">
-<a class="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-xl bg-surface hover:bg-surface-container text-text-primary border border-border-subtle font-semibold text-body-sm transition-colors" href="https://wordpress.org" rel="noopener noreferrer" target="_blank">
+<a class="w-full inline-flex justify-center items-center py-2.5 px-4 rounded-xl bg-surface hover:bg-surface-container text-text-primary border border-border-subtle font-semibold text-body-sm transition-colors" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">
                 Install Free Plugin
               </a>
 </div>
@@ -1294,7 +1210,7 @@
 <a class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-primary-container hover:bg-primary text-white font-semibold shadow-lg text-body-md transition-all active:scale-95" href="#pro-plans" data-updateproof-open-billing>
             Activate UpdateProof Pro &rarr;
           </a>
-<a class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-body-md transition-colors" href="https://wordpress.org" rel="noopener noreferrer" target="_blank">
+<a class="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-body-md transition-colors" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">
             Get UpdateProof Free
           </a>
 </div>
@@ -1332,7 +1248,7 @@
 <li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#how-it-works">How It Works</a></li>
 <li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#features">Features</a></li>
 <li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="#pricing">Pricing</a></li>
-<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="https://wordpress.org/plugins">WordPress.org Plugin</a></li>
+<li><a class="hover:text-primary dark:hover:text-inverse-primary transition-colors duration-150" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">WordPress.org Plugin</a></li>
 </ul>
 </div>
 <!-- Links Column 2: Resources & Documentation -->
