@@ -238,6 +238,170 @@
 			});
 		});
 	}
+
+	var assessment = document.querySelector('[data-updateproof-assessment]');
+	if (assessment) {
+		var assessmentQuestions = [
+			{ category: 'Step 1: Pre-update safety', title: 'Do you capture a safety snapshot before updates?', help: 'A snapshot creates a clear starting point for risk review and comparison.', options: [
+				{ label: 'Every time', detail: 'I record the site state before maintenance.', value: 2 },
+				{ label: 'Sometimes', detail: 'It depends on the size or urgency of the update.', value: 1 },
+				{ label: 'Not yet', detail: 'I usually update first and inspect later.', value: 0 }
+			] },
+			{ category: 'Step 2: Important pages', title: 'How do you check important pages after an update?', help: 'Your homepage loading is not enough; key templates and conversion paths need evidence too.', options: [
+				{ label: 'A defined page list', detail: 'I check the same important URLs before and after.', value: 2 },
+				{ label: 'A quick visual look', detail: 'I inspect a few pages manually when I remember.', value: 1 },
+				{ label: 'Only the homepage', detail: 'I rely on the site appearing to load.', value: 0 }
+			] },
+			{ category: 'Step 3: Approval', title: 'Can you review what will change before it is applied?', help: 'A review step makes maintenance deliberate and gives you a record of the decision.', options: [
+				{ label: 'Yes, with an approval step', detail: 'I review the update set and risk before proceeding.', value: 2 },
+				{ label: 'I review it in the dashboard', detail: 'I look at available updates but do not record approval.', value: 1 },
+				{ label: 'No review step', detail: 'Updates are applied as soon as they are available.', value: 0 }
+			] },
+			{ category: 'Step 4: Visual verification', title: 'Do you compare before-and-after screenshots?', help: 'A visual diff can reveal layout, styling, or content changes that a simple HTTP check misses.', options: [
+				{ label: 'Yes, automatically', detail: 'I keep a baseline and compare it after maintenance.', value: 2 },
+				{ label: 'Sometimes manually', detail: 'I look at screenshots or pages when a change seems risky.', value: 1 },
+				{ label: 'No', detail: 'I do not currently compare visual output.', value: 0 }
+			] },
+			{ category: 'Step 5: Workflow testing', title: 'Do you test workflows, not only page rendering?', help: 'Forms, login, search, and checkout can fail even when a page returns a healthy status.', options: [
+				{ label: 'I test critical workflows', detail: 'I check the actions that matter to visitors or customers.', value: 2 },
+				{ label: 'I test them occasionally', detail: 'I do this for major changes or when someone reports an issue.', value: 1 },
+				{ label: 'Not currently', detail: 'I only confirm that pages load.', value: 0 }
+			] },
+			{ category: 'Step 6: History and proof', title: 'Can you show what happened after maintenance?', help: 'A simple history helps you troubleshoot quickly and gives clients confidence.', options: [
+				{ label: 'Yes, with saved reports', detail: 'I can review results, timing, and the update decision.', value: 2 },
+				{ label: 'Partly', detail: 'I keep notes or rely on scattered logs.', value: 1 },
+				{ label: 'No', detail: 'There is no consistent record after an update.', value: 0 }
+			] },
+			{ category: 'Step 7: Ongoing awareness', title: 'Would you know quickly if a site regressed later?', help: 'Post-update confidence is stronger when important pages are checked again on a repeatable rhythm.', options: [
+				{ label: 'Yes, through repeatable checks', detail: 'I have scheduled or external monitoring for key paths.', value: 2 },
+				{ label: 'Only if someone reports it', detail: 'I do not have a regular follow-up check.', value: 1 },
+				{ label: 'I would not know quickly', detail: 'There is no ongoing signal after maintenance.', value: 0 }
+			] }
+		];
+		var assessmentViews = assessment.querySelectorAll('[data-assessment-view]');
+		var assessmentProgressWrap = assessment.querySelector('[data-assessment-progress-wrap]');
+		var assessmentProgress = assessment.querySelector('[data-assessment-progress]');
+		var assessmentQuestionNumber = assessment.querySelector('[data-assessment-question-number]');
+		var assessmentPercent = assessment.querySelector('[data-assessment-percent]');
+		var assessmentCategory = assessment.querySelector('[data-assessment-category]');
+		var assessmentScored = assessment.querySelector('[data-assessment-scored]');
+		var assessmentQuestionTitle = assessment.querySelector('[data-assessment-question-title]');
+		var assessmentQuestionHelp = assessment.querySelector('[data-assessment-question-help]');
+		var assessmentOptions = assessment.querySelector('[data-assessment-options]');
+		var assessmentBack = assessment.querySelector('[data-assessment-back]');
+		var assessmentNext = assessment.querySelector('[data-assessment-next]');
+		var assessmentState = { index: 0, answers: [], lastFocus: null };
+
+		function assessmentShowView(name) {
+			assessmentViews.forEach(function (view) { view.hidden = view.getAttribute('data-assessment-view') !== name; });
+		}
+		function renderAssessmentProgress() {
+			assessmentProgress.innerHTML = '';
+			assessmentQuestions.forEach(function (_, index) {
+				var segment = document.createElement('span');
+				if (index <= assessmentState.index) segment.className = index === assessmentState.index ? 'is-current' : 'is-complete';
+				assessmentProgress.appendChild(segment);
+			});
+			assessmentQuestionNumber.textContent = 'Question ' + (assessmentState.index + 1) + ' of ' + assessmentQuestions.length;
+			assessmentPercent.textContent = Math.round(((assessmentState.index + 1) / assessmentQuestions.length) * 100) + '% complete';
+		}
+		function renderAssessmentQuestion() {
+			var question = assessmentQuestions[assessmentState.index];
+			assessmentShowView('question');
+			assessmentProgressWrap.hidden = false;
+			renderAssessmentProgress();
+			assessmentCategory.textContent = question.category;
+			assessmentScored.textContent = 'Scored Â· ' + question.options[0].value + ' pts';
+			assessmentQuestionTitle.textContent = question.title;
+			assessmentQuestionHelp.textContent = question.help;
+			assessmentOptions.innerHTML = '';
+			question.options.forEach(function (option, optionIndex) {
+				var choice = document.createElement('button');
+				choice.type = 'button';
+				choice.className = 'assessment-option';
+				choice.setAttribute('aria-pressed', assessmentState.answers[assessmentState.index] === optionIndex ? 'true' : 'false');
+				if (assessmentState.answers[assessmentState.index] === optionIndex) choice.classList.add('is-selected');
+				choice.innerHTML = '<input type="radio" tabindex="-1" aria-hidden="true"><span><strong></strong><small></small></span>';
+				choice.querySelector('strong').textContent = option.label;
+				choice.querySelector('small').textContent = option.detail;
+				choice.addEventListener('click', function () {
+					assessmentState.answers[assessmentState.index] = optionIndex;
+					assessmentOptions.querySelectorAll('.assessment-option').forEach(function (item) {
+						item.classList.remove('is-selected');
+						item.setAttribute('aria-pressed', 'false');
+					});
+					choice.classList.add('is-selected');
+					choice.setAttribute('aria-pressed', 'true');
+					assessmentNext.disabled = false;
+				});
+				assessmentOptions.appendChild(choice);
+			});
+			assessmentBack.disabled = assessmentState.index === 0;
+			assessmentNext.disabled = typeof assessmentState.answers[assessmentState.index] !== 'number';
+		}
+		function renderAssessmentResult() {
+			var score = assessmentState.answers.reduce(function (total, answer, index) { return total + assessmentQuestions[index].options[answer].value; }, 0);
+			var resultTitle = score >= 11 ? 'Strong evidence rhythm' : (score >= 6 ? 'Some blind spots remain' : 'High-risk, low-evidence workflow');
+			var resultHeading = score >= 11 ? 'You are close to a repeatable maintenance rhythm.' : (score >= 6 ? 'You have a useful foundation to build on.' : 'Your maintenance process needs a clearer safety net.');
+			var resultCopy = score >= 11 ? 'Your answers show a strong habit of checking changes and preserving evidence. Make those checks repeatable so confidence does not depend on memory.' : (score >= 6 ? 'A few missing checks could still let a broken workflow or visual change slip through. Start with the paths that matter most to visitors and customers.' : 'The biggest risk is not knowing what changed or whether important workflows still work. Begin with a pre-update snapshot and a short list of critical pages.');
+			var blindSpots = [];
+			var recommendations = [];
+			assessmentQuestions.forEach(function (question, index) {
+				if (assessmentQuestions[index].options[assessmentState.answers[index]].value === 0) blindSpots.push(question.category.replace(/^Step \d+: /, '') + ' needs a defined check.');
+			});
+			if (!blindSpots.length) blindSpots.push('Keep the workflow consistent as your site and update volume grow.');
+			recommendations.push('Capture a baseline before maintenance and verify the same critical paths afterward.');
+			if (score < 11) recommendations.push('Separate page rendering checks from workflow checks such as forms, login, search, or checkout.');
+			recommendations.push('Save a short result history so you can explain what changed to yourself or a client.');
+			assessment.querySelector('[data-assessment-score]').textContent = score + '/14';
+			assessment.querySelector('[data-assessment-result-title]').textContent = resultTitle;
+			assessment.querySelector('[data-assessment-result-heading]').textContent = resultHeading;
+			assessment.querySelector('[data-assessment-result-copy]').textContent = resultCopy;
+			function fillList(selector, items) {
+				var list = assessment.querySelector(selector);
+				list.innerHTML = '';
+				items.forEach(function (item) { var li = document.createElement('li'); li.textContent = item; list.appendChild(li); });
+			}
+			fillList('[data-assessment-blindspots]', blindSpots);
+			fillList('[data-assessment-recommendations]', recommendations);
+			assessmentProgressWrap.hidden = true;
+			assessmentShowView('result');
+		}
+		function openAssessment() {
+			assessmentState.lastFocus = document.activeElement;
+			assessment.classList.add('is-open');
+			assessment.setAttribute('aria-hidden', 'false');
+			document.body.classList.add('assessment-open');
+			assessmentState.index = 0;
+			assessmentState.answers = [];
+			assessmentProgressWrap.hidden = true;
+			assessmentShowView('intro');
+			var start = assessment.querySelector('[data-assessment-start]');
+			if (start) window.setTimeout(function () { start.focus(); }, 50);
+		}
+		function closeAssessment() {
+			assessment.classList.remove('is-open');
+			assessment.setAttribute('aria-hidden', 'true');
+			document.body.classList.remove('assessment-open');
+			if (assessmentState.lastFocus && assessmentState.lastFocus.focus) assessmentState.lastFocus.focus();
+		}
+		document.querySelectorAll('[data-updateproof-open-assessment]').forEach(function (link) {
+			link.addEventListener('click', function (event) { event.preventDefault(); openAssessment(); });
+		});
+		assessment.querySelectorAll('[data-updateproof-close-assessment]').forEach(function (control) {
+			control.addEventListener('click', function (event) { event.preventDefault(); closeAssessment(); });
+		});
+		assessment.querySelector('[data-assessment-start]').addEventListener('click', function () { renderAssessmentQuestion(); });
+		assessmentBack.addEventListener('click', function () { if (assessmentState.index > 0) { assessmentState.index -= 1; renderAssessmentQuestion(); } });
+		assessmentNext.addEventListener('click', function () {
+			if (typeof assessmentState.answers[assessmentState.index] !== 'number') return;
+			if (assessmentState.index < assessmentQuestions.length - 1) { assessmentState.index += 1; renderAssessmentQuestion(); } else { renderAssessmentResult(); }
+		});
+		assessment.querySelector('[data-assessment-restart]').addEventListener('click', function () { assessmentState.index = 0; assessmentState.answers = []; assessmentShowView('intro'); });
+		var assessmentBillingLink = assessment.querySelector('[data-updateproof-open-billing]');
+		if (assessmentBillingLink) assessmentBillingLink.addEventListener('click', function () { closeAssessment(); });
+		document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && assessment.classList.contains('is-open')) closeAssessment(); });
+	}
 }());
 
 
