@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="assessment.css">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link rel="icon" type="image/png" sizes="512x512" href="assets/updateproof-icon.png">
-<link rel="apple-touch-icon" href="assets/updateproof-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="updateproof-icon.png">
+<link rel="apple-touch-icon" href="updateproof-icon.png">
 <meta name="theme-color" content="#175cd3">
 <title>UpdateProof &mdash; Verification &amp; Visual Regression for WordPress Maintenance</title>
 <!-- Fonts -->
@@ -15,7 +15,6 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -149,44 +148,43 @@
       overflow: hidden;
     }
   </style>
+<link rel="stylesheet" href="site-polish.css">
 </head>
 <body class="bg-surface text-text-primary antialiased font-body-md selection:bg-primary-fixed selection:text-primary">
 <!-- TOPNAVBAR (Shared Component Implementation) -->
 <header class="bg-surface-card/90 dark:bg-inverse-surface/90 backdrop-blur-md docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 w-full">
+<div class="site-header-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 w-full">
 <!-- Brand & Version Tag -->
-<div class="flex items-center space-x-3">
+<div class="site-brand flex items-center space-x-3">
 <a class="flex items-center space-x-2.5 group" href="#">
-<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm group-hover:bg-primary transition-colors">
-<img src="assets/updateproof-icon.png" alt="" class="reference-brand-icon">
-</div>
+<img src="updateproof-icon.png" alt="" class="reference-brand-icon">
 <span class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface tracking-tight">UpdateProof</span>
 </a>
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-evidence-mono-sm font-medium bg-surface-container text-text-secondary border border-border-subtle">
-          v0.9.4
-        </span>
 </div>
 <!-- Navigation Links -->
-<nav class="hidden md:flex items-center space-x-8">
+<nav class="site-navigation hidden md:flex items-center space-x-8" id="site-nav" aria-label="Main navigation">
 <a class="text-primary dark:text-inverse-primary font-semibold text-body-md font-body-md transition-colors duration-150" href="#why">Why UpdateProof</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#how-it-works">How It Works</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#features">Features</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#pricing">Pricing</a>
 <a class="text-text-secondary dark:text-outline-variant hover:text-text-primary dark:hover:text-inverse-on-surface font-medium text-body-md font-body-md transition-colors duration-150" href="#faq">FAQ</a>
+<a class="site-nav-free" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">Get Free Plugin</a>
+<a class="site-nav-cta" href="#pro-plans" data-updateproof-open-billing>Activate Pro</a>
 </nav>
 <!-- Trailing CTAs -->
-<div class="flex items-center space-x-4">
+<div class="site-header-actions flex items-center space-x-4">
 <a class="hidden sm:inline-flex text-body-md font-body-md font-semibold text-text-secondary hover:text-primary transition-colors" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" rel="noopener noreferrer" target="_blank">
           Get Free Plugin
         </a>
-<a class="inline-flex items-center px-4 py-2 rounded-xl bg-primary-container hover:bg-primary text-on-primary text-body-md font-body-md font-semibold shadow-sm transition-all duration-150 active:scale-95" href="#pro-plans" data-updateproof-open-billing>
+<a class="site-header-cta inline-flex items-center px-4 py-2 rounded-xl bg-primary-container hover:bg-primary text-on-primary text-body-md font-body-md font-semibold shadow-sm transition-all duration-150 active:scale-95" href="#pro-plans" data-updateproof-open-billing>
           Activate Pro
         </a>
+<button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span></span></button>
 </div>
 </div>
 </header>
 <!-- MAIN WRAPPER (Targeting Desktop 1440px Canvas Discipline) -->
-<main class="w-full overflow-hidden">
+<main class="w-full overflow-hidden" id="main-content">
 <!-- 1. HERO SECTION -->
 <section class="relative pt-12 pb-20 md:pt-16 md:pb-28 border-b border-border-subtle bg-gradient-to-b from-surface-card to-background" id="why">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -242,12 +240,12 @@
 <span class="updateproof-demo-live"><b></b> PRO WALKTHROUGH</span>
 </div>
 <div class="updateproof-demo-stage">
-<video class="updateproof-demo-video" controls muted autoplay loop playsinline preload="metadata" poster="assets/screenshots/appsumo/updateproof-appsumo-safety-snapshot.png">
+<video class="updateproof-demo-video" controls muted loop playsinline preload="none" poster="assets/screenshots/appsumo/updateproof-appsumo-safety-snapshot.png" aria-label="UpdateProof Pro walkthrough video">
 <source src="assets/updateproof-pro-admin-demo.webm" type="video/webm" />
 Your browser does not support the UpdateProof demo video.
 </video>
 </div>
-<div class="updateproof-demo-footer"><span><b></b> Real plugin workflow</span><span class="updateproof-demo-progress"></span><span>Local evidence &middot; No visitor tracking</span></div>
+<div class="updateproof-demo-footer"><span><b></b> Product walkthrough</span><span>Play to explore the workflow</span></div>
 </div>
 </div>
 </section>
@@ -355,7 +353,7 @@ Your browser does not support the UpdateProof demo video.
                 You did the work. How do you explain it?
               </h3>
 <p class="text-body-md font-body-md text-text-secondary">
-                Retainer clients don't see silent, clean maintenance. Saying â€œall plugins updatedâ€ fails to convey the diligence you actually put in.
+                Retainer clients don't see silent, clean maintenance. Saying &ldquo;all plugins updated&rdquo; fails to convey the diligence you actually put in.
               </p>
 </div>
 <div class="mt-6 pt-4 border-t border-border-subtle text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
@@ -366,7 +364,7 @@ Your browser does not support the UpdateProof demo video.
 <!-- Concluding Quote Banner -->
 <div class="mt-12 p-6 rounded-2xl bg-surface-card border border-border-subtle text-center max-w-2xl mx-auto shadow-sm">
 <p class="text-headline-sm font-headline-sm text-text-primary italic">
-            â€œUpdating a website is one step. Checking the result is another.â€
+            &ldquo;Updating a website is one step. Checking the result is another.&rdquo;
           </p>
 </div>
 </div>
@@ -388,11 +386,11 @@ Your browser does not support the UpdateProof demo video.
 <!-- Top Mockup Chrome -->
 <div class="bg-slate-900 text-slate-200 px-4 py-3 flex items-center justify-between text-xs font-mono">
 <div class="flex items-center space-x-3">
-<span class="material-symbols-outlined text-primary-fixed-dim text-[18px]" data-icon="terminal">terminal</span>
+<img src="updateproof-icon.png" alt="" class="demo-brand-icon">
 <span class="font-semibold text-slate-100">wp-admin &gt; UpdateProof Safety Suite</span>
 </div>
 <div class="flex items-center space-x-3 text-slate-400">
-<span>Local Worker: Connected</span>
+<span>Illustrative interface</span>
 <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
 </div>
 </div>
@@ -423,13 +421,13 @@ Your browser does not support the UpdateProof demo video.
 </div>
 <div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
 <span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Last Safety Check</span>
-<div class="text-metric-stat font-metric-stat text-text-primary mt-1">Today, 08:30</div>
-<span class="text-body-sm text-status-success font-medium">&#10003; 100% Verified Clean</span>
+<div class="text-metric-stat font-metric-stat text-text-primary mt-1">Example run</div>
+<span class="text-body-sm text-status-success font-medium">&#10003; Checks passed</span>
 </div>
 <div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
 <span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Browser Engine</span>
 <div class="text-metric-stat font-metric-stat text-text-primary mt-1">Playwright</div>
-<span class="text-body-sm text-text-secondary">Headless Chromium 128</span>
+<span class="text-body-sm text-text-secondary">Browser rendering checks</span>
 </div>
 <div class="bg-surface-card p-4 rounded-xl border border-border-subtle">
 <span class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">Audit Trail Store</span>
@@ -442,7 +440,7 @@ Your browser does not support the UpdateProof demo video.
 <div class="px-5 py-3 border-b border-border-subtle bg-surface-container-low flex justify-between items-center">
 <h4 class="text-body-md font-semibold text-text-primary">Safety Check Suite &mdash; Target Updates</h4>
 <a class="text-primary text-body-sm font-semibold hover:underline" href="#how-it-works">
-                    See How UpdateProof Works â†“
+                    See How UpdateProof Works &darr;
                   </a>
 </div>
 <div class="divide-y divide-border-subtle">
@@ -576,6 +574,7 @@ Your browser does not support the UpdateProof demo video.
 <p class="text-body-lg font-body-lg text-text-secondary mt-3">
             Review visual browser evidence alongside page-check results to investigate unexpected changes.
           </p>
+<p class="text-body-sm text-text-secondary mt-2">Illustrative comparison with sample data.</p>
 </div>
 <!-- Interactive Comparison Container -->
 <div class="bg-surface rounded-2xl border border-border-subtle shadow-lg overflow-hidden p-6 lg:p-8">
@@ -589,7 +588,7 @@ Your browser does not support the UpdateProof demo video.
                 </span>
 </div>
 <div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary mt-1">
-                Trigger: WooCommerce 9.4.2 Major Minor Update &middot; Check ID: #chk-84920
+                Example update &middot; Illustrative check
               </div>
 </div>
 <!-- Drift Telemetry Pills -->
@@ -602,7 +601,7 @@ Your browser does not support the UpdateProof demo video.
                 Visual Drift: 4.8% divergence
               </span>
 <span class="px-3 py-1.5 rounded-lg text-evidence-mono-sm font-evidence-mono-sm bg-blue-50 text-primary-container border border-blue-200">
-                Chromium 128 Full-Page
+                Browser screenshot
               </span>
 </div>
 </div>
@@ -695,7 +694,7 @@ Your browser does not support the UpdateProof demo video.
 <div class="bg-surface-card p-4 rounded-xl border border-border-subtle flex flex-col sm:flex-row items-center justify-between text-body-sm text-text-secondary gap-3">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-[18px] text-status-warning" data-icon="analytics">analytics</span>
-<span class="font-medium text-text-primary">Pixel Difference: 1,480 pxÂ²</span>
+<span class="font-medium text-text-primary">Pixel Difference: 1,480 px&sup2;</span>
 <span class="text-text-secondary font-mono text-xs">(Confidence Score: 99.4%)</span>
 </div>
 <div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">
@@ -745,7 +744,7 @@ Your browser does not support the UpdateProof demo video.
                 Keep evidence you can revisit
               </h3>
 <p class="text-body-md font-body-md text-text-secondary">
-                Eliminate â€œhe said, she saidâ€ post-maintenance disputes with dated check history, browser screenshots, and stored evidence.
+                Eliminate &ldquo;he said, she said&rdquo; post-maintenance disputes with dated check history, browser screenshots, and stored evidence.
               </p>
 </div>
 <ul class="mt-8 space-y-2 text-body-sm text-text-secondary border-t border-border-subtle pt-4">
@@ -759,7 +758,7 @@ Your browser does not support the UpdateProof demo video.
 <span class="material-symbols-outlined text-[28px]" data-icon="verified_user">verified_user</span>
 </div>
 <h3 class="text-headline-sm font-headline-sm text-text-primary mb-3">
-                Give clients something clearer than â€œupdated successfullyâ€
+                Give clients something clearer than &ldquo;updated successfully&rdquo;
               </h3>
 <p class="text-body-md font-body-md text-text-secondary">
                 Deliver clean, executive-facing HTML verification reports that justify your monthly retainer fee without confusing technical jargon.
@@ -806,7 +805,7 @@ Your browser does not support the UpdateProof demo video.
 <span class="px-3 py-1 rounded-full text-evidence-mono-sm font-evidence-mono-sm bg-emerald-50 text-status-success border border-emerald-200 inline-block">
                   Status: All Core Checks Passed
                 </span>
-<div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary mt-1.5">Executed: Oct 24, 2024 (v0.9.4)</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary mt-1.5">Example maintenance run</div>
 </div>
 </div>
 <!-- Executive Summary -->
@@ -819,7 +818,7 @@ Your browser does not support the UpdateProof demo video.
 <!-- Component Verification Table -->
 <div>
 <div class="text-headline-sm font-headline-sm text-text-primary mb-3">Component Verification Status</div>
-<div class="border border-border-subtle rounded-xl overflow-hidden">
+<div class="report-table-wrap border border-border-subtle rounded-xl overflow-x-auto" role="region" aria-label="Sample component verification table" tabindex="0">
 <table class="w-full text-left text-body-sm">
 <thead class="bg-surface-container text-text-secondary font-evidence-mono-sm uppercase text-xs">
 <tr>
@@ -834,24 +833,24 @@ Your browser does not support the UpdateProof demo video.
 <td class="px-4 py-3.5 font-semibold text-text-primary">WordPress Core</td>
 <td class="px-4 py-3.5 text-text-secondary font-mono">6.5.4</td>
 <td class="px-4 py-3.5 text-text-primary font-mono">6.6.2</td>
-<td class="px-4 py-3.5 text-status-success font-semibold flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-status-success"></span> Verified Stable
+<td class="px-4 py-3.5 text-status-success font-semibold whitespace-nowrap">
+<span class="inline-block w-2 h-2 rounded-full bg-status-success mr-1.5" aria-hidden="true"></span> Verified Stable
                       </td>
 </tr>
 <tr>
 <td class="px-4 py-3.5 font-semibold text-text-primary">WooCommerce</td>
 <td class="px-4 py-3.5 text-text-secondary font-mono">8.9.2</td>
 <td class="px-4 py-3.5 text-text-primary font-mono">9.4.2</td>
-<td class="px-4 py-3.5 text-status-success font-semibold flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-status-success"></span> Verified Stable
+<td class="px-4 py-3.5 text-status-success font-semibold whitespace-nowrap">
+<span class="inline-block w-2 h-2 rounded-full bg-status-success mr-1.5" aria-hidden="true"></span> Verified Stable
                       </td>
 </tr>
 <tr>
 <td class="px-4 py-3.5 font-semibold text-text-primary">Advanced Custom Fields PRO</td>
 <td class="px-4 py-3.5 text-text-secondary font-mono">6.2.0</td>
 <td class="px-4 py-3.5 text-text-primary font-mono">6.3.1</td>
-<td class="px-4 py-3.5 text-status-success font-semibold flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-status-success"></span> Verified Stable
+<td class="px-4 py-3.5 text-status-success font-semibold whitespace-nowrap">
+<span class="inline-block w-2 h-2 rounded-full bg-status-success mr-1.5" aria-hidden="true"></span> Verified Stable
                       </td>
 </tr>
 </tbody>
@@ -892,7 +891,7 @@ Your browser does not support the UpdateProof demo video.
             See what UpdateProof actually does.
           </h2>
 <p class="text-body-lg font-body-lg text-text-secondary mt-3">
-            No vague AI buzzwords or exaggerated claims. Here is our engineering architecture.
+            Explore the product workflow and the technology behind its verification checks.
           </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -907,7 +906,7 @@ Your browser does not support the UpdateProof demo video.
                 Available on WordPress.org
               </h3>
 <p class="text-body-md text-text-secondary">
-                Hosted openly in the WordPress plugin repository with public source code, zero fake star ratings, and full adherence to core security guidelines.
+                Read the public plugin listing, installation guide, and source details on WordPress.org.
               </p>
 </div>
 <div class="mt-6 pt-4 border-t border-border-subtle">
@@ -992,7 +991,7 @@ Your browser does not support the UpdateProof demo video.
           </p>
 </div>
 <!-- 4 Pricing Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="pricing-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 <!-- FREE PLAN -->
 <div class="bg-surface-card p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col justify-between">
 <div>
@@ -1018,7 +1017,7 @@ Your browser does not support the UpdateProof demo video.
 </div>
 <!-- PRO PLAN (Most Popular Highlight) -->
 <div class="bg-surface-card p-6 rounded-2xl border-2 border-primary-container shadow-md relative flex flex-col justify-between">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary-container text-white text-[11px] font-evidence-mono-sm uppercase tracking-wider font-semibold">
+<div class="pricing-popular-badge absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary-container text-white text-[11px] font-evidence-mono-sm uppercase tracking-wider font-semibold">
               Most Popular
             </div>
 <div>
@@ -1104,7 +1103,7 @@ Your browser does not support the UpdateProof demo video.
             Know exactly what you're evaluating.
           </h2>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="risk-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 <div class="p-6 rounded-2xl bg-surface border border-border-subtle space-y-2.5">
 <span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="calendar_month">calendar_month</span>
 <h3 class="text-headline-sm font-headline-sm text-text-primary">Commercial Timeline</h3>
@@ -1193,7 +1192,7 @@ Your browser does not support the UpdateProof demo video.
 <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-8">
 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-primary-fixed-dim text-evidence-mono-sm font-medium border border-slate-700">
-<img src="assets/updateproof-icon.png" alt="" class="reference-brand-icon">
+<img src="updateproof-icon.png" alt="" class="reference-brand-icon">
           BUILT FOR WORDPRESS RELIABILITY
         </div>
 <h2 class="text-display font-display font-bold text-white tracking-tight leading-tight max-w-3xl mx-auto">
@@ -1223,18 +1222,13 @@ Your browser does not support the UpdateProof demo video.
 <!-- Brand Info Column -->
 <div class="space-y-4">
 <div class="flex items-center space-x-2">
-<div class="w-7 h-7 rounded bg-primary-container flex items-center justify-center text-white">
-<img src="assets/updateproof-icon.png" alt="" class="reference-brand-icon">
-</div>
+<img src="updateproof-icon.png" alt="" class="reference-brand-icon">
 <span class="text-headline-sm font-headline-sm font-bold text-text-primary dark:text-inverse-on-surface">UpdateProof</span>
 </div>
 <p class="text-body-sm font-body-sm text-text-secondary dark:text-outline-variant leading-relaxed">
             Automated verification suite and visual regression telemetry for WordPress professionals. Built by ZeroFrik.
           </p>
-<div class="flex items-center space-x-2 text-evidence-mono-sm font-evidence-mono-sm text-status-success">
-<span class="w-2 h-2 rounded-full bg-status-success"></span>
-<span>All Verification Workers Online</span>
-</div>
+<div class="text-evidence-mono-sm font-evidence-mono-sm text-text-secondary">WordPress maintenance, with evidence.</div>
 </div>
 <!-- Links Column 1: Product -->
 <div>
@@ -1271,11 +1265,11 @@ Your browser does not support the UpdateProof demo video.
 <!-- Copyright Sub-bar -->
 <div class="pt-8 border-t border-border-subtle dark:border-outline flex flex-col sm:flex-row items-center justify-between text-evidence-mono-sm font-evidence-mono-sm text-text-secondary dark:text-outline-variant gap-4">
 <div>
-          &copy; 2025 UpdateProof by ZeroFrik. All rights reserved. Built for WordPress reliability professionals.
+          &copy; <span id="year">2026</span> UpdateProof by ZeroFrik. All rights reserved. Built for WordPress reliability professionals.
         </div>
 <div class="flex items-center space-x-6">
 <span>Local-First Architecture</span>
-<span>Zero Client Tracking</span>
+<span>Local-first verification</span>
 </div>
 </div>
 </div>
@@ -1288,7 +1282,7 @@ Your browser does not support the UpdateProof demo video.
     <header class="assessment-header">
       <div class="assessment-topbar">
         <a class="assessment-brand" href="#" data-updateproof-close-assessment>
-          <span class="assessment-brand-mark" aria-hidden="true">âœ“</span>
+          <img src="updateproof-icon.png" alt="" class="assessment-brand-mark">
           <span>UpdateProof</span>
         </a>
         <button class="assessment-close" type="button" data-updateproof-close-assessment>Exit assessment</button>
@@ -1311,17 +1305,16 @@ Your browser does not support the UpdateProof demo video.
           <span>3 minutes</span><span>7 questions</span><span>No login required</span>
         </div>
         <button class="assessment-primary-button" type="button" data-assessment-start>Start the assessment <span aria-hidden="true">&rarr;</span></button>
-        <p class="assessment-privacy-note">This is a self-assessment, not a site scan. Your answers stay in this browser and are not sent to UpdateProof.</p>
+        <p class="assessment-privacy-note">This is a self-assessment, not a site scan. Your anonymous answers are stored to improve the UpdateProof workflow.</p>
       </section>
 
       <section class="assessment-view assessment-question" data-assessment-view="question" hidden>
         <div class="assessment-question-heading">
           <span class="assessment-kicker" data-assessment-category></span>
-          <span class="assessment-scored" data-assessment-scored>Scored Â· 2 pts</span>
         </div>
-        <h2 data-assessment-question-title></h2>
+        <h2 id="assessment-question-title" data-assessment-question-title tabindex="-1"></h2>
         <p class="assessment-help" data-assessment-question-help></p>
-        <div class="assessment-options" data-assessment-options role="group"></div>
+        <div class="assessment-options" data-assessment-options role="radiogroup" aria-labelledby="assessment-question-title"></div>
         <div class="assessment-actions">
           <button class="assessment-secondary-button" type="button" data-assessment-back>Back</button>
           <button class="assessment-primary-button" type="button" data-assessment-next disabled>Continue <span aria-hidden="true">&rarr;</span></button>
@@ -1335,13 +1328,13 @@ Your browser does not support the UpdateProof demo video.
           <strong data-assessment-score>0/14</strong>
           <span class="assessment-score-status" data-assessment-result-title></span>
         </div>
-        <h2 data-assessment-result-heading></h2>
+        <h2 data-assessment-result-heading tabindex="-1"></h2>
         <p data-assessment-result-copy></p>
         <div class="assessment-result-grid">
           <div><h3>Blind spots to review</h3><ul data-assessment-blindspots></ul></div>
           <div><h3>Your next steps</h3><ul data-assessment-recommendations></ul></div>
         </div>
-        <p class="assessment-privacy-note">This score is directional and does not replace a staging test or a real verification run.</p>
+        <p class="assessment-privacy-note" data-assessment-save-status>This score is directional and does not replace a staging test or a real verification run.</p>
         <div class="assessment-actions assessment-result-actions">
           <button class="assessment-secondary-button" type="button" data-assessment-restart>Retake assessment</button>
           <a class="assessment-secondary-button" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Get the free plugin</a>
