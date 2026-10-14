@@ -265,7 +265,7 @@
 		});
 	}
 
-	var assessment = document.querySelector('[data-updateproof-assessment]');
+	var assessment = document.querySelector('[data-maintenance-assessment]');
 	if (assessment) {
 		var assessmentDialog = assessment.querySelector('.assessment-dialog');
 		var assessmentQuestions = [
@@ -316,31 +316,81 @@
 		var assessmentOptions = assessment.querySelector('[data-assessment-options]');
 		var assessmentBack = assessment.querySelector('[data-assessment-back]');
 		var assessmentNext = assessment.querySelector('[data-assessment-next]');
-		var assessmentSaveStatus = assessment.querySelector('[data-assessment-save-status]');
-		var assessmentState = { index: 0, answers: [], lastFocus: null };
+		var assessmentEncouragementContinue = assessment.querySelector('[data-assessment-encouragement-continue]');
+		var assessmentAccessNext = assessment.querySelector('[data-assessment-access-next]');
+		var assessmentAccessBack = assessment.querySelector('[data-assessment-access-back]');
+		var assessmentAccessEmailWrap = assessment.querySelector('[data-assessment-access-email-wrap]');
+		var assessmentAccessEmail = assessment.querySelector('[data-assessment-access-email]');
+		var assessmentAccessMarketing = assessment.querySelector('[data-assessment-access-marketing]');
+		var assessmentFeedbackForm = assessment.querySelector('[data-assessment-feedback-form]');
+		var assessmentFeedbackBack = assessment.querySelector('[data-assessment-feedback-back]');
+		var assessmentFeedbackStatus = assessment.querySelector('[data-assessment-feedback-status]');
+		var assessmentScreenEmailForm = assessment.querySelector('[data-assessment-screen-email-form]');
+		var assessmentScreenEmail = assessment.querySelector('[data-assessment-screen-email]');
+		var assessmentScreenMarketing = assessment.querySelector('[data-assessment-screen-marketing]');
+		var assessmentScreenEmailStatus = assessment.querySelector('[data-assessment-screen-email-status]');
+		var assessmentExit = assessment.querySelector('[data-assessment-exit]');
+		var assessmentRestart = assessment.querySelector('[data-assessment-restart]');
+		var assessmentState = { index: 0, answers: [], assessmentId: '', lastFocus: null, score: 0, resultTitle: '', delivery: '', email: '', marketingOptIn: false, feedback: {} };
+		if (assessmentRestart) assessmentRestart.href = 'assessment.html' + window.location.search;
+		if (assessmentExit) {
+			var cameFromHomepage = false;
+			if (document.referrer) {
+				try {
+					var referrerPath = new URL(document.referrer).pathname.replace(/\/+$/, '');
+					cameFromHomepage = referrerPath === '' || /\/index\.html$/i.test(referrerPath);
+				} catch (error) {}
+			}
+			if (!cameFromHomepage) assessmentExit.href = 'assessment.html';
+		}
 
-		function saveAssessmentResult(score, resultTitle) {
-			if (!assessmentSheetEndpoint) return;
-			var payload = new URLSearchParams();
-			payload.set('type', 'assessment');
-			payload.set('source', 'updateproof-homepage');
-			payload.set('assessment_version', 'v1');
-			payload.set('score', String(score));
-			payload.set('result_band', resultTitle);
+		function addAssessmentAnswers(payload) {
 			assessmentQuestions.forEach(function (question, index) {
 				var answerIndex = assessmentState.answers[index];
-				payload.set('q' + (index + 1) + '_answer', question.options[answerIndex].label);
+				payload.set('q' + (index + 1) + '_answer', typeof answerIndex === 'number' ? question.options[answerIndex].label : '');
 			});
-			payload.set('page_url', window.location.href);
+		}
 
-			if (assessmentSaveStatus) assessmentSaveStatus.textContent = 'Submitting your anonymous result...';
-			fetch(assessmentSheetEndpoint, { method: 'POST', body: payload, mode: 'no-cors', keepalive: true })
-				.then(function () {
-					if (assessmentSaveStatus) assessmentSaveStatus.textContent = 'Your anonymous result was sent for storage. This score is directional and does not replace a staging test or a real verification run.';
-				})
-				.catch(function () {
-					if (assessmentSaveStatus) assessmentSaveStatus.textContent = 'Your result is available below, but could not be submitted. Please try again later.';
-				});
+		function getAssessmentDetails() {
+			var score = assessmentState.answers.reduce(function (total, answer, index) { return total + (typeof answer === 'number' ? assessmentQuestions[index].options[answer].value : 0); }, 0);
+			var resultTitle = score >= 11 ? 'Ready to standardize' : (score >= 6 ? 'Building a safety net' : 'Start with the basics');
+			var readinessLabel = score >= 12 ? 'Excellent' : (score >= 9 ? 'Good' : (score >= 6 ? 'Moderate' : 'Low'));
+			var readinessTone = score >= 12 ? 'excellent' : (score >= 9 ? 'good' : (score >= 6 ? 'moderate' : 'low'));
+			var resultHeading = score >= 11 ? 'You are close to a repeatable maintenance rhythm.' : (score >= 6 ? 'You have a useful foundation to build on.' : 'Your maintenance process needs a clearer safety net.');
+			var resultCopy = score >= 11 ? 'Your answers show a strong habit of checking changes and preserving evidence. The next step is making that discipline easy to repeat and explain to clients or stakeholders.' : (score >= 6 ? 'You have several good habits in place, but a few gaps could still let a broken workflow or visual change slip through. Focus on the paths that matter most to visitors and customers.' : 'The biggest risk is not knowing what changed or whether important workflows still work. Start with a pre-update snapshot and a short list of critical pages.');
+			var readinessFocus = score >= 11 ? 'Turn your current checks into a repeatable, client-ready maintenance report.' : (score >= 6 ? 'Define a baseline and repeat the same checks after every important update.' : 'Start with one pre-update snapshot and a 5–10 URL list of critical pages.');
+			var blindSpots = [];
+			var recommendations = [];
+			assessmentQuestions.forEach(function (question, index) {
+				if (typeof assessmentState.answers[index] === 'number' && question.options[assessmentState.answers[index]].value === 0) blindSpots.push(question.category.replace(/^Step \d+: /, '') + ' needs a defined check.');
+			});
+			if (!blindSpots.length) blindSpots.push('Keep the workflow consistent as your site and update volume grow.');
+			recommendations.push('Capture a baseline before maintenance and verify the same critical paths afterward.');
+			if (score < 11) recommendations.push('Separate page rendering checks from workflow checks such as forms, login, search, or checkout.');
+			recommendations.push('Save a short result history so you can explain what changed to yourself or a client.');
+			return { score: score, resultTitle: resultTitle, readinessLabel: readinessLabel, readinessTone: readinessTone, resultHeading: resultHeading, resultCopy: resultCopy, readinessFocus: readinessFocus, blindSpots: blindSpots, recommendations: recommendations };
+		}
+
+		function saveAssessmentResult(details, context) {
+			if (!assessmentSheetEndpoint || !assessmentState.assessmentId) return Promise.resolve();
+			var payload = new URLSearchParams();
+			payload.set('type', 'assessment_result');
+			payload.set('assessment_id', assessmentState.assessmentId);
+			payload.set('source', 'shared-maintenance-assessment');
+			payload.set('assessment_version', 'v3');
+			payload.set('score', String(details.score));
+			payload.set('result_band', (context && context.result_band) || details.resultTitle);
+			addAssessmentAnswers(payload);
+			payload.set('page_url', window.location.href);
+			payload.set('feedback', (context && context.feedback) || assessmentState.feedback.feedback || '');
+			payload.set('recipient_email', (context && context.recipient_email) || assessmentState.email || '');
+			return fetch(assessmentSheetEndpoint, { method: 'POST', body: payload, mode: 'no-cors', keepalive: true });
+		}
+
+		function saveAssessmentProgress() {
+			var details = getAssessmentDetails();
+			var answeredCount = assessmentState.answers.filter(function (answer) { return typeof answer === 'number'; }).length;
+			saveAssessmentResult(details, { result_band: answeredCount === assessmentQuestions.length ? details.resultTitle : 'In progress' }).catch(function () {});
 		}
 
 		function assessmentShowView(name) {
@@ -397,44 +447,92 @@
 			assessmentNext.disabled = typeof assessmentState.answers[assessmentState.index] !== 'number';
 			assessmentQuestionTitle.focus({ preventScroll: true });
 		}
-		function renderAssessmentResult() {
-			var score = assessmentState.answers.reduce(function (total, answer, index) { return total + assessmentQuestions[index].options[answer].value; }, 0);
-			var resultTitle = score >= 11 ? 'Strong evidence rhythm' : (score >= 6 ? 'Some blind spots remain' : 'High-risk, low-evidence workflow');
-			var resultHeading = score >= 11 ? 'You are close to a repeatable maintenance rhythm.' : (score >= 6 ? 'You have a useful foundation to build on.' : 'Your maintenance process needs a clearer safety net.');
-			var resultCopy = score >= 11 ? 'Your answers show a strong habit of checking changes and preserving evidence. Make those checks repeatable so confidence does not depend on memory.' : (score >= 6 ? 'A few missing checks could still let a broken workflow or visual change slip through. Start with the paths that matter most to visitors and customers.' : 'The biggest risk is not knowing what changed or whether important workflows still work. Begin with a pre-update snapshot and a short list of critical pages.');
-			var blindSpots = [];
-			var recommendations = [];
-			assessmentQuestions.forEach(function (question, index) {
-				if (assessmentQuestions[index].options[assessmentState.answers[index]].value === 0) blindSpots.push(question.category.replace(/^Step \d+: /, '') + ' needs a defined check.');
-			});
-			if (!blindSpots.length) blindSpots.push('Keep the workflow consistent as your site and update volume grow.');
-			recommendations.push('Capture a baseline before maintenance and verify the same critical paths afterward.');
-			if (score < 11) recommendations.push('Separate page rendering checks from workflow checks such as forms, login, search, or checkout.');
-			recommendations.push('Save a short result history so you can explain what changed to yourself or a client.');
-			assessment.querySelector('[data-assessment-score]').textContent = score + '/14';
-			assessment.querySelector('[data-assessment-result-title]').textContent = resultTitle;
-			assessment.querySelector('[data-assessment-result-heading]').textContent = resultHeading;
-			assessment.querySelector('[data-assessment-result-copy]').textContent = resultCopy;
-			function fillList(selector, items) {
-				var list = assessment.querySelector(selector);
-				list.innerHTML = '';
-				items.forEach(function (item) { var li = document.createElement('li'); li.textContent = item; list.appendChild(li); });
-			}
-			fillList('[data-assessment-blindspots]', blindSpots);
-			fillList('[data-assessment-recommendations]', recommendations);
-			assessmentProgressWrap.hidden = true;
-			assessmentShowView('result');
+		function renderAssessmentEncouragement() {
+			assessmentShowView('encouragement');
 			assessmentDialog.scrollTop = 0;
-			saveAssessmentResult(score, resultTitle);
-			assessment.querySelector('[data-assessment-result-heading]').focus({ preventScroll: true });
+			if (assessmentEncouragementContinue) assessmentEncouragementContinue.focus({ preventScroll: true });
+		}
+		function renderAssessmentAccess() {
+			assessmentProgressWrap.hidden = true;
+			assessmentShowView('access');
+			assessmentDialog.scrollTop = 0;
+			assessmentAccessNext.disabled = false;
+			assessmentAccessEmailWrap.hidden = false;
+			assessmentAccessEmail.required = false;
+			assessment.querySelector('[data-assessment-access-title]').focus({ preventScroll: true });
+		}
+		function renderAssessmentFeedback() {
+			assessmentShowView('feedback');
+			assessmentDialog.scrollTop = 0;
+			assessment.querySelector('[data-assessment-feedback-title]').focus({ preventScroll: true });
+		}
+		function renderAssessmentThankYou() {
+			var details = getAssessmentDetails();
+			assessmentState.score = details.score;
+			assessmentState.resultTitle = details.resultTitle;
+			assessment.querySelector('[data-assessment-score]').textContent = details.score + '/14';
+			var readinessBadge = assessment.querySelector('[data-assessment-readiness-badge]');
+			var scoreCard = assessment.querySelector('[data-assessment-screen-result]');
+			['excellent', 'good', 'moderate', 'low'].forEach(function (tone) {
+				if (readinessBadge) readinessBadge.classList.remove('is-' + tone);
+				if (scoreCard) scoreCard.classList.remove('is-' + tone);
+			});
+			if (readinessBadge) {
+				readinessBadge.textContent = details.readinessLabel;
+				readinessBadge.classList.add('is-' + details.readinessTone);
+			}
+			if (scoreCard) scoreCard.classList.add('is-' + details.readinessTone);
+			assessment.querySelector('[data-assessment-thankyou-copy]').textContent = assessmentState.delivery === 'email' ? 'Your detailed readiness report will be sent to ' + assessmentState.email + '.' : 'Your score is shown below. You can request the detailed report by email whenever you are ready.';
+			assessment.querySelector('[data-assessment-screen-result]').hidden = assessmentState.delivery !== 'screen';
+			assessment.querySelector('[data-assessment-screen-email-wrap]').hidden = assessmentState.delivery !== 'screen';
+			assessmentShowView('thankyou');
+			assessmentDialog.scrollTop = 0;
+			var confetti = assessment.querySelector('[data-assessment-confetti]');
+			if (confetti) {
+				confetti.innerHTML = '';
+				for (var index = 0; index < 32; index += 1) {
+					var piece = document.createElement('span');
+					piece.style.setProperty('--confetti-x', ((index * 37) % 120) - 10 + '%');
+					piece.style.setProperty('--confetti-delay', (index % 8) * 45 + 'ms');
+					piece.style.setProperty('--confetti-rotation', ((index * 47) % 360) + 'deg');
+					piece.className = 'assessment-confetti-piece';
+					confetti.appendChild(piece);
+				}
+			}
+			assessment.querySelector('[data-assessment-thankyou-title]').focus({ preventScroll: true });
+		}
+		function resetAssessmentState() {
+			assessmentState.index = 0;
+			assessmentState.answers = [];
+			assessmentState.assessmentId = '';
+			assessmentState.score = 0;
+			assessmentState.resultTitle = '';
+			assessmentState.delivery = '';
+			assessmentState.email = '';
+			assessmentState.marketingOptIn = false;
+			assessmentState.feedback = {};
+			if (assessmentFeedbackForm) assessmentFeedbackForm.reset();
+			if (assessmentAccessEmail) assessmentAccessEmail.value = '';
+			if (assessmentAccessMarketing) assessmentAccessMarketing.checked = true;
+			if (assessmentScreenMarketing) assessmentScreenMarketing.checked = true;
+			if (assessmentFeedbackStatus) assessmentFeedbackStatus.textContent = '';
+			if (assessmentScreenEmailStatus) assessmentScreenEmailStatus.textContent = '';
+		}
+		function createAssessmentId() {
+			var randomPart = window.crypto && typeof window.crypto.randomUUID === 'function' ? window.crypto.randomUUID().replace(/-/g, '') : Math.random().toString(36).slice(2) + Date.now().toString(36);
+			return 'assessment-' + Date.now().toString(36) + '-' + randomPart.slice(0, 16);
+		}
+		function startAssessment() {
+			resetAssessmentState();
+			assessmentState.assessmentId = createAssessmentId();
+			renderAssessmentQuestion();
 		}
 		function openAssessment() {
 			assessmentState.lastFocus = document.activeElement;
 			assessment.classList.add('is-open');
 			assessment.setAttribute('aria-hidden', 'false');
 			document.body.classList.add('assessment-open');
-			assessmentState.index = 0;
-			assessmentState.answers = [];
+			resetAssessmentState();
 			assessmentProgressWrap.hidden = true;
 			assessmentShowView('intro');
 			assessmentDialog.scrollTop = 0;
@@ -453,15 +551,52 @@
 		assessment.querySelectorAll('[data-updateproof-close-assessment]').forEach(function (control) {
 			control.addEventListener('click', function (event) { event.preventDefault(); closeAssessment(); });
 		});
-		assessment.querySelector('[data-assessment-start]').addEventListener('click', function () { renderAssessmentQuestion(); });
+		assessment.querySelector('[data-assessment-start]').addEventListener('click', startAssessment);
 		assessmentBack.addEventListener('click', function () { if (assessmentState.index > 0) { assessmentState.index -= 1; renderAssessmentQuestion(); } });
 		assessmentNext.addEventListener('click', function () {
 			if (typeof assessmentState.answers[assessmentState.index] !== 'number') return;
-			if (assessmentState.index < assessmentQuestions.length - 1) { assessmentState.index += 1; renderAssessmentQuestion(); } else { renderAssessmentResult(); }
+			saveAssessmentProgress();
+			if (assessmentState.index === 3) { renderAssessmentEncouragement(); return; }
+			if (assessmentState.index < assessmentQuestions.length - 1) { assessmentState.index += 1; renderAssessmentQuestion(); } else { renderAssessmentAccess(); }
 		});
-		assessment.querySelector('[data-assessment-restart]').addEventListener('click', function () { assessmentState.index = 0; assessmentState.answers = []; assessmentShowView('intro'); assessmentDialog.scrollTop = 0; });
-		var assessmentBillingLink = assessment.querySelector('[data-updateproof-open-billing]');
-		if (assessmentBillingLink) assessmentBillingLink.addEventListener('click', function () { closeAssessment(); billingLastFocus = assessmentState.lastFocus; });
+		if (assessmentEncouragementContinue) assessmentEncouragementContinue.addEventListener('click', function () { assessmentState.index = 4; renderAssessmentQuestion(); });
+		if (assessmentAccessBack) assessmentAccessBack.addEventListener('click', function () { assessmentState.index = 6; renderAssessmentQuestion(); });
+		if (assessmentAccessNext) assessmentAccessNext.addEventListener('click', function () {
+			if (assessmentAccessEmail.value.trim() && !assessmentAccessEmail.reportValidity()) return;
+			assessmentState.email = assessmentAccessEmail.value.trim();
+			assessmentState.delivery = assessmentState.email ? 'email' : 'screen';
+			assessmentState.marketingOptIn = Boolean(assessmentState.email && assessmentAccessMarketing.checked);
+			renderAssessmentFeedback();
+		});
+		if (assessmentFeedbackBack) assessmentFeedbackBack.addEventListener('click', function () { renderAssessmentAccess(); });
+		if (assessmentFeedbackForm) assessmentFeedbackForm.addEventListener('submit', function (event) {
+			event.preventDefault();
+			if (!assessmentFeedbackForm.reportValidity()) return;
+			var submit = assessmentFeedbackForm.querySelector('button[type="submit"]');
+			if (submit) submit.disabled = true;
+			if (assessmentFeedbackStatus) assessmentFeedbackStatus.textContent = 'Preparing your result...';
+			assessmentState.feedback = {};
+			new FormData(assessmentFeedbackForm).forEach(function (value, key) { assessmentState.feedback[key] = String(value); });
+			var details = getAssessmentDetails();
+			saveAssessmentResult(details, { result_band: details.resultTitle, feedback: assessmentState.feedback.feedback || '' }).catch(function () {});
+			renderAssessmentThankYou();
+		});
+		if (assessmentScreenEmailForm) assessmentScreenEmailForm.addEventListener('submit', function (event) {
+			event.preventDefault();
+			if (!assessmentScreenEmailForm.reportValidity()) return;
+			var email = assessmentScreenEmail.value.trim();
+			var submit = assessmentScreenEmailForm.querySelector('button[type="submit"]');
+			if (submit) submit.disabled = true;
+			if (assessmentScreenEmailStatus) assessmentScreenEmailStatus.textContent = 'Requesting your detailed report...';
+			assessmentState.email = email;
+			assessmentState.marketingOptIn = assessmentScreenMarketing.checked;
+			saveAssessmentResult(getAssessmentDetails(), { recipient_email: email }).then(function () {
+				if (assessmentScreenEmailStatus) assessmentScreenEmailStatus.textContent = 'Thank you — your detailed report will be sent to your inbox.';
+			}).catch(function () {
+				if (submit) submit.disabled = false;
+				if (assessmentScreenEmailStatus) assessmentScreenEmailStatus.textContent = 'We could not save your email right now. Please try again.';
+			});
+		});
 		document.addEventListener('keydown', function (event) {
 			if (event.key === 'Escape' && assessment.classList.contains('is-open')) closeAssessment();
 			keepFocusInside(event, assessment);

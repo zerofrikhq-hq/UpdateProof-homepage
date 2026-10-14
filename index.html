@@ -967,11 +967,11 @@ Your browser does not support the UpdateProof demo video.
               How confident are you in your WordPress maintenance process?
             </h2>
 <p class="text-body-md text-slate-300">
-              Answer 7 diagnostic questions to evaluate your current verification blind spots, update risk profile, and client proof readiness.
+              Share this 3-minute check with your team, then get a practical readiness signal, improvement suggestions, and an optional follow-up tailored to your setup.
             </p>
 </div>
 <div class="shrink-0">
-<a class="inline-flex items-center px-6 py-4 rounded-xl bg-white text-slate-900 hover:bg-slate-100 font-semibold shadow-md transition-all active:scale-95 text-body-md" href="#assessment" data-updateproof-open-assessment>
+<a class="inline-flex items-center px-6 py-4 rounded-xl bg-white text-slate-900 hover:bg-slate-100 font-semibold shadow-md transition-all active:scale-95 text-body-md" href="assessment.html?source=updateproof">
               Take the 3-Minute Assessment &rarr;
             </a>
 </div>
@@ -1274,76 +1274,6 @@ Your browser does not support the UpdateProof demo video.
 </div>
 </div>
 </footer>
-
-<!-- Three-minute maintenance readiness assessment -->
-<div id="assessment" class="assessment-modal" data-updateproof-assessment aria-hidden="true">
-  <div class="assessment-backdrop" data-updateproof-close-assessment></div>
-  <div class="assessment-dialog" role="dialog" aria-modal="true" aria-labelledby="assessment-title">
-    <header class="assessment-header">
-      <div class="assessment-topbar">
-        <a class="assessment-brand" href="#" data-updateproof-close-assessment>
-          <img src="updateproof-icon.png" alt="" class="assessment-brand-mark">
-          <span>UpdateProof</span>
-        </a>
-        <button class="assessment-close" type="button" data-updateproof-close-assessment>Exit assessment</button>
-      </div>
-      <div class="assessment-progress" data-assessment-progress-wrap hidden>
-        <div class="assessment-progress-meta">
-          <span data-assessment-question-number>Question 1 of 7</span>
-          <span data-assessment-percent>14% complete</span>
-        </div>
-        <div class="assessment-progress-track" aria-hidden="true" data-assessment-progress></div>
-      </div>
-    </header>
-
-    <main class="assessment-content">
-      <section class="assessment-view assessment-intro" data-assessment-view="intro">
-        <span class="assessment-kicker">Free maintenance self-assessment</span>
-        <h2 id="assessment-title">How confident are you in your maintenance process?</h2>
-        <p>Answer 7 practical questions to find your verification blind spots, update risk profile, and client-proof readiness.</p>
-        <div class="assessment-intro-points">
-          <span>3 minutes</span><span>7 questions</span><span>No login required</span>
-        </div>
-        <button class="assessment-primary-button" type="button" data-assessment-start>Start the assessment <span aria-hidden="true">&rarr;</span></button>
-        <p class="assessment-privacy-note">This is a self-assessment, not a site scan. Your anonymous answers are stored to improve the UpdateProof workflow.</p>
-      </section>
-
-      <section class="assessment-view assessment-question" data-assessment-view="question" hidden>
-        <div class="assessment-question-heading">
-          <span class="assessment-kicker" data-assessment-category></span>
-        </div>
-        <h2 id="assessment-question-title" data-assessment-question-title tabindex="-1"></h2>
-        <p class="assessment-help" data-assessment-question-help></p>
-        <div class="assessment-options" data-assessment-options role="radiogroup" aria-labelledby="assessment-question-title"></div>
-        <div class="assessment-actions">
-          <button class="assessment-secondary-button" type="button" data-assessment-back>Back</button>
-          <button class="assessment-primary-button" type="button" data-assessment-next disabled>Continue <span aria-hidden="true">&rarr;</span></button>
-        </div>
-      </section>
-
-      <section class="assessment-view assessment-result" data-assessment-view="result" hidden>
-        <span class="assessment-kicker">Your maintenance readiness</span>
-        <div class="assessment-score-card">
-          <span class="assessment-score-label">Readiness score</span>
-          <strong data-assessment-score>0/14</strong>
-          <span class="assessment-score-status" data-assessment-result-title></span>
-        </div>
-        <h2 data-assessment-result-heading tabindex="-1"></h2>
-        <p data-assessment-result-copy></p>
-        <div class="assessment-result-grid">
-          <div><h3>Blind spots to review</h3><ul data-assessment-blindspots></ul></div>
-          <div><h3>Your next steps</h3><ul data-assessment-recommendations></ul></div>
-        </div>
-        <p class="assessment-privacy-note" data-assessment-save-status>This score is directional and does not replace a staging test or a real verification run.</p>
-        <div class="assessment-actions assessment-result-actions">
-          <button class="assessment-secondary-button" type="button" data-assessment-restart>Retake assessment</button>
-          <a class="assessment-secondary-button" href="https://wordpress.org/plugins/zerofrik-maintenance-safety-agent/" target="_blank" rel="noopener">Get the free plugin</a>
-          <a class="assessment-primary-button" href="#pro-plans" data-updateproof-open-billing>See the Pro workflow <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </section>
-    </main>
-  </div>
-</div>
 
 <!-- UpdateProof Pro checkout, verification, and secure download popup -->
 <div id="pro-plans" class="billing-modal" data-updateproof-billing data-api-base="https://updateproof-platform-api.zerofrikdev.workers.dev" aria-hidden="true">

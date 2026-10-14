@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A free WordPress maintenance readiness assessment with practical suggestions for safer updates and clearer verification habits.">
+  <meta name="theme-color" content="#175cd3">
+  <link rel="stylesheet" href="assessment.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <title>WordPress Maintenance Readiness Assessment</title>
+</head>
+<body class="assessment-page-body">
+  <main class="assessment-page" data-maintenance-assessment aria-hidden="false">
+    <div class="assessment-dialog" role="main" aria-labelledby="assessment-title">
+      <header class="assessment-header">
+        <div class="assessment-topbar">
+          <a class="assessment-brand" href="assessment.html"><span>WordPress Maintenance Readiness</span></a>
+          <a class="assessment-close" data-assessment-exit href="index.html">Exit assessment</a>
+        </div>
+        <div class="assessment-progress" data-assessment-progress-wrap hidden>
+          <div class="assessment-progress-meta">
+            <span data-assessment-question-number>Question 1 of 7</span>
+            <span data-assessment-percent>0% complete</span>
+          </div>
+          <div class="assessment-progress-track" aria-hidden="true" data-assessment-progress></div>
+        </div>
+      </header>
+
+      <div class="assessment-content">
+        <section class="assessment-view assessment-intro" data-assessment-view="intro">
+          <span class="assessment-kicker">Free maintenance self-assessment</span>
+          <h1 id="assessment-title">How confident are you in your maintenance process?</h1>
+          <p>Answer 7 practical questions to find your verification blind spots, see where your maintenance process stands, and get a clear suggestion for what to improve first.</p>
+          <div class="assessment-intro-points">
+            <span>3 minutes</span><span>7 questions</span>
+          </div>
+          <button class="assessment-primary-button" type="button" data-assessment-start>Start the assessment <span aria-hidden="true">&rarr;</span></button>
+          <p class="assessment-privacy-note">This is a self-assessment, not a site scan. Your answers are used to prepare your readiness result. Any contact details you share are optional.</p>
+        </section>
+
+        <section class="assessment-view assessment-question" data-assessment-view="question" hidden>
+          <div class="assessment-question-heading">
+            <span class="assessment-kicker" data-assessment-category></span>
+          </div>
+          <h2 id="assessment-question-title" data-assessment-question-title tabindex="-1"></h2>
+          <p class="assessment-help" data-assessment-question-help></p>
+          <div class="assessment-options" data-assessment-options role="radiogroup" aria-labelledby="assessment-question-title"></div>
+          <div class="assessment-actions">
+            <button class="assessment-secondary-button" type="button" data-assessment-back>Back</button>
+            <button class="assessment-primary-button" type="button" data-assessment-next disabled>Continue <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </section>
+
+        <section class="assessment-view assessment-encouragement" data-assessment-view="encouragement" hidden>
+          <span class="assessment-momentum-mark" aria-hidden="true"><span>↗</span></span>
+          <span class="assessment-kicker">Great progress</span>
+          <h2>Only 3 questions to go</h2>
+          <p>You’ve finished the first half. Keep going to get the clearest picture of your maintenance readiness.</p>
+          <button class="assessment-primary-button" type="button" data-assessment-encouragement-continue>Continue the assessment <span aria-hidden="true">&rarr;</span></button>
+        </section>
+
+        <section class="assessment-view assessment-access" data-assessment-view="access" hidden>
+          <span class="assessment-kicker">One last choice</span>
+          <h2 data-assessment-access-title tabindex="-1">Where should we send your detailed report?</h2>
+          <p>The email field is optional. Leave it blank to see only your score on this screen.</p>
+          <div class="assessment-email-field" data-assessment-access-email-wrap>
+            <label>Email address for your detailed report
+              <input data-assessment-access-email type="email" autocomplete="email" placeholder="you@example.com">
+            </label>
+            <label class="assessment-consent"><input data-assessment-access-marketing type="checkbox" name="marketing_opt_in" value="yes" checked> Send me occasional newsletters and marketing updates.</label>
+          </div>
+          <div class="assessment-actions">
+            <button class="assessment-secondary-button" type="button" data-assessment-access-back>Back</button>
+            <button class="assessment-primary-button" type="button" data-assessment-access-next>Continue to feedback <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </section>
+
+        <section class="assessment-view assessment-feedback" data-assessment-view="feedback" hidden>
+          <span class="assessment-kicker">Before we show your result</span>
+          <h2 data-assessment-feedback-title tabindex="-1">Help us make this assessment more useful</h2>
+          <p>Your feedback helps improve the questions and the practical guidance for WordPress professionals.</p>
+          <form data-assessment-feedback-form>
+            <div class="assessment-form-grid">
+              <label class="assessment-form-wide">What should we improve or add? <span class="assessment-field-note">(optional)</span>
+                <textarea name="feedback" rows="5" placeholder="Tell us what would make this assessment more useful."></textarea>
+              </label>
+            </div>
+            <div class="assessment-actions">
+              <button class="assessment-secondary-button" type="button" data-assessment-feedback-back>Back</button>
+              <button class="assessment-primary-button" type="submit">Show my result <span aria-hidden="true">&rarr;</span></button>
+            </div>
+            <p class="assessment-form-status" data-assessment-feedback-status aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="assessment-view assessment-thankyou" data-assessment-view="thankyou" hidden>
+          <div class="assessment-confetti" data-assessment-confetti aria-hidden="true"></div>
+          <span class="assessment-celebration-mark" aria-hidden="true">✓</span>
+          <span class="assessment-kicker">Assessment complete</span>
+          <h2 data-assessment-thankyou-title tabindex="-1">Thank you for taking the time</h2>
+          <p data-assessment-thankyou-copy>Your detailed readiness report is on its way to your inbox.</p>
+          <span class="assessment-readiness-badge is-good" data-assessment-readiness-badge>Good</span>
+          <div class="assessment-screen-result" data-assessment-screen-result hidden>
+            <span class="assessment-score-label">Your score</span>
+            <strong data-assessment-score>0/14</strong>
+          </div>
+          <div class="assessment-report-request" data-assessment-screen-email-wrap hidden>
+            <h3>Want the detailed report too?</h3>
+            <p>Enter your email and we’ll send the full explanation, blind spots, and next steps.</p>
+            <form data-assessment-screen-email-form>
+              <label>Email address
+                <input data-assessment-screen-email type="email" autocomplete="email" required placeholder="you@example.com">
+              </label>
+              <label class="assessment-consent"><input data-assessment-screen-marketing type="checkbox" name="marketing_opt_in" value="yes" checked> Send me occasional newsletters and marketing updates.</label>
+              <button class="assessment-primary-button" type="submit">Email me the detailed report <span aria-hidden="true">&rarr;</span></button>
+              <p class="assessment-form-status" data-assessment-screen-email-status aria-live="polite"></p>
+            </form>
+          </div>
+          <a class="assessment-secondary-button" data-assessment-restart href="assessment.html">Take the assessment again</a>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
