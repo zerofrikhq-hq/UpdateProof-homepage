@@ -386,6 +386,9 @@
 			payload.set('page_url', window.location.href);
 			payload.set('feedback', (context && context.feedback) || assessmentState.feedback.feedback || '');
 			payload.set('recipient_email', (context && context.recipient_email) || assessmentState.email || '');
+			var hasMarketingConsent = context && Object.prototype.hasOwnProperty.call(context, 'marketing_opt_in');
+			var marketingOptIn = hasMarketingConsent ? context.marketing_opt_in : (assessmentState.email ? assessmentState.marketingOptIn : '');
+			if (marketingOptIn !== '') payload.set('marketing_opt_in', marketingOptIn ? 'yes' : 'no');
 			return fetch(assessmentSheetEndpoint, { method: 'POST', body: payload, mode: 'no-cors', keepalive: true });
 		}
 
@@ -616,7 +619,11 @@
 			assessmentState.feedback = {};
 			new FormData(assessmentFeedbackForm).forEach(function (value, key) { assessmentState.feedback[key] = String(value); });
 			var details = getAssessmentDetails();
-			var savePromise = saveAssessmentResult(details, { result_band: details.resultTitle, feedback: assessmentState.feedback.feedback || '' }).catch(function () {});
+			var savePromise = saveAssessmentResult(details, {
+				result_band: details.resultTitle,
+				feedback: assessmentState.feedback.feedback || '',
+				marketing_opt_in: assessmentState.email ? assessmentState.marketingOptIn : ''
+			}).catch(function () {});
 			renderAssessmentProcessing().then(function () {
 				return savePromise;
 			}).then(renderAssessmentThankYou);
@@ -630,7 +637,10 @@
 			if (assessmentScreenEmailStatus) assessmentScreenEmailStatus.textContent = 'Requesting your detailed report...';
 			assessmentState.email = email;
 			assessmentState.marketingOptIn = assessmentScreenMarketing.checked;
-			saveAssessmentResult(getAssessmentDetails(), { recipient_email: email }).then(function () {
+			saveAssessmentResult(getAssessmentDetails(), {
+				recipient_email: email,
+				marketing_opt_in: assessmentScreenMarketing.checked
+			}).then(function () {
 				if (assessmentScreenEmailStatus) assessmentScreenEmailStatus.textContent = 'Thank you — your detailed report will be sent to your inbox.';
 			}).catch(function () {
 				if (submit) submit.disabled = false;
