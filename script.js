@@ -480,10 +480,10 @@
 			assessment.querySelector('[data-assessment-processing-title]').focus({ preventScroll: true });
 			return new Promise(function (resolve) {
 				var steps = [
-					{ delay: 450, progress: 28, text: 'Finding your strongest habits...' },
-					{ delay: 950, progress: 55, text: 'Spotting opportunities to improve...' },
-					{ delay: 1450, progress: 79, text: 'Writing your practical next steps...' },
-					{ delay: 2050, progress: 100, text: 'Your guidance is ready.' }
+					{ delay: 650, progress: 28, text: 'Finding your strongest habits...' },
+					{ delay: 1350, progress: 55, text: 'Spotting opportunities to improve...' },
+					{ delay: 2150, progress: 79, text: 'Writing your practical next steps...' },
+					{ delay: 3000, progress: 100, text: 'Your guidance is ready.' }
 				];
 				steps.forEach(function (step) {
 					window.setTimeout(function () {
@@ -516,9 +516,11 @@
 			var previewFocus = assessment.querySelector('[data-assessment-preview-focus]');
 			var previewMeaning = assessment.querySelector('[data-assessment-preview-meaning]');
 			var previewAction = assessment.querySelector('[data-assessment-preview-action]');
+			var insightPreview = assessment.querySelector('[data-assessment-insight-preview]');
 			if (previewFocus) previewFocus.textContent = details.blindSpots[0];
 			if (previewMeaning) previewMeaning.textContent = details.resultCopy;
 			if (previewAction) previewAction.textContent = details.readinessFocus;
+			if (insightPreview) insightPreview.hidden = assessmentState.delivery === 'email';
 			assessment.querySelector('[data-assessment-thankyou-copy]').textContent = assessmentState.delivery === 'email' ? 'Your detailed readiness report will be sent to ' + assessmentState.email + '.' : 'Your score is shown below. You can request the detailed report by email whenever you are ready.';
 			assessment.querySelector('[data-assessment-screen-result]').hidden = assessmentState.delivery !== 'screen';
 			assessment.querySelector('[data-assessment-screen-email-wrap]').hidden = assessmentState.delivery !== 'screen';

@@ -109,7 +109,7 @@ function buildAssessmentEmail(params) {
     : '';
   var feedbackText = feedback ? '\n\nYour feedback:\n' + feedback : '';
   var subject = 'Your WordPress Maintenance Readiness Report — ' + score + '/14';
-  var text = 'Your WordPress Maintenance Readiness Report\n\nResult: ' + resultBand + '\nScore: ' + score + '/14\n\nHere is a practical explanation of every answer:\n\n' + textRows.join('\n\n') + feedbackText + '\n\nUse this report as a checklist for your next maintenance cycle.';
+  var text = 'Your WordPress Maintenance Readiness Report\n\nResult: ' + resultBand + '\nScore: ' + score + '/14\n\nHere is a practical explanation of every answer:\n\n' + textRows.join('\n\n') + feedbackText + '\n\nUse this report as a checklist for your next maintenance cycle.\n\nMade by Zerofrik: https://zerofrik.com';
   var html = '<!doctype html><html><body style="margin:0;background:#f2f4f7;font-family:Arial,Helvetica,sans-serif;color:#101828;">' +
     '<div style="padding:32px 16px;"><table role="presentation" style="max-width:720px;width:100%;margin:0 auto;background:#ffffff;border:1px solid #eaecf0;border-radius:16px;padding:32px;" cellpadding="0" cellspacing="0"><tr><td>' +
     '<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#175cd3;">WordPress Maintenance Readiness</div>' +
@@ -121,6 +121,7 @@ function buildAssessmentEmail(params) {
     '<table role="presentation" style="width:100%;border-collapse:collapse;margin-top:4px;" cellpadding="0" cellspacing="0">' + rows.join('') + '</table>' +
     feedbackHtml +
     '<p style="font-size:13px;line-height:1.6;color:#667085;margin:30px 0 0;padding-top:18px;border-top:1px solid #eaecf0;">Keep this report as a baseline. Revisit the assessment after you improve one part of your process and compare what changes.</p>' +
+    '<p style="font-size:12px;line-height:1.5;color:#98a2b3;margin:24px 0 0;text-align:center;">Made by <a href="https://zerofrik.com" style="color:#667085;font-weight:700;text-decoration:none;">Zerofrik</a></p>' +
     '</td></tr></table></div></body></html>';
 
   return { subject: subject, html: html, text: text };

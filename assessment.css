@@ -117,6 +117,12 @@ body.assessment-page-body { background: #eef2f6; color: var(--assessment-text); 
 .assessment-report-request form { display: grid; gap: 12px; margin-top: 16px; }
 .assessment-report-request .assessment-form-status { margin: 0; }
 .assessment-thankyou > .assessment-secondary-button { margin-top: 22px; }
+.assessment-footer { border-top: 1px solid var(--assessment-border); color: #98a2b3; font-size: 11px; padding: 16px 28px 20px; text-align: center; }
+.assessment-footer a { color: #667085; font-weight: 700; text-decoration: none; }
+.assessment-footer a:hover { color: var(--assessment-blue); text-decoration: underline; }
+.assessment-maker-credit { color: #98a2b3 !important; font-size: 11px !important; margin: 18px auto 0 !important; }
+.assessment-maker-credit a { color: #667085; font-weight: 700; text-decoration: none; }
+.assessment-maker-credit a:hover { color: var(--assessment-blue); text-decoration: underline; }
 .assessment-confetti { inset: -30px 0 auto; pointer-events: none; position: absolute; height: 190px; overflow: hidden; }
 .assessment-confetti-piece { animation: assessment-confetti-fall 1500ms cubic-bezier(.2,.8,.3,1) var(--confetti-delay) both; background: hsl(calc(var(--confetti-index, 0) * 52) 82% 52%); height: 10px; left: var(--confetti-x); position: absolute; top: -12px; transform: rotate(var(--confetti-rotation)); width: 6px; }
 .assessment-confetti-piece:nth-child(3n) { background: #175cd3; }
