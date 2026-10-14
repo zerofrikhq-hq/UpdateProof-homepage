@@ -14,7 +14,10 @@
     <div class="assessment-dialog" role="main" aria-labelledby="assessment-title">
       <header class="assessment-header">
         <div class="assessment-topbar">
-          <a class="assessment-brand" href="assessment.html"><span>WordPress Maintenance Readiness</span></a>
+          <div class="assessment-brand-group">
+            <a class="assessment-brand" href="assessment.html"><span>WordPress Maintenance Readiness</span></a>
+            <span class="assessment-header-credit">Made by <a href="https://zerofrik.com" target="_blank" rel="noopener noreferrer">Zerofrik</a></span>
+          </div>
           <a class="assessment-close" data-assessment-exit href="index.html">Exit assessment</a>
         </div>
         <div class="assessment-progress" data-assessment-progress-wrap hidden>
@@ -36,7 +39,6 @@
           </div>
           <button class="assessment-primary-button" type="button" data-assessment-start>Start the assessment <span aria-hidden="true">&rarr;</span></button>
           <p class="assessment-privacy-note">This is a self-assessment, not a site scan. Your answers are used to prepare your readiness result. Any contact details you share are optional.</p>
-          <p class="assessment-maker-credit">Made by <a href="https://zerofrik.com" target="_blank" rel="noopener noreferrer">Zerofrik</a></p>
         </section>
 
         <section class="assessment-view assessment-question" data-assessment-view="question" hidden>
@@ -141,7 +143,6 @@
           <a class="assessment-secondary-button" data-assessment-restart href="assessment.html">Take the assessment again</a>
         </section>
       </div>
-      <footer class="assessment-footer">Made by <a href="https://zerofrik.com" target="_blank" rel="noopener noreferrer">Zerofrik</a></footer>
     </div>
   </main>
   <script src="script.js"></script>
