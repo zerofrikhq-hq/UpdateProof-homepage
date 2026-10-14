@@ -1,5 +1,5 @@
 (function () {
-	var assessmentSheetEndpoint = 'https://script.google.com/macros/s/AKfycbwuoSgmSdLimrMdLIOMiXY_G43IPMKaLB2IC8eI-vIFqLfDBdLqzR4oSBi8FULQqk0x/exec';
+	var assessmentSheetEndpoint = 'https://script.google.com/macros/s/AKfycbzPaajlbF-MfWu7k8OrEYVU8xwV3oV5j-bidUf39HezCLrfooHBDwfyHaJH95BHFIps/exec';
 	var toggle = document.querySelector('.menu-toggle');
 	var nav = document.querySelector('#site-nav');
 	if (toggle && nav) {
@@ -480,10 +480,10 @@
 			assessment.querySelector('[data-assessment-processing-title]').focus({ preventScroll: true });
 			return new Promise(function (resolve) {
 				var steps = [
-					{ delay: 650, progress: 28, text: 'Finding your strongest habits...' },
-					{ delay: 1350, progress: 55, text: 'Spotting opportunities to improve...' },
-					{ delay: 2150, progress: 79, text: 'Writing your practical next steps...' },
-					{ delay: 3000, progress: 100, text: 'Your guidance is ready.' }
+					{ delay: 800, progress: 28, text: 'Finding your strongest habits...' },
+					{ delay: 1700, progress: 55, text: 'Spotting opportunities to improve...' },
+					{ delay: 2800, progress: 79, text: 'Writing your practical next steps...' },
+					{ delay: 4000, progress: 100, text: 'Your guidance is ready.' }
 				];
 				steps.forEach(function (step) {
 					window.setTimeout(function () {
