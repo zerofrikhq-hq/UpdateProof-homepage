@@ -93,6 +93,17 @@
           </form>
         </section>
 
+        <section class="assessment-view assessment-processing" data-assessment-view="processing" hidden aria-live="polite">
+          <span class="assessment-processing-mark" aria-hidden="true"><span>✓</span></span>
+          <span class="assessment-kicker">Almost there</span>
+          <h2 data-assessment-processing-title tabindex="-1">Preparing your feedback</h2>
+          <p>We’re reviewing your answers and putting together the most useful next steps for your maintenance process.</p>
+          <div class="assessment-processing-track" role="progressbar" aria-label="Preparing your feedback" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span data-assessment-processing-bar></span>
+          </div>
+          <p class="assessment-processing-status" data-assessment-processing-status>Reviewing your answers...</p>
+        </section>
+
         <section class="assessment-view assessment-thankyou" data-assessment-view="thankyou" hidden>
           <div class="assessment-confetti" data-assessment-confetti aria-hidden="true"></div>
           <span class="assessment-celebration-mark" aria-hidden="true">✓</span>
@@ -103,6 +114,16 @@
           <div class="assessment-screen-result" data-assessment-screen-result hidden>
             <span class="assessment-score-label">Your score</span>
             <strong data-assessment-score>0/14</strong>
+          </div>
+          <div class="assessment-insight-preview" data-assessment-insight-preview>
+            <span class="assessment-kicker">A preview of your guidance</span>
+            <h3>Your report highlights what to improve next</h3>
+            <div class="assessment-insight-preview-content" aria-hidden="true">
+              <p><strong>Focus first:</strong> <span data-assessment-preview-focus>your most important verification gap</span></p>
+              <p><strong>What your answer suggests:</strong> <span data-assessment-preview-meaning>there is an opportunity to make this check more consistent</span></p>
+              <p><strong>Recommended next step:</strong> <span data-assessment-preview-action>create a repeatable check for your critical pages</span></p>
+            </div>
+            <span class="assessment-preview-note">Your full answer-by-answer guidance is included in the detailed report.</span>
           </div>
           <div class="assessment-report-request" data-assessment-screen-email-wrap hidden>
             <h3>Want the detailed report too?</h3>

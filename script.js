@@ -325,6 +325,8 @@
 		var assessmentFeedbackForm = assessment.querySelector('[data-assessment-feedback-form]');
 		var assessmentFeedbackBack = assessment.querySelector('[data-assessment-feedback-back]');
 		var assessmentFeedbackStatus = assessment.querySelector('[data-assessment-feedback-status]');
+		var assessmentProcessingBar = assessment.querySelector('[data-assessment-processing-bar]');
+		var assessmentProcessingStatus = assessment.querySelector('[data-assessment-processing-status]');
 		var assessmentScreenEmailForm = assessment.querySelector('[data-assessment-screen-email-form]');
 		var assessmentScreenEmail = assessment.querySelector('[data-assessment-screen-email]');
 		var assessmentScreenMarketing = assessment.querySelector('[data-assessment-screen-marketing]');
@@ -377,7 +379,7 @@
 			payload.set('type', 'assessment_result');
 			payload.set('assessment_id', assessmentState.assessmentId);
 			payload.set('source', 'shared-maintenance-assessment');
-			payload.set('assessment_version', 'v3');
+			payload.set('assessment_version', 'v4');
 			payload.set('score', String(details.score));
 			payload.set('result_band', (context && context.result_band) || details.resultTitle);
 			addAssessmentAnswers(payload);
@@ -466,6 +468,35 @@
 			assessmentDialog.scrollTop = 0;
 			assessment.querySelector('[data-assessment-feedback-title]').focus({ preventScroll: true });
 		}
+		function renderAssessmentProcessing() {
+			assessmentProgressWrap.hidden = true;
+			assessmentShowView('processing');
+			assessmentDialog.scrollTop = 0;
+			if (assessmentProcessingBar) {
+				assessmentProcessingBar.style.width = '0%';
+				assessmentProcessingBar.parentElement.setAttribute('aria-valuenow', '0');
+			}
+			if (assessmentProcessingStatus) assessmentProcessingStatus.textContent = 'Reviewing your answers...';
+			assessment.querySelector('[data-assessment-processing-title]').focus({ preventScroll: true });
+			return new Promise(function (resolve) {
+				var steps = [
+					{ delay: 450, progress: 28, text: 'Finding your strongest habits...' },
+					{ delay: 950, progress: 55, text: 'Spotting opportunities to improve...' },
+					{ delay: 1450, progress: 79, text: 'Writing your practical next steps...' },
+					{ delay: 2050, progress: 100, text: 'Your guidance is ready.' }
+				];
+				steps.forEach(function (step) {
+					window.setTimeout(function () {
+						if (assessmentProcessingBar) {
+							assessmentProcessingBar.style.width = step.progress + '%';
+							assessmentProcessingBar.parentElement.setAttribute('aria-valuenow', String(step.progress));
+						}
+						if (assessmentProcessingStatus) assessmentProcessingStatus.textContent = step.text;
+						if (step.progress === 100) resolve();
+					}, step.delay);
+				});
+			});
+		}
 		function renderAssessmentThankYou() {
 			var details = getAssessmentDetails();
 			assessmentState.score = details.score;
@@ -482,6 +513,12 @@
 				readinessBadge.classList.add('is-' + details.readinessTone);
 			}
 			if (scoreCard) scoreCard.classList.add('is-' + details.readinessTone);
+			var previewFocus = assessment.querySelector('[data-assessment-preview-focus]');
+			var previewMeaning = assessment.querySelector('[data-assessment-preview-meaning]');
+			var previewAction = assessment.querySelector('[data-assessment-preview-action]');
+			if (previewFocus) previewFocus.textContent = details.blindSpots[0];
+			if (previewMeaning) previewMeaning.textContent = details.resultCopy;
+			if (previewAction) previewAction.textContent = details.readinessFocus;
 			assessment.querySelector('[data-assessment-thankyou-copy]').textContent = assessmentState.delivery === 'email' ? 'Your detailed readiness report will be sent to ' + assessmentState.email + '.' : 'Your score is shown below. You can request the detailed report by email whenever you are ready.';
 			assessment.querySelector('[data-assessment-screen-result]').hidden = assessmentState.delivery !== 'screen';
 			assessment.querySelector('[data-assessment-screen-email-wrap]').hidden = assessmentState.delivery !== 'screen';
@@ -574,12 +611,13 @@
 			if (!assessmentFeedbackForm.reportValidity()) return;
 			var submit = assessmentFeedbackForm.querySelector('button[type="submit"]');
 			if (submit) submit.disabled = true;
-			if (assessmentFeedbackStatus) assessmentFeedbackStatus.textContent = 'Preparing your result...';
 			assessmentState.feedback = {};
 			new FormData(assessmentFeedbackForm).forEach(function (value, key) { assessmentState.feedback[key] = String(value); });
 			var details = getAssessmentDetails();
-			saveAssessmentResult(details, { result_band: details.resultTitle, feedback: assessmentState.feedback.feedback || '' }).catch(function () {});
-			renderAssessmentThankYou();
+			var savePromise = saveAssessmentResult(details, { result_band: details.resultTitle, feedback: assessmentState.feedback.feedback || '' }).catch(function () {});
+			renderAssessmentProcessing().then(function () {
+				return savePromise;
+			}).then(renderAssessmentThankYou);
 		});
 		if (assessmentScreenEmailForm) assessmentScreenEmailForm.addEventListener('submit', function (event) {
 			event.preventDefault();
